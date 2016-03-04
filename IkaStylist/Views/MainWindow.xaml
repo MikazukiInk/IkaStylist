@@ -58,14 +58,14 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition MinWidth="200"/>
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="1" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="2" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="3" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="4" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBlock Grid.Row="5" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="1" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16"/>
+                <TextBlock Grid.Row="2" Text="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" />
+                <TextBlock Grid.Row="3" Text="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" />
+                <TextBlock Grid.Row="4" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" />
+                <TextBlock Grid.Row="5" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" />
                 <TextBlock Grid.Column="1" Text="ギアパワー" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" Margin="0"/>
                 <ComboBox Grid.Column="1" Grid.Row="1" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[0].GearPowerID}"/>
                 <ComboBox Grid.Column="1" Grid.Row="2" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[1].GearPowerID}"/>
@@ -86,6 +86,7 @@
                 <TextBlock Text="件" VerticalAlignment="Center"/>
             </StackPanel>
             <!--<Button Margin="6" Content="へんしゅう" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />-->
+            <TextBlock Text="ギアへんしゅう" Margin="6,50,6,6" FontSize="24" FontFamily="/IkaStylist;component/Resources/#イカモドキ" />
             <Button Margin="6" Content="アタマ" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             <Button Margin="6" Content="フク" Command="{Binding EditCommand}" CommandParameter="Cloth" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             <Button Margin="6" Content="クツ" Command="{Binding EditCommand}" CommandParameter="Shoes" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />

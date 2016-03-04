@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         WindowStartupLocation ="CenterOwner"
-        Title="GearPowerSelect" Width="376" Height="210" ResizeMode="NoResize" SizeToContent="Height">
+        Title="{Binding GearName}" Width="376" Height="210" ResizeMode="NoResize" SizeToContent="Height">
 
     <!--<Window.DataContext>
         <vm:GearPowerSelectViewModel/>
@@ -30,7 +30,7 @@
     </i:Interaction.Triggers>
 
     <StackPanel VerticalAlignment="Center">
-        <TextBlock Margin="3" Text="{Binding GearName}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"/>
+        <!--<TextBlock Margin="3" Text="{Binding GearName}" FontFamily="Segoe WP Black" FontSize="20"/>-->
         <TextBlock Margin="3" Text="{Binding Message}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"  HorizontalAlignment="Center" />
         <!--<TextBlock Margin="10,0" Text="{Binding SubPower[0]}"/>-->
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
