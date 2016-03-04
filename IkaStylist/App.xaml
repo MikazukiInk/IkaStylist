@@ -1,0 +1,46 @@
+﻿<Application x:Class="IkaStylist.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="Views\MainWindow.xaml"
+             Startup="Application_Startup">
+    <Application.Resources>
+        <ResourceDictionary>
+            <BitmapImage x:Key="IconBombRangeUp" UriSource="Resources/BombRangeUp.png"/>
+            <BitmapImage x:Key="IconBombSniffer   " UriSource="Resources/BombSniffer.png"/>
+            <BitmapImage x:Key="IconColdBlooded" UriSource="Resources/ColdBlooded.png"/>
+            <BitmapImage x:Key="IconComeback" UriSource="Resources/Comeback.png"/>
+            <BitmapImage x:Key="IconDamageUp" UriSource="Resources/DamageUp.png"/>
+            <BitmapImage x:Key="IconDefenseUp" UriSource="Resources/DefenseUp.png"/>
+            <BitmapImage x:Key="IconHaunt" UriSource="Resources/Haunt.png"/>
+            <BitmapImage x:Key="IconInkRecoveryUp" UriSource="Resources/InkRecoveryUp.png"/>
+            <BitmapImage x:Key="IconInkResistanceUp" UriSource="Resources/InkResistanceUp.png"/>
+            <BitmapImage x:Key="IconInkSaverMain" UriSource="Resources/InkSaverMain.png"/>
+            <BitmapImage x:Key="IconInkSaverSub" UriSource="Resources/InkSaverSub.png"/>
+            <BitmapImage x:Key="IconLastDitchEffort" UriSource="Resources/LastDitchEffort.png"/>
+            <BitmapImage x:Key="IconNinjaSquid" UriSource="Resources/NinjaSquid.png"/>
+            <BitmapImage x:Key="IconNone" UriSource="Resources/None.png"/>
+            <BitmapImage x:Key="IconOpeningGambit" UriSource="Resources/OpeningGambit.png"/>
+            <BitmapImage x:Key="IconQuickRespawn" UriSource="Resources/QuickRespawn.png"/>
+            <BitmapImage x:Key="IconQuickSuperJump" UriSource="Resources/QuickSuperJump.png"/>
+            <BitmapImage x:Key="IconRecon" UriSource="Resources/Recon.png"/>
+            <BitmapImage x:Key="IconRunSpeedUp" UriSource="Resources/RunSpeedUp.png"/>
+            <BitmapImage x:Key="IconSpecialChargeUp" UriSource="Resources/SpecialChargeUp.png"/>
+            <BitmapImage x:Key="IconSpecialDurationUp" UriSource="Resources/SpecialDurationUp.png"/>
+            <BitmapImage x:Key="IconSpecialSaver" UriSource="Resources/SpecialSaver.png"/>
+            <BitmapImage x:Key="IconStealthJump" UriSource="Resources/StealthJump.png"/>
+            <BitmapImage x:Key="IconSwimSpeedUp" UriSource="Resources/SwimSpeedUp.png"/>
+            <BitmapImage x:Key="IconTenacity" UriSource="Resources/Tenacity.png"/>
+            <Style x:Key="Ikamodoki">
+                <Setter Property="TextElement.FontFamily" Value="Resources/ikamodoki1_0.ttf"/>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/ShinyBlue.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <!--<BitmapImage x:Key="Project" UriSource="Icons/project.png"/>
+            <BitmapImage x:Key="Task" UriSource="Icons/task.png"/>-->
+        </ResourceDictionary>
+        <!--<ResourceDictionary Source="Themes\ShinyBlue.xaml"/>-->
+        <!--<BitmapImage x:Key="IconDamageUp" UriSource="Resources/DamageUp.png"/>-->
+    </Application.Resources>
+</Application>
+  

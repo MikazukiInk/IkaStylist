@@ -1,0 +1,83 @@
+﻿<Window x:Class="IkaStylist.Views.GearPowerSelect"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:v="clr-namespace:IkaStylist.Views"
+        xmlns:vm="clr-namespace:IkaStylist.ViewModels"
+        WindowStartupLocation ="CenterOwner"
+        Title="GearPowerSelect" Width="376" Height="210" ResizeMode="NoResize" SizeToContent="Height">
+
+    <!--<Window.DataContext>
+        <vm:GearPowerSelectViewModel/>
+    </Window.DataContext>-->
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
+        </i:EventTrigger>
+        
+        <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
+            <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+        
+        <!--Windowが閉じたタイミングでViewModelのDisposeメソッドが呼ばれます-->
+        <i:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction/>
+        </i:EventTrigger>
+        
+    </i:Interaction.Triggers>
+
+    <StackPanel VerticalAlignment="Center">
+        <TextBlock Margin="3" Text="{Binding GearName}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"/>
+        <TextBlock Margin="3" Text="{Binding Message}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"  HorizontalAlignment="Center" />
+        <!--<TextBlock Margin="10,0" Text="{Binding SubPower[0]}"/>-->
+        <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="0">
+                <Image Source="{StaticResource IconNone}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="1">
+                <Image Source="{StaticResource IconDamageUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="2">
+                <Image Source="{StaticResource IconDefenseUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="3">
+                <Image Source="{StaticResource IconInkSaverMain}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="4">
+                <Image Source="{StaticResource IconInkSaverSub}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="5">
+                <Image Source="{StaticResource IconInkRecoveryUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="6">
+                <Image Source="{StaticResource IconRunSpeedUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="7">
+                <Image Source="{StaticResource IconSwimSpeedUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="8">
+                <Image Source="{StaticResource IconSpecialChargeUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="9">
+                <Image Source="{StaticResource IconSpecialDurationUp}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="10">
+                <Image Source="{StaticResource IconQuickRespawn}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="11">
+                <Image Source="{StaticResource IconSpecialSaver}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="12">
+                <Image Source="{StaticResource IconQuickSuperJump}"/>
+            </Button>
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="13">
+                <Image Source="{StaticResource IconBombRangeUp}"/>
+            </Button>
+
+        </WrapPanel>
+
+    </StackPanel>
+</Window>
