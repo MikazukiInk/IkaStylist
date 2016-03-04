@@ -215,7 +215,29 @@ namespace IkaStylist.Models
         /// <returns></returns>
         public static List<Gear> ReadCSV(string fname)
         {
-            using (var r = new StreamReader(fname + ".csv", Encoding.GetEncoding("SHIFT_JIS")))
+        	string fnameEX = fname + ".csv";
+            if( !System.IO.Directory.Exists(".\\GearDataCsv\\") ){
+                System.IO.Directory.CreateDirectory(".\\GearDataCsv\\");
+            }
+        	if( !System.IO.File.Exists(".\\GearDataCsv\\" + fnameEX) ) {
+        		try
+		        {
+		            File.Copy(Path.Combine(".\\GearDataCsvDefault", fnameEX), Path.Combine(".\\GearDataCsv", fnameEX));
+		        }
+		        catch (IOException copyError)
+		        {
+                    System.Windows.Forms.MessageBox.Show(   "ギアファイルの生成に失敗しました。アプリケーションを終了します。\n" + copyError.Message,
+                                                            "エラー",
+                                                            System.Windows.Forms.MessageBoxButtons.OK,
+                                                            System.Windows.Forms.MessageBoxIcon.Error);
+		        }
+                System.Windows.Forms.MessageBox.Show(   "ギアファイル [./GearDataCsv" + fnameEX + "] を生成しました。",
+                                                        "Information",
+                                                        System.Windows.Forms.MessageBoxButtons.OK,
+                                                        System.Windows.Forms.MessageBoxIcon.Information);
+
+        	}
+            using (var r = new StreamReader(".\\GearDataCsv\\" + fnameEX, Encoding.GetEncoding("SHIFT_JIS")))
             using (var csv = new CsvHelper.CsvReader(r))
             {
                 csv.Configuration.HasHeaderRecord = true;// ヘッダーありCSV
@@ -247,7 +269,7 @@ namespace IkaStylist.Models
             }
             catch (SystemException ex)
             {
-                MessageBox.Show(ex.Message);
+                System.Windows.Forms.MessageBox.Show(ex.Message);
                 result = false;
             }
             return result;
