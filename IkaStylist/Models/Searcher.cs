@@ -63,6 +63,9 @@ namespace IkaStylist.Models
             /***/
         }
 
+        /// <summary>検索処理実行メソッド</summary>
+        /// <param name="request">検索の要求値</param>
+        /// <returns>ギアパワー配列のリスト</returns>
         public List<Gear.TotalPoints> Start(Request[] request)
         {
             var candidate = new List<Gear.TotalPoints>(this.totalPointsList);

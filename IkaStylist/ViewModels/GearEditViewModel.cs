@@ -17,22 +17,26 @@ namespace IkaStylist.ViewModels
 {
     public class GearEditViewModel : ViewModel
     {
+        //ギアデータのファイル名
         private string FileName;
 
+        ///<summary>コンストラクタ</summary>
+        /// <param name="fname">ギアの部位名</param>
+        /// <param name="saveFlag">セーブ成功フラグ</param>
         public GearEditViewModel(string fname)
         {
             this.FileName = fname;
         }
 
+        ///<summary>ギアエディット画面の初期化</summary>
         public void Initialize()
         {
             GearData = new ObservableSynchronizedCollection<Gear>();
-            //var data = Gear.ReadCSV(Gear.Parts.Head);
             var data = Gear.ReadCSV(FileName);
             for (int i = 0; i < data.Count; i++)
-			{
+            {
                 GearData.Add(data[i]);
-			}
+            }
         }
 
         #region GearData変更通知プロパティ
@@ -60,7 +64,7 @@ namespace IkaStylist.ViewModels
             get
             { return _SelectedGear; }
             set
-            { 
+            {
                 if (_SelectedGear == value)
                     return;
                 _SelectedGear = value;
@@ -115,9 +119,13 @@ namespace IkaStylist.ViewModels
 
         public void Save()
         {
+            //CSVファイルに保存して、ウィンドウを閉じる
             var list = new List<Gear>(GearData);
-            Gear.WriteCSV(list, FileName);
-            Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+
+            if (Gear.WriteCSV(list, FileName) == true)
+            {
+                Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
+            }
         }
         #endregion
 

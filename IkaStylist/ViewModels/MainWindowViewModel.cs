@@ -23,12 +23,22 @@ namespace IkaStylist.ViewModels
 
     public class MainWindowViewModel : ViewModel
     {
+        ///<summary>検索条件の最大サイズ</summary>
         const int RequestSize = 5;
 
-        public bool firstTry = true;
+        ///<summary>アタマ装備のデータ群</summary>
+        private List<Gear> AtamaData = new List<Gear>();
 
+        ///<summary>フク装備のデータ群</summary>
+        private List<Gear> HukuData = new List<Gear>();
+
+        ///<summary>クツ装備のデータ群</summary>
+        private List<Gear> KutuData = new List<Gear>();
+
+        ///<summary>コーデ検索クラスの実体</summary>
         public Searcher Searcher;
 
+        ///<summary>メインウィンドウの初期化関数</summary>
         public void Initialize()
         {
             //ギアパワー名　→　ギアパワーIDの変換テーブル初期化
@@ -40,6 +50,7 @@ namespace IkaStylist.ViewModels
                 temp.Add(EnumLiteralAttribute.GetLiteral((Gear.Power)ii));
             }
             this.GearPowerNames = temp;
+
             //リクエスト初期化
             var tempReq = new Request[RequestSize];
             for (int i = 0; i < this.Requests.Length; i++)
@@ -49,12 +60,15 @@ namespace IkaStylist.ViewModels
             this.Requests = tempReq;
             this.Requests[0].GearPowerID = 1;//条件１は攻撃力に設定
             this.Requests[0].Point = 3;//条件１は攻撃力に設定
+
             //検索件数初期化
             ResultCount = 0;
+
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
         }
 
+        ///<summary>[さがす]ボタンの処理</summary>
         #region SearchCommand
         private ViewModelCommand _SearchCommand;
 
@@ -72,19 +86,20 @@ namespace IkaStylist.ViewModels
 
         public void Search()
         {
+            //検索結果DataGridを初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
 
-            //各部位のギアデータをCSVから読み出す
-            var atama = Gear.ReadCSV(Gear.Parts.Head);
-            var huku = Gear.ReadCSV(Gear.Parts.Cloth);
-            var kutu = Gear.ReadCSV(Gear.Parts.Shoes);
-
+            //めんどくさい処理は初回のみ実行
             if (this.Searcher == null)
             {
+                //各部位のギアデータをCSVから読み出す
+                AtamaData = Gear.ReadCSV(Gear.Parts.Head);
+                HukuData = Gear.ReadCSV(Gear.Parts.Cloth);
+                KutuData = Gear.ReadCSV(Gear.Parts.Shoes);
                 //検索クラスのインスタンス生成
                 this.Searcher = new Searcher();
                 //ゴリ押し全パターン検索
-                this.Searcher.Init(atama, huku, kutu);
+                this.Searcher.Init(AtamaData, HukuData, KutuData);
             }
 
             //絞込を実行してresultに格納
@@ -93,9 +108,9 @@ namespace IkaStylist.ViewModels
             var temp = new Gear.Equipment();
             for (int i = 0; i < result.Count; i++)
             {
-                var atamaName = atama[result[i].HeadID].Name;
-                var hukuName = huku[result[i].ClothID].Name;
-                var kutuName = kutu[result[i].ShoesID].Name;
+                var atamaName = AtamaData[result[i].HeadID].Name;
+                var hukuName = HukuData[result[i].ClothID].Name;
+                var kutuName = KutuData[result[i].ShoesID].Name;
                 var text = Gear.Equipment.ResultToText(result[i]);
                 ResultView.Add(new Gear.Equipment(atamaName, hukuName, kutuName, text));
 
@@ -103,11 +118,10 @@ namespace IkaStylist.ViewModels
                     break;
             }
             this.ResultCount = result.Count;
-            //とりあえず一番はじめの組み合わせを表示して終わり
-            //MessageBox.Show(string.Format("{0}\n{1}\n{2}", hGearName, cGearName, sGearName));
         }
         #endregion
 
+        ///<summary>ギア編集のボタン処理</summary>
         #region EditCommand
         private ListenerCommand<string> _EditCommand;
 
@@ -125,6 +139,8 @@ namespace IkaStylist.ViewModels
 
         public void Edit(string parameter)
         {
+            //CSVファイルが変更されるので既存の検索インスタンスを削除
+            this.Searcher = null;   
             using (var vm = new GearEditViewModel(parameter))
             {
                 Messenger.Raise(new TransitionMessage(vm, "EditCommand"));
@@ -132,27 +148,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region SaveCommand
-        private ViewModelCommand _SaveCommand;
-
-        public ViewModelCommand SaveCommand
-        {
-            get
-            {
-                if (_SaveCommand == null)
-                {
-                    _SaveCommand = new ViewModelCommand(Save);
-                }
-                return _SaveCommand;
-            }
-        }
-
-        public void Save()
-        {
-            SubRoutine.ConvertDataTableToCsv(this.GearData, @"C:\Users\takada-kazuki\Desktop\test.csv", true);
-        }
-        #endregion
-
+        ///<summary>ギアパワーと要求Pt</summary>
         #region Requests変更通知プロパティ
         private Request[] _Requests = new Request[RequestSize];
         //UIの検索条件を受け取るやつ
@@ -170,6 +166,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        ///<summary>コンボボックスに表示するギアパワー名のリスト</summary>
         #region GearPowerNames変更通知プロパティ
         private ObservableSynchronizedCollection<string> _GearPowerNames;
         //コンボボックスにギアパワー名を表示するためのなにか
@@ -187,6 +184,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        ///<summary>検索件数の表示用</summary>
         #region ResultCount変更通知プロパティ
         private int _ResultCount;
 
@@ -204,23 +202,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region GearData変更通知プロパティ
-        private DataTable _GearData;
-
-        public DataTable GearData
-        {
-            get
-            { return _GearData; }
-            set
-            {
-                if (_GearData == value)
-                    return;
-                _GearData = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
+        ///<summary>検索結果の表示用DataGridのItemSource</summary>
         #region ResultView変更通知プロパティ
         private ObservableSynchronizedCollection<Gear.Equipment> _ResultView;
 
@@ -233,23 +215,6 @@ namespace IkaStylist.ViewModels
                 if (_ResultView == value)
                     return;
                 _ResultView = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        #region testGear変更通知プロパティ
-        private Gear _testGear;
-
-        public Gear testGear
-        {
-            get
-            { return _testGear; }
-            set
-            {
-                if (_testGear == value)
-                    return;
-                _testGear = value;
                 RaisePropertyChanged();
             }
         }

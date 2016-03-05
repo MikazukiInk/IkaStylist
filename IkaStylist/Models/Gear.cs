@@ -253,8 +253,7 @@ namespace IkaStylist.Models
         public static bool WriteCSV(List<Gear> list, string fname)
         {
             var result = true;
-            var path = SubRoutine.GetDirectoryName();
-            path += @"\" + fname + ".csv";
+            var path = ".\\GearDataCsv\\" + fname + ".csv";
             try
             {
                 using (var sw = new System.IO.StreamWriter(path, false, System.Text.Encoding.GetEncoding("Shift_JIS")))
@@ -477,7 +476,7 @@ namespace IkaStylist.Models
         }
     }
 
-    // 格納するルール
+    ///<summary>CSVファイルへの格納ルール</summary>
     class CsvMapper : CsvHelper.Configuration.CsvClassMap<Gear>
     {
         public CsvMapper()
