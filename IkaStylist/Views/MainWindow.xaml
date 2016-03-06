@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" Background="AliceBlue"
-        Title="イカスタイリスト（仮）">
+        Title="{Binding Title}">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>

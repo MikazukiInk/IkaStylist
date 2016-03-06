@@ -41,6 +41,7 @@ namespace IkaStylist.ViewModels
         ///<summary>メインウィンドウの初期化関数</summary>
         public void Initialize()
         {
+            this.Title = "イカスタイリスト（仮）" + "      Ver." + SubRoutine.GetAppliVersion();
             //ギアパワー名　→　ギアパワーIDの変換テーブル初期化
             Gear.initTable();
             //GearPowerNames初期化
@@ -168,7 +169,7 @@ namespace IkaStylist.ViewModels
 
         ///<summary>強化済みのみを使用するフラグ</summary>
         #region OnlyEnhanced変更通知プロパティ
-        private bool _OnlyEnhanced;
+        private bool _OnlyEnhanced = true;
 
         public bool OnlyEnhanced
         {
@@ -233,6 +234,24 @@ namespace IkaStylist.ViewModels
                 if (_ResultView == value)
                     return;
                 _ResultView = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        ///<summary>タイトルテキスト</summary>
+        #region Title変更通知プロパティ
+        private string _Title;
+
+        public string Title
+        {
+            get
+            { return _Title; }
+            set
+            { 
+                if (_Title == value)
+                    return;
+                _Title = value;
                 RaisePropertyChanged();
             }
         }

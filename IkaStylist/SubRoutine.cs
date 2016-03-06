@@ -137,17 +137,11 @@ namespace IkaStylist
         /// <returns>発行バージョンの文字列</returns>
         public static string GetAppliVersion()
         {
-            string version = string.Empty;
-            XmlDocument xd = new XmlDocument();
-            System.Reflection.Assembly a = System.Reflection.Assembly.GetExecutingAssembly();
-            string path = new Uri(a.GetName().CodeBase).LocalPath;
-
-            xd.Load(path + ".manifest");
-            if (xd.HasChildNodes)
-            {
-                version = xd.ChildNodes[1].ChildNodes[0].Attributes.GetNamedItem("version").Value.ToString();
-            }
-            return version;
+            //自分自身のバージョン情報を取得する
+            System.Diagnostics.FileVersionInfo ver =
+                System.Diagnostics.FileVersionInfo.GetVersionInfo(
+                System.Reflection.Assembly.GetExecutingAssembly().Location);
+            return ver.FileMajorPart + "." + ver.FileMinorPart + "." + ver.FileBuildPart;
         }
 
         public static int ReformInt(int input, int min, int max)
