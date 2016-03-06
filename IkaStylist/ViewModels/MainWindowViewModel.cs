@@ -103,7 +103,7 @@ namespace IkaStylist.ViewModels
             }
 
             //絞込を実行してresultに格納
-            var result = this.Searcher.Start(this.Requests);
+            var result = this.Searcher.Start(this.Requests,this.OnlyEnhanced);
 
             var temp = new Gear.Equipment();
             for (int i = 0; i < result.Count; i++)
@@ -161,6 +161,24 @@ namespace IkaStylist.ViewModels
                 if (_Requests == value)
                     return;
                 _Requests = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        ///<summary>強化済みのみを使用するフラグ</summary>
+        #region OnlyEnhanced変更通知プロパティ
+        private bool _OnlyEnhanced;
+
+        public bool OnlyEnhanced
+        {
+            get
+            { return _OnlyEnhanced; }
+            set
+            { 
+                if (_OnlyEnhanced == value)
+                    return;
+                _OnlyEnhanced = value;
                 RaisePropertyChanged();
             }
         }

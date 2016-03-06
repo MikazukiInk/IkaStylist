@@ -83,6 +83,34 @@ namespace IkaStylist.Models
             return candidate;
         }
 
+        /// <summary>検索処理実行メソッド</summary>
+        /// <param name="request">検索の要求値</param>
+        /// <param name="onlyEnhanced">強化済みのみを使用するか？</param>
+        /// <returns>ギアパワー配列のリスト</returns>
+        public List<Gear.TotalPoints> Start(Request[] request, bool onlyEnhanced)
+        {
+            var candidate = new List<Gear.TotalPoints>(this.totalPointsList);
+
+            //合計ポイントに「なし」が10ポイント以上あれば除外する
+            if(onlyEnhanced)
+            {
+                candidate.RemoveAll(x => x.points[0] > 9);
+            }
+
+            for (int i = 0; i < request.Length; i++)
+            {
+                if (request[i].GearPowerID != 0)
+                {
+                    candidate.RemoveAll(x => x.points[request[i].GearPowerID] < request[i].Point);
+                }
+                if (candidate.Count <= 1)
+                {
+                    break;
+                }
+            }
+            return candidate;
+        }
+
     }
 
     public class Request : NotificationObject
