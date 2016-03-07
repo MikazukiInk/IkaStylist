@@ -91,10 +91,10 @@ namespace IkaStylist.Models
         {
             var candidate = new List<Gear.TotalPoints>(this.totalPointsList);
 
-            //合計ポイントに「なし」が10ポイント以上あれば除外する
+            //「なし」2個までは許容する。それ以上は除外する。
             if(onlyEnhanced)
             {
-                candidate.RemoveAll(x => x.points[0] > 9);
+                candidate.RemoveAll(x => x.points[0] > 8);
             }
 
             for (int i = 0; i < request.Length; i++)

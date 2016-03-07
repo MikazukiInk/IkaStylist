@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         WindowStartupLocation ="CenterOwner"
-        Title="{Binding GearName}" Width="376" Height="210" ResizeMode="NoResize" SizeToContent="Height">
+        Title="{Binding GearName}" Width="400" Height="210" ResizeMode="NoResize" SizeToContent="Height" >
 
     <!--<Window.DataContext>
         <vm:GearPowerSelectViewModel/>
@@ -30,50 +30,54 @@
     </i:Interaction.Triggers>
 
     <StackPanel VerticalAlignment="Center">
+        <StackPanel.InputBindings>
+            <MouseBinding MouseAction="RightClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
+            <MouseBinding MouseAction="RightDoubleClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
+        </StackPanel.InputBindings>
         <!--<TextBlock Margin="3" Text="{Binding GearName}" FontFamily="Segoe WP Black" FontSize="20"/>-->
         <TextBlock Margin="3" Text="{Binding Message}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"  HorizontalAlignment="Center" />
         <!--<TextBlock Margin="10,0" Text="{Binding SubPower[0]}"/>-->
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="0">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="0" Margin="1">
                 <Image Source="{StaticResource IconNone}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="1">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="1" Margin="1">
                 <Image Source="{StaticResource IconDamageUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="2">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="2" Margin="1">
                 <Image Source="{StaticResource IconDefenseUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="3">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="3" Margin="1">
                 <Image Source="{StaticResource IconInkSaverMain}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="4">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="4" Margin="1">
                 <Image Source="{StaticResource IconInkSaverSub}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="5">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="5" Margin="1">
                 <Image Source="{StaticResource IconInkRecoveryUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="6">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="6" Margin="1">
                 <Image Source="{StaticResource IconRunSpeedUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="7">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="7" Margin="1">
                 <Image Source="{StaticResource IconSwimSpeedUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="8">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="8" Margin="1">
                 <Image Source="{StaticResource IconSpecialChargeUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="9">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="9" Margin="1">
                 <Image Source="{StaticResource IconSpecialDurationUp}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="10">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="10" Margin="1">
                 <Image Source="{StaticResource IconQuickRespawn}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="11">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="11" Margin="1">
                 <Image Source="{StaticResource IconSpecialSaver}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="12">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="12" Margin="1">
                 <Image Source="{StaticResource IconQuickSuperJump}"/>
             </Button>
-            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="13">
+            <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="13" Margin="1">
                 <Image Source="{StaticResource IconBombRangeUp}"/>
             </Button>
 

@@ -122,6 +122,32 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        #region CancelCommand
+        private ListenerCommand<string> _CancelCommand;
+
+        public ListenerCommand<string> CancelCommand
+        {
+            get
+            {
+                if (_CancelCommand == null)
+                {
+                    _CancelCommand = new ListenerCommand<string>(Cancel);
+                }
+                return _CancelCommand;
+            }
+        }
+
+        public void Cancel(string parameter)
+        {
+            this.Count -= int.Parse(parameter);
+            if (this.Count < 0)
+            {
+                this.Count = 0;
+            }
+            Message = string.Format("{0}つめのギアパワーをえらんでください", this.Count + 1);
+        }
+        #endregion
+
         #region Message変更通知プロパティ
         private string _Message;
 
@@ -138,8 +164,6 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-
-
 
     }
 }
