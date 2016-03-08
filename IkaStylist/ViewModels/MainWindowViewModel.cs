@@ -68,11 +68,11 @@ namespace IkaStylist.ViewModels
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
 
-            var tempVisibility = new Visibility[Gear.PowersCount];
+            var tempVisibility = new bool[Gear.PowersCount];
             for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
-			{
-                tempVisibility[i] = Visibility.Collapsed;
-			}
+            {
+                tempVisibility[i] = false;
+            }
             this.ColumnVisibilitys = tempVisibility;
             testVis = true;
         }
@@ -97,6 +97,16 @@ namespace IkaStylist.ViewModels
         {
             //検索結果DataGridを初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+            //結果発表の領域初期化
+            ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+
+            var tempVisibility = new bool[Gear.PowersCount];
+            for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
+            {
+                tempVisibility[i] = false;
+            }
+            this.ColumnVisibilitys = tempVisibility;
+            testVis = true;
 
             //めんどくさい処理は初回のみ実行
             if (this.Searcher == null)
@@ -113,19 +123,26 @@ namespace IkaStylist.ViewModels
 
             //絞込を実行してresultに格納
             var result = this.Searcher.Start(this.Requests, this.OnlyEnhanced);
-
-            var temp = new Gear.Equipment();
+            var tempVis = new bool[Gear.PowersCount];
             for (int i = 0; i < result.Count; i++)
             {
                 var atamaName = AtamaData[result[i].HeadID].Name;
                 var hukuName = HukuData[result[i].ClothID].Name;
                 var kutuName = KutuData[result[i].ShoesID].Name;
-                var text = Gear.Equipment.ResultToText(result[i]);
-                ResultView.Add(new Gear.Equipment(atamaName, hukuName, kutuName, text));
+                ResultView.Add(new Gear.Equipment(atamaName, hukuName, kutuName, result[i]));
+
+                for (int j = 0; j < result[i].points.Length; j++)
+                {
+                    if (0 < result[i].points[j])
+                    {
+                        tempVis[j] = true;
+                    }
+                }
 
                 if (200 < i)
                     break;
             }
+            this.ColumnVisibilitys = tempVis;
             this.ResultCount = result.Count;
         }
         #endregion
@@ -265,11 +282,10 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-
         #region ColumnVisibilitys変更通知プロパティ
-        private Visibility[] _ColumnVisibilitys = new Visibility[Gear.PowersCount];
+        private bool[] _ColumnVisibilitys = new bool[Gear.PowersCount];
 
-        public Visibility[] ColumnVisibilitys
+        public bool[] ColumnVisibilitys
         {
             get
             { return _ColumnVisibilitys; }
@@ -282,7 +298,6 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-
 
         #region TestCommand
         private ViewModelCommand _TestCommand;
@@ -308,7 +323,6 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-
         #region testVis変更通知プロパティ
         private bool _testVis;
 
@@ -317,7 +331,7 @@ namespace IkaStylist.ViewModels
             get
             { return _testVis; }
             set
-            { 
+            {
                 if (_testVis == value)
                     return;
                 _testVis = value;

@@ -8,7 +8,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" Background="AliceBlue"
-        Title="{Binding Title}">
+        Title="{Binding Title}" Width="1441.134">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -102,29 +102,506 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="100,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <!--結果表示用データグリッド-->
             <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" ItemsSource="{Binding ResultView}" AutoGenerateColumns="False" IsReadOnly="True" >　
                 <DataGrid.Resources>
                     <v:BindingProxy x:Key="proxy" Data="{Binding}" />
                 </DataGrid.Resources>
-                <DataGrid.Columns >
+                <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Path=HeadGearName}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="アタマ" />
                     <DataGridTextColumn Binding="{Binding Path=ClothGearName}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="フク"  />
-                    <DataGridTextColumn Binding="{Binding Path=ShoesGearName}"
+                    <DataGridTextColumn Binding="{Binding Path=ShoesGearName}" 
                     CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="クツ" />
-                    <DataGridTextColumn Binding="{Binding Path=PowersText}"
-                    CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="パワー"/>
+                    <!--攻撃力アップ-->
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[1]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[1],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[1]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconDamageUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Price}"
-                    Visibility="{Binding Data.testVis,Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[2]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[2],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[2]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconDefenseUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[3]}"  CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[3],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[3]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconInkSaverMain}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[4]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[4],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[4]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconInkSaverSub}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[5]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[5],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[5]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconInkRecoveryUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[6]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[6],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[6]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconRunSpeedUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[7]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[7],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[7]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconSwimSpeedUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[8]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[8],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[8]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconSpecialChargeUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[9]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[9],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[9]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconSpecialDurationUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[10]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[10],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[10]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconQuickRespawn}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[11]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[11],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[11]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconSpecialSaver}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[12]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[12],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[12]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconQuickSuperJump}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[13]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[13],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[13]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
                         <DataGridTextColumn.Header>
                             <Image Source="{StaticResource IconBombRangeUp}" Width="30"/>
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[14]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[14],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[14]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconOpeningGambit}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[15]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[15],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[15]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconLastDitchEffort}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[16]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[16],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[16]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconTenacity}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[17]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[17],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[17]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconComeback}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[18]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[18],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[18]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconColdBlooded}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[19]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[19],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[19]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconNinjaSquid}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[20]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[20],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[20]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconHaunt}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[21]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[21],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[21]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconRecon}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[22]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[22],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[22]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconBombSniffer}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[23]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[23],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[23]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconInkResistanceUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding Path=TotalPoint[24]}" CanUserResize ="False"
+                    Visibility="{Binding Data.ColumnVisibilitys[24],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}" >
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=TotalPoint[24]}" Value="0" >
+                                        <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconStealthJump}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
 
             </DataGrid>
@@ -143,5 +620,7 @@
                 <DataGridComboBoxColumn Header="Sub3" SelectedValuePath="Id" DisplayMemberPath="Name" SelectedValueBinding="{Binding SelectedValue}" ItemsSource="{Binding Source={StaticResource GearSource}}" />
             </DataGrid.Columns>
         <Button Content="テスト" Command="{Binding SaveCommand}"/>
+    
     </StackPanel>-->
+
 </Window>
