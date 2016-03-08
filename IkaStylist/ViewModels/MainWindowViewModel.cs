@@ -41,9 +41,11 @@ namespace IkaStylist.ViewModels
         ///<summary>メインウィンドウの初期化関数</summary>
         public void Initialize()
         {
+            //タイトルにバージョン情報を付けて初期化
             this.Title = "イカスタイリスト（仮）" + "      Ver." + SubRoutine.GetAppliVersion();
             //ギアパワー名　→　ギアパワーIDの変換テーブル初期化
             Gear.initTable();
+
             //GearPowerNames初期化
             var temp = new ObservableSynchronizedCollection<string>();
             for (int ii = 0; ii < EnumExtension<Gear.Power>.Length(); ii++)
@@ -64,6 +66,7 @@ namespace IkaStylist.ViewModels
 
             //検索件数初期化
             ResultCount = 0;
+            this.MaxReslutSize = 200;
 
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
@@ -74,7 +77,6 @@ namespace IkaStylist.ViewModels
                 tempVisibility[i] = false;
             }
             this.ColumnVisibilitys = tempVisibility;
-            testVis = true;
         }
 
         ///<summary>[さがす]ボタンの処理</summary>
@@ -106,8 +108,6 @@ namespace IkaStylist.ViewModels
                 tempVisibility[i] = false;
             }
             this.ColumnVisibilitys = tempVisibility;
-            testVis = true;
-
             //めんどくさい処理は初回のみ実行
             if (this.Searcher == null)
             {
@@ -139,7 +139,7 @@ namespace IkaStylist.ViewModels
                     }
                 }
 
-                if (200 < i)
+                if (this.MaxReslutSize < i)
                     break;
             }
             this.ColumnVisibilitys = tempVis;
@@ -299,6 +299,24 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        ///<summary>最大表示件数</summary>
+        #region MaxReslutSize変更通知プロパティ
+        private int _MaxReslutSize;
+
+        public int MaxReslutSize
+        {
+            get
+            { return _MaxReslutSize; }
+            set
+            { 
+                if (_MaxReslutSize == value)
+                    return;
+                _MaxReslutSize = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
         #region TestCommand
         private ViewModelCommand _TestCommand;
 
@@ -316,27 +334,7 @@ namespace IkaStylist.ViewModels
 
         public void Test()
         {
-            if (this.testVis == true)
-                this.testVis = false;
-            else
-                this.testVis = true;
-        }
-        #endregion
 
-        #region testVis変更通知プロパティ
-        private bool _testVis;
-
-        public bool testVis
-        {
-            get
-            { return _testVis; }
-            set
-            {
-                if (_testVis == value)
-                    return;
-                _testVis = value;
-                RaisePropertyChanged();
-            }
         }
         #endregion
 

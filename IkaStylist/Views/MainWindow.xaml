@@ -8,7 +8,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" Background="AliceBlue"
-        Title="{Binding Title}" Width="1441.134">
+        Title="{Binding Title}">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -88,8 +88,15 @@
                 <TextBlock Text="検索結果" VerticalAlignment="Center"/>
                 <TextBox Text="{Binding ResultCount}" IsReadOnly="True" HorizontalAlignment="Center"/>
                 <TextBlock Text="件" VerticalAlignment="Center"/>
+                <TextBlock Text="最大表示件数" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                <wpfTool:IntegerUpDown Margin="3" Minimum="50" Maximum="9999" Width="60" Value="{Binding MaxReslutSize}"/>
+                <TextBlock Text="件" VerticalAlignment="Center"/>
+
+
             </StackPanel>
-            <Button Content="テスト" Command="{Binding }"/>
+
+            <!--<Button Content="テスト" Command="{Binding TestCommand}"/>-->
+
             <!--<Button Margin="6" Content="へんしゅう" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />-->
             <TextBlock Text="ギアへんしゅう" Margin="6,50,6,6" FontSize="24" FontFamily="/IkaStylist;component/Resources/#イカモドキ" />
             <Button Margin="6" Content="アタマ" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
