@@ -15,8 +15,8 @@ namespace IkaStylist.Models
     ///<summary>ギアを管理するためのクラス</summary>
     public class Gear : NotificationObject
     {
-        static readonly int PowersCount = EnumExtension<Power>.Length();
-        static readonly int PartsCount = EnumExtension<Parts>.Length();
+        static public readonly int PowersCount = EnumExtension<Power>.Length();
+        static public readonly int PartsCount = EnumExtension<Parts>.Length();
 
         static public Hashtable NameToIdTable = new Hashtable();
         static public void initTable()

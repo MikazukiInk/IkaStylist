@@ -6,6 +6,7 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" Background="AliceBlue"
         Title="{Binding Title}">
 
@@ -16,6 +17,7 @@
     <Window.Resources>
         <!-- CollectionViewSourceで参照出来るようにしておいて -->
         <CollectionViewSource x:Key="GearSource" Source="{Binding GearPowerNames}" />
+        <BooleanToVisibilityConverter x:Key="visibilityConverter" />
     </Window.Resources>
 
     <i:Interaction.Triggers>
@@ -87,19 +89,23 @@
                 <TextBox Text="{Binding ResultCount}" IsReadOnly="True" HorizontalAlignment="Center"/>
                 <TextBlock Text="件" VerticalAlignment="Center"/>
             </StackPanel>
+            <Button Content="テスト" Command="{Binding }"/>
             <!--<Button Margin="6" Content="へんしゅう" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />-->
             <TextBlock Text="ギアへんしゅう" Margin="6,50,6,6" FontSize="24" FontFamily="/IkaStylist;component/Resources/#イカモドキ" />
             <Button Margin="6" Content="アタマ" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             <Button Margin="6" Content="フク" Command="{Binding EditCommand}" CommandParameter="Cloth" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             <Button Margin="6" Content="クツ" Command="{Binding EditCommand}" CommandParameter="Shoes" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
         </StackPanel>
-        <Grid>
+        <Grid >
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="30" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="100,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" ItemsSource="{Binding ResultView}" AutoGenerateColumns="False" IsReadOnly="True" >　
+                <DataGrid.Resources>
+                    <v:BindingProxy x:Key="proxy" Data="{Binding}" />
+                </DataGrid.Resources>
                 <DataGrid.Columns >
                     <DataGridTextColumn Binding="{Binding Path=HeadGearName}"
                     CanUserReorder="True" CanUserResize="True"
@@ -108,18 +114,25 @@
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="フク"  />
                     <DataGridTextColumn Binding="{Binding Path=ShoesGearName}"
-                    CanUserReorder="True" CanUserResize="True"
-                    CanUserSort="True" Header="クツ" />
+                    CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="クツ" />
                     <DataGridTextColumn Binding="{Binding Path=PowersText}"
-                    CanUserReorder="True" CanUserResize="True"
-                    CanUserSort="True" Header="パワー" />
+                    CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="パワー"/>
+
+                    <DataGridTextColumn Binding="{Binding Price}"
+                    Visibility="{Binding Data.testVis,Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
+                        <DataGridTextColumn.Header>
+                            <Image Source="{StaticResource IconBombRangeUp}" Width="30"/>
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
 
                 </DataGrid.Columns>
+
             </DataGrid>
 
         </Grid>
 
     </DockPanel>
+
     <!--<StackPanel>
         <DataGrid ItemsSource="{Binding GearData}" AutoGenerateColumns="True"  />
         <DataGrid.Columns>

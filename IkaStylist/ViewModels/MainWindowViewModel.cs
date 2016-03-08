@@ -67,6 +67,14 @@ namespace IkaStylist.ViewModels
 
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+
+            var tempVisibility = new Visibility[Gear.PowersCount];
+            for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
+			{
+                tempVisibility[i] = Visibility.Collapsed;
+			}
+            this.ColumnVisibilitys = tempVisibility;
+            testVis = true;
         }
 
         ///<summary>[さがす]ボタンの処理</summary>
@@ -104,7 +112,7 @@ namespace IkaStylist.ViewModels
             }
 
             //絞込を実行してresultに格納
-            var result = this.Searcher.Start(this.Requests,this.OnlyEnhanced);
+            var result = this.Searcher.Start(this.Requests, this.OnlyEnhanced);
 
             var temp = new Gear.Equipment();
             for (int i = 0; i < result.Count; i++)
@@ -141,7 +149,7 @@ namespace IkaStylist.ViewModels
         public void Edit(string parameter)
         {
             //CSVファイルが変更されるので既存の検索インスタンスを削除
-            this.Searcher = null;   
+            this.Searcher = null;
             using (var vm = new GearEditViewModel(parameter))
             {
                 Messenger.Raise(new TransitionMessage(vm, "EditCommand"));
@@ -176,7 +184,7 @@ namespace IkaStylist.ViewModels
             get
             { return _OnlyEnhanced; }
             set
-            { 
+            {
                 if (_OnlyEnhanced == value)
                     return;
                 _OnlyEnhanced = value;
@@ -248,10 +256,71 @@ namespace IkaStylist.ViewModels
             get
             { return _Title; }
             set
-            { 
+            {
                 if (_Title == value)
                     return;
                 _Title = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+
+        #region ColumnVisibilitys変更通知プロパティ
+        private Visibility[] _ColumnVisibilitys = new Visibility[Gear.PowersCount];
+
+        public Visibility[] ColumnVisibilitys
+        {
+            get
+            { return _ColumnVisibilitys; }
+            set
+            {
+                if (_ColumnVisibilitys == value)
+                    return;
+                _ColumnVisibilitys = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+
+        #region TestCommand
+        private ViewModelCommand _TestCommand;
+
+        public ViewModelCommand TestCommand
+        {
+            get
+            {
+                if (_TestCommand == null)
+                {
+                    _TestCommand = new ViewModelCommand(Test);
+                }
+                return _TestCommand;
+            }
+        }
+
+        public void Test()
+        {
+            if (this.testVis == true)
+                this.testVis = false;
+            else
+                this.testVis = true;
+        }
+        #endregion
+
+
+        #region testVis変更通知プロパティ
+        private bool _testVis;
+
+        public bool testVis
+        {
+            get
+            { return _testVis; }
+            set
+            { 
+                if (_testVis == value)
+                    return;
+                _testVis = value;
                 RaisePropertyChanged();
             }
         }
