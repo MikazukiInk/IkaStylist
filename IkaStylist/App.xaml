@@ -6,7 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <BitmapImage x:Key="IconBombRangeUp" UriSource="Resources/BombRangeUp.png"/>
-            <BitmapImage x:Key="IconBombSniffer   " UriSource="Resources/BombSniffer.png"/>
+            <BitmapImage x:Key="IconBombSniffer" UriSource="Resources/BombSniffer.png"/>
             <BitmapImage x:Key="IconColdBlooded" UriSource="Resources/ColdBlooded.png"/>
             <BitmapImage x:Key="IconComeback" UriSource="Resources/Comeback.png"/>
             <BitmapImage x:Key="IconDamageUp" UriSource="Resources/DamageUp.png"/>

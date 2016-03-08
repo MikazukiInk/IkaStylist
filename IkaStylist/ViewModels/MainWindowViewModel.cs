@@ -67,6 +67,14 @@ namespace IkaStylist.ViewModels
 
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+
+            var tempVisibility = new bool[Gear.PowersCount];
+            for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
+            {
+                tempVisibility[i] = false;
+            }
+            this.ColumnVisibilitys = tempVisibility;
+            testVis = true;
         }
 
         ///<summary>[さがす]ボタンの処理</summary>
@@ -89,6 +97,16 @@ namespace IkaStylist.ViewModels
         {
             //検索結果DataGridを初期化
             ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+            //結果発表の領域初期化
+            ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+
+            var tempVisibility = new bool[Gear.PowersCount];
+            for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
+            {
+                tempVisibility[i] = false;
+            }
+            this.ColumnVisibilitys = tempVisibility;
+            testVis = true;
 
             //めんどくさい処理は初回のみ実行
             if (this.Searcher == null)
@@ -104,20 +122,27 @@ namespace IkaStylist.ViewModels
             }
 
             //絞込を実行してresultに格納
-            var result = this.Searcher.Start(this.Requests,this.OnlyEnhanced);
-
-            var temp = new Gear.Equipment();
+            var result = this.Searcher.Start(this.Requests, this.OnlyEnhanced);
+            var tempVis = new bool[Gear.PowersCount];
             for (int i = 0; i < result.Count; i++)
             {
                 var atamaName = AtamaData[result[i].HeadID].Name;
                 var hukuName = HukuData[result[i].ClothID].Name;
                 var kutuName = KutuData[result[i].ShoesID].Name;
-                var text = Gear.Equipment.ResultToText(result[i]);
-                ResultView.Add(new Gear.Equipment(atamaName, hukuName, kutuName, text));
+                ResultView.Add(new Gear.Equipment(atamaName, hukuName, kutuName, result[i]));
+
+                for (int j = 0; j < result[i].points.Length; j++)
+                {
+                    if (0 < result[i].points[j])
+                    {
+                        tempVis[j] = true;
+                    }
+                }
 
                 if (200 < i)
                     break;
             }
+            this.ColumnVisibilitys = tempVis;
             this.ResultCount = result.Count;
         }
         #endregion
@@ -141,7 +166,7 @@ namespace IkaStylist.ViewModels
         public void Edit(string parameter)
         {
             //CSVファイルが変更されるので既存の検索インスタンスを削除
-            this.Searcher = null;   
+            this.Searcher = null;
             using (var vm = new GearEditViewModel(parameter))
             {
                 Messenger.Raise(new TransitionMessage(vm, "EditCommand"));
@@ -176,7 +201,7 @@ namespace IkaStylist.ViewModels
             get
             { return _OnlyEnhanced; }
             set
-            { 
+            {
                 if (_OnlyEnhanced == value)
                     return;
                 _OnlyEnhanced = value;
@@ -248,10 +273,68 @@ namespace IkaStylist.ViewModels
             get
             { return _Title; }
             set
-            { 
+            {
                 if (_Title == value)
                     return;
                 _Title = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region ColumnVisibilitys変更通知プロパティ
+        private bool[] _ColumnVisibilitys = new bool[Gear.PowersCount];
+
+        public bool[] ColumnVisibilitys
+        {
+            get
+            { return _ColumnVisibilitys; }
+            set
+            {
+                if (_ColumnVisibilitys == value)
+                    return;
+                _ColumnVisibilitys = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region TestCommand
+        private ViewModelCommand _TestCommand;
+
+        public ViewModelCommand TestCommand
+        {
+            get
+            {
+                if (_TestCommand == null)
+                {
+                    _TestCommand = new ViewModelCommand(Test);
+                }
+                return _TestCommand;
+            }
+        }
+
+        public void Test()
+        {
+            if (this.testVis == true)
+                this.testVis = false;
+            else
+                this.testVis = true;
+        }
+        #endregion
+
+        #region testVis変更通知プロパティ
+        private bool _testVis;
+
+        public bool testVis
+        {
+            get
+            { return _testVis; }
+            set
+            {
+                if (_testVis == value)
+                    return;
+                _testVis = value;
                 RaisePropertyChanged();
             }
         }

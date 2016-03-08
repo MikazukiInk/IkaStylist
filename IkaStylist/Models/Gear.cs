@@ -15,8 +15,8 @@ namespace IkaStylist.Models
     ///<summary>ギアを管理するためのクラス</summary>
     public class Gear : NotificationObject
     {
-        static readonly int PowersCount = EnumExtension<Power>.Length();
-        static readonly int PartsCount = EnumExtension<Parts>.Length();
+        static public readonly int PowersCount = EnumExtension<Power>.Length();
+        static public readonly int PartsCount = EnumExtension<Parts>.Length();
 
         static public Hashtable NameToIdTable = new Hashtable();
         static public void initTable()
@@ -381,18 +381,18 @@ namespace IkaStylist.Models
                 this.ClothGearName = "";
                 this.ShoesGearName = "";
             }
-            public Equipment(string h, string c, string s, string t)
+            public Equipment(string h, string c, string s, Gear.Points res)
             {
                 this.HeadGearName = h;
                 this.ClothGearName = c;
                 this.ShoesGearName = s;
-                this.PowersText = t;
+                this.TotalPoint = res.points;
             }
 
-            public static string ResultToText(Gear.TotalPoints result)
+            public void ReceiveResult(Gear.TotalPoints result)
             {
                 string text = string.Empty; ;
-
+                
                 for (int i = 1; i < result.points.Length; i++)
                 {
                     if (1 < result.points[i])
@@ -402,7 +402,7 @@ namespace IkaStylist.Models
                     }
                 }
 
-                return text;
+                this.PowersText = text;
             }
 
             #region HeadGearName変更通知プロパティ
@@ -472,6 +472,25 @@ namespace IkaStylist.Models
                 }
             }
             #endregion
+
+
+            #region TotalPoint変更通知プロパティ
+            private int[] _TotalPoint = new int[Gear.PowersCount];
+
+            public int[] TotalPoint
+            {
+                get
+                { return _TotalPoint; }
+                set
+                { 
+                    if (_TotalPoint == value)
+                        return;
+                    _TotalPoint = value;
+                    RaisePropertyChanged();
+                }
+            }
+            #endregion
+
 
         }
     }
