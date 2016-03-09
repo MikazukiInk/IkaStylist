@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Deployment.Application;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -137,11 +138,16 @@ namespace IkaStylist
         /// <returns>発行バージョンの文字列</returns>
         public static string GetAppliVersion()
         {
-            //自分自身のバージョン情報を取得する
-            System.Diagnostics.FileVersionInfo ver =
-                System.Diagnostics.FileVersionInfo.GetVersionInfo(
-                System.Reflection.Assembly.GetExecutingAssembly().Location);
-            return ver.FileMajorPart + "." + ver.FileMinorPart + "." + ver.FileBuildPart;
+            if (!ApplicationDeployment.IsNetworkDeployed) return String.Empty;
+
+            var version = ApplicationDeployment.CurrentDeployment.CurrentVersion;
+            return (
+              "Ver." +
+              version.Major.ToString() + "." +
+              version.Minor.ToString() + "." +
+              version.Build.ToString() + "." +
+              version.Revision.ToString()
+            );
         }
 
         public static int ReformInt(int input, int min, int max)

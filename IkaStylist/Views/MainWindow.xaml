@@ -8,7 +8,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" Background="AliceBlue"
-        Title="{Binding Title}">
+        Title="{Binding Title}" Height="585.746">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -46,9 +46,12 @@
 
 
     <DockPanel LastChildFill="True">
-        <StackPanel  VerticalAlignment="Top">
+        <Menu DockPanel.Dock="Top" FontSize="10">
+            <MenuItem Header="データ" Command="{Binding OpenFolderCommand}"/>
+        </Menu>
+        <StackPanel  VerticalAlignment="Top" Margin="3">
 
-            <Grid DockPanel.Dock="Left">
+            <Grid DockPanel.Dock="Left" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
@@ -103,7 +106,7 @@
             <Button Margin="6" Content="フク" Command="{Binding EditCommand}" CommandParameter="Cloth" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             <Button Margin="6" Content="クツ" Command="{Binding EditCommand}" CommandParameter="Shoes" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
         </StackPanel>
-        <Grid >
+        <Grid Margin="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition/>

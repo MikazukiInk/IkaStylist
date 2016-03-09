@@ -42,7 +42,7 @@ namespace IkaStylist.ViewModels
         public void Initialize()
         {
             //タイトルにバージョン情報を付けて初期化
-            this.Title = "イカスタイリスト（仮）" + "      Ver." + SubRoutine.GetAppliVersion();
+            this.Title = "イカスタイリスト（仮）" + "      " + SubRoutine.GetAppliVersion();
             //ギアパワー名　→　ギアパワーIDの変換テーブル初期化
             Gear.initTable();
 
@@ -314,6 +314,29 @@ namespace IkaStylist.ViewModels
                 _MaxReslutSize = value;
                 RaisePropertyChanged();
             }
+        }
+        #endregion
+
+
+        #region OpenFolderCommand
+        private ViewModelCommand _OpenFolderCommand;
+
+        public ViewModelCommand OpenFolderCommand
+        {
+            get
+            {
+                if (_OpenFolderCommand == null)
+                {
+                    _OpenFolderCommand = new ViewModelCommand(OpenFolder);
+                }
+                return _OpenFolderCommand;
+            }
+        }
+
+        public void OpenFolder()
+        {
+            var path = SubRoutine.GetDirectoryName() + @"\GearDataCsvDefault";
+            System.Diagnostics.Process.Start(path);
         }
         #endregion
 
