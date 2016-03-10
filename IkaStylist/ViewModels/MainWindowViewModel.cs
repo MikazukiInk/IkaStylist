@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Windows;
+using System.Deployment.Application;
 using System.Data;
 using System.IO;
 
@@ -308,7 +309,7 @@ namespace IkaStylist.ViewModels
             get
             { return _MaxReslutSize; }
             set
-            { 
+            {
                 if (_MaxReslutSize == value)
                     return;
                 _MaxReslutSize = value;
@@ -316,7 +317,6 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-
 
         #region OpenFolderCommand
         private ViewModelCommand _OpenFolderCommand;
@@ -339,6 +339,76 @@ namespace IkaStylist.ViewModels
             System.Diagnostics.Process.Start(path);
         }
         #endregion
+
+
+        #region OnlineUpdateCommand
+        private ViewModelCommand _OnlineUpdateCommand;
+
+        public ViewModelCommand OnlineUpdateCommand
+        {
+            get
+            {
+                if (_OnlineUpdateCommand == null)
+                {
+                    _OnlineUpdateCommand = new ViewModelCommand(OnlineUpdate);
+                }
+                return _OnlineUpdateCommand;
+            }
+        }
+
+        public void OnlineUpdate()
+        {
+            System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+            
+            try
+            {
+                //ClickOnceでのインストールかをチェック
+                if (!ApplicationDeployment.IsNetworkDeployed)
+                {
+                    MessageBox.Show("更新できないインストール方法です");
+                    return;
+                }
+
+                ApplicationDeployment currentDeploy = ApplicationDeployment.CurrentDeployment;
+
+                if (currentDeploy.CheckForUpdate())
+                {
+
+                    if (MessageBox.Show("最新版が利用できます。更新しますか？", "更新の確認"
+                        , MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    {
+                        currentDeploy.Update();
+                    }
+                    else
+                    {
+                        return;
+                    }
+
+                    if (MessageBox.Show("更新が完了しました。更新を有効にするにはアプリケーションを再起動する必要があります。再起動しますか？", "再起動の確認"
+                        , MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                    {
+                        System.Windows.Forms.Application.Restart();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("既に最新版です");
+                }
+
+            }
+            catch (DeploymentException exp)
+            {
+                MessageBox.Show(exp.Message, "更新エラー");
+
+            }
+            finally
+            {
+                System.Windows.Input.Mouse.OverrideCursor = null;
+                //this.Cursor = Cursors.Default;
+            }
+        }
+        #endregion
+
 
         #region TestCommand
         private ViewModelCommand _TestCommand;

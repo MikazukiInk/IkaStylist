@@ -8,7 +8,7 @@
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" Background="AliceBlue"
-        Title="{Binding Title}" Height="585.746">
+        Title="{Binding Title}" Height="590">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -48,6 +48,7 @@
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top" FontSize="10">
             <MenuItem Header="データ" Command="{Binding OpenFolderCommand}"/>
+            <MenuItem Header="アップデート確認" Command="{Binding OnlineUpdateCommand}"/>
         </Menu>
         <StackPanel  VerticalAlignment="Top" Margin="3">
 

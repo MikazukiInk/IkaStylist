@@ -29,7 +29,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <InstallUrl>http://clickonceget.azurewebsites.net/app/IkaStylist/</InstallUrl>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>7</ApplicationRevision>
     <ApplicationVersion>0.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -160,11 +160,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Equipment.cs" />
     <Compile Include="Models\ReadGearData.cs" />
     <Compile Include="Models\Searcher.cs" />
     <Compile Include="SubRoutine.cs" />
     <Compile Include="Models\Gear.cs" />
-    <Compile Include="Models\Model.cs" />
     <Compile Include="ViewModels\GearEditViewModel.cs" />
     <Compile Include="ViewModels\GearPowerSelectViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -207,7 +207,6 @@
     <Content Include="GearDataCsvDefault\Shoes.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="IkaStylist_一時キー.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

@@ -473,7 +473,6 @@ namespace IkaStylist.Models
             }
             #endregion
 
-
             #region TotalPoint変更通知プロパティ
             private int[] _TotalPoint = new int[Gear.PowersCount];
 

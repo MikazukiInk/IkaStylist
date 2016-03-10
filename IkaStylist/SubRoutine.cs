@@ -145,8 +145,9 @@ namespace IkaStylist
               "Ver." +
               version.Major.ToString() + "." +
               version.Minor.ToString() + "." +
-              version.Build.ToString() + "." +
-              version.Revision.ToString()
+              version.Build.ToString()
+              //+ "." +
+              //version.Revision.ToString()
             );
         }
 
