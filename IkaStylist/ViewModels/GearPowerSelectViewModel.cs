@@ -109,10 +109,9 @@ namespace IkaStylist.ViewModels
 
             if (SubPowerSize <= this.Count)
             {
-                _Origin.SubPower1.GearPowerName = this.SubPower[0];
-                _Origin.SubPower2.GearPowerName = this.SubPower[1];
-                _Origin.SubPower3.GearPowerName = this.SubPower[2];
-                _Origin.updateFlag = _Origin.updateFlag + 1;
+                _Origin.SubPower1.Name = this.SubPower[0];
+                _Origin.SubPower2.Name = this.SubPower[1];
+                _Origin.SubPower3.Name = this.SubPower[2];
 
                 Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
             }

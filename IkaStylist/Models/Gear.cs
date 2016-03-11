@@ -15,8 +15,7 @@ namespace IkaStylist.Models
     {
     	public Gear()
     	{
-    		this._GearId = -1;
-            this._updateFlag = 0;
+    		this._Id = -1;
     		this._Name = "no input";
     		this._MainPower = new GearPower();
     		this._SubPower1 = new GearPower();
@@ -26,8 +25,7 @@ namespace IkaStylist.Models
 
     	public Gear( Gear input )
     	{
-    		this._GearId = input.GearId;
-            this._updateFlag = input._updateFlag;
+    		this._Id = input.Id;
     		this._Name = input.Name;
     		this._MainPower = new GearPower(input.MainPower);
     		this._SubPower1 = new GearPower(input.SubPower1);
@@ -40,33 +38,18 @@ namespace IkaStylist.Models
             return EnumLiteralAttribute.GetLiteral( (GearPowerKind)(id) );
         }
 
-        //update
-        private int _updateFlag;
-        public int updateFlag
-        {
-            get
-            { return _updateFlag; }
-            set
-            {
-                if (_updateFlag == value)
-                    return;
-                _updateFlag = _updateFlag + 1;
-                RaisePropertyChanged();
-            }
-        }
-
         #region Id変更通知プロパティ
-        private int _GearId;
+        private int _Id;
 
-        public int GearId
+        public int Id
         {
             get
-            { return _GearId; }
+            { return _Id; }
             set
             {
-                if (_GearId == value)
+                if (_Id == value)
                     return;
-                _GearId = value;
+                _Id = value;
                 RaisePropertyChanged();
             }
         }
@@ -108,12 +91,12 @@ namespace IkaStylist.Models
         public string MainPowerName
         {
             get
-            { return _MainPower.GearPowerName; }
+            { return _MainPower.Name; }
             set
             {
-                if (_MainPower.GearPowerName == value)
+                if (_MainPower.Name == value)
                     return;
-                _MainPower.GearPowerName = value;
+                _MainPower.Name = value;
                 RaisePropertyChanged();
             }
         }
@@ -138,12 +121,12 @@ namespace IkaStylist.Models
         public string SubPower1Name
         {
             get
-            { return _SubPower1.GearPowerName; }
+            { return _SubPower1.Name; }
             set
             {
-                if (_SubPower1.GearPowerName == value)
+                if (_SubPower1.Name == value)
                     return;
-                _SubPower1.GearPowerName = value;
+                _SubPower1.Name = value;
                 RaisePropertyChanged();
             }
         }
@@ -168,12 +151,12 @@ namespace IkaStylist.Models
         public string SubPower2Name
         {
             get
-            { return _SubPower2.GearPowerName; }
+            { return _SubPower2.Name; }
             set
             {
-                if (_SubPower2.GearPowerName == value)
+                if (_SubPower2.Name == value)
                     return;
-                _SubPower2.GearPowerName = value;
+                _SubPower2.Name = value;
                 RaisePropertyChanged();
             }
         }
@@ -198,12 +181,12 @@ namespace IkaStylist.Models
         public string SubPower3Name
         {
             get
-            { return _SubPower3.GearPowerName; }
+            { return _SubPower3.Name; }
             set
             {
-                if (_SubPower3.GearPowerName == value)
+                if (_SubPower3.Name == value)
                     return;
-                _SubPower3.GearPowerName = value;
+                _SubPower3.Name = value;
                 RaisePropertyChanged();
             }
         }

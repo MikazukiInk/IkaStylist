@@ -91,7 +91,7 @@ namespace IkaStylist.Models
                     Func<string, string> dqot = (str) => { return "\"" + str.Replace("\"", "\"\"") + "\""; };
                     sw.WriteLine("ナマエ" + "," + "メイン" + "," + "サブ１" + "," + "サブ２" + "," + "サブ３");
                     foreach (Gear d in list)
-                        sw.WriteLine(dqot(d.Name) + "," + dqot(d.MainPower.GearPowerName) + "," + dqot(d.SubPower1.GearPowerName) + "," + dqot(d.SubPower2.GearPowerName) + "," + dqot(d.SubPower3.GearPowerName));
+                        sw.WriteLine(dqot(d.Name) + "," + dqot(d.MainPower.Name) + "," + dqot(d.SubPower1.Name) + "," + dqot(d.SubPower2.Name) + "," + dqot(d.SubPower3.Name));
                 }
 
             }

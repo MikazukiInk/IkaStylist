@@ -26,9 +26,9 @@ namespace IkaStylist.Models
                 this.points[i] = input.points[i];
             }
             points.CopyTo(input.points, 0);
-            this._HeadGear   = new Gear(input.HeadGear());
-            this._ClothGear  = new Gear(input.ClothGear());
-            this._ShoesGear  = new Gear(input.ShoesGear());
+            this.HeadGear   = new Gear(input.HeadGear);
+            this.ClothGear  = new Gear(input.ClothGear);
+            this.ShoesGear  = new Gear(input.ShoesGear);
             this._PowersText = input._PowersText;
 
         }
@@ -49,72 +49,66 @@ namespace IkaStylist.Models
 
         private void addGearPowerPoint( Gear gear )
         {
-        	points[ gear.MainPower.GearPowerId ] += 10;   //メインは10ポイント
-            points[ gear.SubPower1.GearPowerId ] += 3;    //サブは3ポイントとして計算
-            points[ gear.SubPower2.GearPowerId ] += 3;
-            points[ gear.SubPower3.GearPowerId ] += 3;
+        	points[ gear.MainPower.Id ] += 10;   //メインは10ポイント
+            points[ gear.SubPower1.Id ] += 3;    //サブは3ポイントとして計算
+            points[ gear.SubPower2.Id ] += 3;
+            points[ gear.SubPower3.Id ] += 3;
         }
             
     	// メンバ変数.
-    	private Gear   _HeadGear;
-    	private Gear   _ClothGear;
-    	private Gear   _ShoesGear;
     	public  string _PowersText;
     	public  int[]  points;
     	
     	// API
-    	public Gear HeadGear(){ return _HeadGear; }
-    	public void HeadGear( Gear gear ){ _HeadGear = gear; }
-    	public Gear ClothGear(){ return _ClothGear; }
-    	public void ClothGear( Gear gear ){ _ClothGear = gear; }
-    	public Gear ShoesGear(){ return _ShoesGear; }
-    	public void ShoesGear( Gear gear ){ _ShoesGear = gear; }
+    	private Gear   _HeadGear;
+        public Gear HeadGear
+        {
+            get
+            { return _HeadGear; }
+            set
+            {
+                if (_HeadGear == value)
+                    return;
+                _HeadGear = value;
+                RaisePropertyChanged();
+            }
+        }
+        
+        private Gear   _ClothGear;
+        public Gear ClothGear
+        {
+            get
+            { return _ClothGear; }
+            set
+            {
+                if (_ClothGear == value)
+                    return;
+                _ClothGear = value;
+                RaisePropertyChanged();
+            }
+        }
+        
+        private Gear   _ShoesGear;
+        public Gear ShoesGear
+        {
+            get
+            { return _ShoesGear; }
+            set
+            {
+                if (_ShoesGear == value)
+                    return;
+                _ShoesGear = value;
+                RaisePropertyChanged();
+            }
+        }
+        
     	public void SetGears( Gear head, Gear cloth, Gear shoes )
     	{
-    		_HeadGear = head;
-            _ClothGear = cloth;
-            _ShoesGear = shoes;
+    		HeadGear  = head;
+            ClothGear = cloth;
+            ShoesGear = shoes;
     	}
 
-		//Head Name
-    	public string HeadGearName
-        {
-            get
-            { return _HeadGear.Name; }
-            set
-            {
-                if (_HeadGear.Name == value)
-                    return;
-                _HeadGear.Name = value;
-                RaisePropertyChanged();
-            }
-        }
-        //Head Name
-    	public string ClothGearName
-        {
-            get
-            { return _ClothGear.Name; }
-            set
-            {
-                if (_ClothGear.Name == value)
-                    return;
-                _ClothGear.Name = value;
-                RaisePropertyChanged();
-            }
-        }
-        //Head Name
-    	public string ShoesGearName
-        {
-            get
-            { return _ShoesGear.Name; }
-            set
-            {
-                if (_ShoesGear.Name == value)
-                    return;
-                _ShoesGear.Name = value;
-                RaisePropertyChanged();
-            }
-        }
         //Total Points
         public int[] TotalPoint
         {

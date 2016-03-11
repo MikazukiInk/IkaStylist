@@ -14,66 +14,66 @@ namespace IkaStylist.Models
     {
     	public GearPower()
     	{
-    		_GearPowerId = 0;
-    		_GearPowerName = "";
-    		_GearPowerImagePath = "";
+    		_Id = 0;
+    		_Name = "";
+    		_ImagePath = "";
     	}
     	
 		public GearPower( GearPower input )
     	{
-    		this._GearPowerId = input.GearPowerId;
-    		this._GearPowerName = input.GearPowerName;
-    		this._GearPowerImagePath = input.GearPowerImagePath;
+    		this._Id = input.Id;
+    		this._Name = input.Name;
+    		this._ImagePath = input.ImagePath;
     	}
     	
-        private int _GearPowerId;
-    	public int GearPowerId
+        private int _Id;
+    	public int Id
     	{
             get
-            { return _GearPowerId; }
+            { return _Id; }
             set
             {
-                if (_GearPowerId == value)
+                if (_Id == value)
                     return;
-                _GearPowerId = value;
-                _GearPowerName = (string)IkaUtil.GearPowerDict[_GearPowerId];
+                _Id = value;
+                _Name = (string)IkaUtil.GearPowerDict[_Id];
                 RaisePropertyChanged();
             }
         }
 
-        private string _GearPowerName;
-    	public string GearPowerName
+        private string _Name;
+    	public string Name
     	{
             get
-            { return _GearPowerName; }
+            { return _Name; }
             set
             {
-                if (_GearPowerName == value)
+                if (_Name == value)
                     return;
-                _GearPowerName = value;
+                _Name = value;
                 if (IkaUtil.GearPowerDict.ContainsValue(value))
                 {
-                    _GearPowerId = (int)IkaUtil.GearPowerDict.First(x => x.Value == value).Key;
+                    _Id = (int)IkaUtil.GearPowerDict.First(x => x.Value == value).Key;
                 }
                 else
                 {
                     //アボート対策.
-                    _GearPowerId = 0;
+                    _Id = 0;
                 }
                 RaisePropertyChanged();
             }
         }
 
-        private string _GearPowerImagePath;//現在未使用
-    	public string GearPowerImagePath
+        private string _ImagePath;//現在未使用
+    	public string ImagePath
     	{
             get
-            { return _GearPowerImagePath; }
+            { return _ImagePath; }
             set
             {
-                if (_GearPowerImagePath == value)
+                if (_ImagePath == value)
                     return;
-                _GearPowerImagePath = value;
+                _ImagePath = value;
                 RaisePropertyChanged();
             }
         }
