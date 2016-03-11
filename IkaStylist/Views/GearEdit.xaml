@@ -48,22 +48,374 @@
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding SelectGearPowerCommand}" />
             </DataGrid.InputBindings>
 
-            <DataGrid.Columns >
+            <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Path=Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="ナマエ" />
-                <DataGridTextColumn Binding="{Binding Path=MainPower}"
-                    CanUserReorder="True" CanUserResize="True" 
-                    CanUserSort="True" Header="メイン"  />
-                <DataGridTextColumn Binding="{Binding Path=SubPower1}"
-                    CanUserReorder="True" CanUserResize="True" 
-                    CanUserSort="True" Header="サブ１" />
-                <DataGridTextColumn Binding="{Binding Path=SubPower2}"
+
+                <DataGridTemplateColumn Header="メイン" SortMemberPath="MainPower" Width="50" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="45">
+                                <Image.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="なし">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNone}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="攻撃力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDamageUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="防御力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDefenseUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="インク効率アップ(メイン)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverMain}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="インク効率アップ(サブ)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverSub}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="インク回復力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkRecoveryUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="ヒト移動速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRunSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="イカダッシュ速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSwimSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="スペシャル増加量アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialChargeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="スペシャル時間延長">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialDurationUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="復活時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickRespawn}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="スペシャル減少量ダウン">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialSaver}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="スーパージャンプ時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickSuperJump}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="ボム飛距離アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombRangeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="スタートダッシュ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconOpeningGambit}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="ラストスパート">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconLastDitchEffort}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="逆境強化">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconTenacity}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="カムバック">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconComeback}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="マーキングガード">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconColdBlooded}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="イカニンジャ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNinjaSquid}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="うらみ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconHaunt}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="スタートレーダー">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRecon}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="ボムサーチ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombSniffer}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="安全シューズ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkResistanceUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding MainPower}" Value="ステルスジャンプ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconStealthJump}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="サブ１" SortMemberPath="SubPower1" Width="50" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="30">
+                                <Image.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="なし">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNone}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="攻撃力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDamageUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="防御力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDefenseUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="インク効率アップ(メイン)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverMain}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="インク効率アップ(サブ)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverSub}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="インク回復力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkRecoveryUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="ヒト移動速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRunSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="イカダッシュ速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSwimSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="スペシャル増加量アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialChargeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="スペシャル時間延長">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialDurationUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="復活時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickRespawn}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="スペシャル減少量ダウン">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialSaver}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="スーパージャンプ時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickSuperJump}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="ボム飛距離アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombRangeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="スタートダッシュ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconOpeningGambit}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="ラストスパート">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconLastDitchEffort}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="逆境強化">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconTenacity}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="カムバック">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconComeback}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="マーキングガード">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconColdBlooded}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="イカニンジャ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNinjaSquid}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="うらみ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconHaunt}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="スタートレーダー">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRecon}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="ボムサーチ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombSniffer}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="安全シューズ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkResistanceUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower1}" Value="ステルスジャンプ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconStealthJump}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="サブ２" SortMemberPath="SubPower2" Width="50" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="30">
+                                <Image.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="なし">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNone}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="攻撃力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDamageUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="防御力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDefenseUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="インク効率アップ(メイン)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverMain}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="インク効率アップ(サブ)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverSub}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="インク回復力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkRecoveryUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="ヒト移動速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRunSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="イカダッシュ速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSwimSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="スペシャル増加量アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialChargeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="スペシャル時間延長">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialDurationUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="復活時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickRespawn}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="スペシャル減少量ダウン">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialSaver}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="スーパージャンプ時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickSuperJump}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="ボム飛距離アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombRangeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="スタートダッシュ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconOpeningGambit}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="ラストスパート">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconLastDitchEffort}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="逆境強化">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconTenacity}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="カムバック">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconComeback}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="マーキングガード">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconColdBlooded}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="イカニンジャ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNinjaSquid}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="うらみ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconHaunt}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="スタートレーダー">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRecon}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="ボムサーチ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombSniffer}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="安全シューズ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkResistanceUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower2}" Value="ステルスジャンプ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconStealthJump}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="サブ３" SortMemberPath="SubPower3" Width="50" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Width="30">
+                                <Image.Style>
+                                    <Style>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="なし">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNone}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="攻撃力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDamageUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="防御力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconDefenseUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="インク効率アップ(メイン)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverMain}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="インク効率アップ(サブ)">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkSaverSub}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="インク回復力アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkRecoveryUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="ヒト移動速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRunSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="イカダッシュ速度アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSwimSpeedUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="スペシャル増加量アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialChargeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="スペシャル時間延長">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialDurationUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="復活時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickRespawn}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="スペシャル減少量ダウン">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconSpecialSaver}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="スーパージャンプ時間短縮">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconQuickSuperJump}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="ボム飛距離アップ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombRangeUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="スタートダッシュ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconOpeningGambit}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="ラストスパート">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconLastDitchEffort}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="逆境強化">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconTenacity}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="カムバック">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconComeback}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="マーキングガード">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconColdBlooded}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="イカニンジャ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconNinjaSquid}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="うらみ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconHaunt}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="スタートレーダー">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconRecon}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="ボムサーチ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconBombSniffer}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="安全シューズ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconInkResistanceUp}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding SubPower3}" Value="ステルスジャンプ">
+                                                <Setter Property="Image.Source" Value="{StaticResource IconStealthJump}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding Path=LastUpdate}"
                     CanUserReorder="True" CanUserResize="True"
-                    CanUserSort="True" Header="サブ２" />
-                <DataGridTextColumn Binding="{Binding Path=SubPower3}"
-                    CanUserReorder="True" CanUserResize="True"
-                    CanUserSort="True" Header="サブ３" />
+                    CanUserSort="True" Header="最終更新日" />
 
             </DataGrid.Columns>
         </DataGrid>
