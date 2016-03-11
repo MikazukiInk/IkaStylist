@@ -43,14 +43,12 @@ namespace IkaStylist.ViewModels
         {
             //タイトルにバージョン情報を付けて初期化
             this.Title = "イカスタイリスト（仮）" + "      Ver." + SubRoutine.GetAppliVersion();
-            //ギアパワー名　→　ギアパワーIDの変換テーブル初期化
-            Gear.initTable();
 
             //GearPowerNames初期化
             var temp = new ObservableSynchronizedCollection<string>();
-            for (int ii = 0; ii < EnumExtension<Gear.Power>.Length(); ii++)
+            for (int ii = 0; ii < EnumExtension<GearPowerKind>.Length(); ii++)
             {
-                temp.Add(EnumLiteralAttribute.GetLiteral((Gear.Power)ii));
+                temp.Add(EnumLiteralAttribute.GetLiteral((GearPowerKind)ii));
             }
             this.GearPowerNames = temp;
 
@@ -69,9 +67,9 @@ namespace IkaStylist.ViewModels
             this.MaxReslutSize = 200;
 
             //結果発表の領域初期化
-            ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+            ResultView = new ObservableSynchronizedCollection<Coordinate>();
 
-            var tempVisibility = new bool[Gear.PowersCount];
+            var tempVisibility = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
             for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
             {
                 tempVisibility[i] = false;
@@ -98,11 +96,11 @@ namespace IkaStylist.ViewModels
         public void Search()
         {
             //検索結果DataGridを初期化
-            ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+            ResultView = new ObservableSynchronizedCollection<Coordinate>();
             //結果発表の領域初期化
-            ResultView = new ObservableSynchronizedCollection<Gear.Equipment>();
+            ResultView = new ObservableSynchronizedCollection<Coordinate>();
 
-            var tempVisibility = new bool[Gear.PowersCount];
+            var tempVisibility = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
             for (int i = 0; i < this.ColumnVisibilitys.Length; i++)
             {
                 tempVisibility[i] = false;
@@ -112,9 +110,9 @@ namespace IkaStylist.ViewModels
             if (this.Searcher == null)
             {
                 //各部位のギアデータをCSVから読み出す
-                AtamaData = Gear.ReadCSV(Gear.Parts.Head);
-                HukuData = Gear.ReadCSV(Gear.Parts.Cloth);
-                KutuData = Gear.ReadCSV(Gear.Parts.Shoes);
+                AtamaData = IOmanager.ReadCSV(GearKind.Head);
+                HukuData = IOmanager.ReadCSV(GearKind.Cloth);
+                KutuData = IOmanager.ReadCSV(GearKind.Shoes);
                 //検索クラスのインスタンス生成
                 this.Searcher = new Searcher();
                 //ゴリ押し全パターン検索
@@ -123,24 +121,23 @@ namespace IkaStylist.ViewModels
 
             //絞込を実行してresultに格納
             var result = this.Searcher.Start(this.Requests, this.OnlyEnhanced);
-            var tempVis = new bool[Gear.PowersCount];
+            var tempVis = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
             for (int i = 0; i < result.Count; i++)
             {
-                var atamaName = AtamaData[result[i].HeadID].Name;
-                var hukuName = HukuData[result[i].ClothID].Name;
-                var kutuName = KutuData[result[i].ShoesID].Name;
-                ResultView.Add(new Gear.Equipment(atamaName, hukuName, kutuName, result[i]));
+                ResultView.Add(new Coordinate(result[i]));
 
                 for (int j = 0; j < result[i].points.Length; j++)
                 {
+                    int test = result[i].points[j];
                     if (0 < result[i].points[j])
                     {
                         tempVis[j] = true;
                     }
                 }
 
-                if (this.MaxReslutSize < i)
+                if (this.MaxReslutSize < i){
                     break;
+                }
             }
             this.ColumnVisibilitys = tempVis;
             this.ResultCount = result.Count;
@@ -248,9 +245,9 @@ namespace IkaStylist.ViewModels
 
         ///<summary>検索結果の表示用DataGridのItemSource</summary>
         #region ResultView変更通知プロパティ
-        private ObservableSynchronizedCollection<Gear.Equipment> _ResultView;
+        private ObservableSynchronizedCollection<Coordinate> _ResultView;
 
-        public ObservableSynchronizedCollection<Gear.Equipment> ResultView
+        public ObservableSynchronizedCollection<Coordinate> ResultView
         {
             get
             { return _ResultView; }
@@ -283,7 +280,7 @@ namespace IkaStylist.ViewModels
         #endregion
 
         #region ColumnVisibilitys変更通知プロパティ
-        private bool[] _ColumnVisibilitys = new bool[Gear.PowersCount];
+        private bool[] _ColumnVisibilitys = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
 
         public bool[] ColumnVisibilitys
         {

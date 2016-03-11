@@ -52,16 +52,16 @@
                 <DataGridTextColumn Binding="{Binding Path=Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="ナマエ" />
-                <DataGridTextColumn Binding="{Binding Path=MainPower}"
+                <DataGridTextColumn Binding="{Binding Path=MainPowerName}"
                     CanUserReorder="True" CanUserResize="True" 
                     CanUserSort="True" Header="メイン"  />
-                <DataGridTextColumn Binding="{Binding Path=SubPower1}"
+                <DataGridTextColumn Binding="{Binding Path=SubPower1Name}"
                     CanUserReorder="True" CanUserResize="True" 
                     CanUserSort="True" Header="サブ１" />
-                <DataGridTextColumn Binding="{Binding Path=SubPower2}"
+                <DataGridTextColumn Binding="{Binding Path=SubPower2Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="サブ２" />
-                <DataGridTextColumn Binding="{Binding Path=SubPower3}"
+                <DataGridTextColumn Binding="{Binding Path=SubPower3Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="サブ３" />
 
