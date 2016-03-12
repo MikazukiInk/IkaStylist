@@ -25,58 +25,69 @@ namespace IkaStylist.Models
     		this._Name = input.Name;
     		this._ImagePath = input.ImagePath;
     	}
-    	
+
+        #region Id変更通知プロパティ
         private int _Id;
-    	public int Id
-    	{
+
+        public int Id
+        {
             get
             { return _Id; }
             set
-            {
+            { 
                 if (_Id == value)
                     return;
                 _Id = value;
-                _Name = (string)IkaUtil.GearPowerDict[_Id];
+                Name = (string)IkaUtil.GearPowerDict[_Id];
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
+        #region Name変更通知プロパティ
         private string _Name;
-    	public string Name
-    	{
+
+        public string Name
+        {
             get
             { return _Name; }
             set
-            {
+            { 
                 if (_Name == value)
                     return;
                 _Name = value;
+
                 if (IkaUtil.GearPowerDict.ContainsValue(value))
                 {
-                    _Id = (int)IkaUtil.GearPowerDict.First(x => x.Value == value).Key;
+                    Id = (int)IkaUtil.GearPowerDict.First(x => x.Value == value).Key;
                 }
                 else
                 {
                     //アボート対策.
-                    _Id = 0;
+                    Id = 0;
                 }
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
-        private string _ImagePath;//現在未使用
-    	public string ImagePath
-    	{
+        //未使用
+        #region ImagePath変更通知プロパティ
+        private string _ImagePath;
+
+        public string ImagePath
+        {
             get
             { return _ImagePath; }
             set
-            {
+            { 
                 if (_ImagePath == value)
                     return;
                 _ImagePath = value;
                 RaisePropertyChanged();
             }
         }
+        #endregion
 
     }
 }//namespace IkaStylist.Models
