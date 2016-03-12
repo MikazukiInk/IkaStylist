@@ -15,7 +15,7 @@ namespace IkaStylist.Models
         ///<summary> </summary>
         Request[] Requests = new Request[MaxRequestSize];
 
-        public List<Gear.TotalPoints> totalPointsList;
+        public List<Coordinate> CoordinateList = new List<Coordinate>();
 
         /// <summary>検索クラスの初期化
         /// 全パターンのギアパワー値を計算して持っておく
@@ -25,25 +25,6 @@ namespace IkaStylist.Models
         /// <param name="shoes">クツのギアリスト</param>
         public void Init(List<Gear> head, List<Gear> cloth, List<Gear> shoes)
         {
-            var h_points = new List<Gear.Points>();
-            var c_points = new List<Gear.Points>();
-            var s_points = new List<Gear.Points>();
-            this.totalPointsList = new List<Gear.TotalPoints>();
-            int offset = 0;
-
-            for (int i = 0; i < head.Count; i++)
-            {
-                h_points.Add(new Gear.Points(head[i]));
-            }
-            for (int i = 0; i < cloth.Count; i++)
-            {
-                c_points.Add(new Gear.Points(cloth[i]));
-            }
-            for (int i = 0; i < shoes.Count; i++)
-            {
-                s_points.Add(new Gear.Points(shoes[i]));
-            }
-
             /**とりあえず全組み合わせを列挙するんだぜ（物理）**/
             for (int h = 0; h < head.Count; h++)
             {
@@ -51,12 +32,8 @@ namespace IkaStylist.Models
                 {
                     for (int s = 0; s < shoes.Count; s++)
                     {
-                        var temp = new Gear.TotalPoints(h_points[h] + c_points[c] + s_points[s]);
-                        this.totalPointsList.Add(temp);
-                        this.totalPointsList[offset].HeadID = h;
-                        this.totalPointsList[offset].ClothID = c;
-                        this.totalPointsList[offset].ShoesID = s;
-                        offset++;
+                        var temp = new Coordinate(head[h], cloth[c], shoes[s]);
+                        this.CoordinateList.Add(temp);
                     }
                 }
             }
@@ -65,31 +42,11 @@ namespace IkaStylist.Models
 
         /// <summary>検索処理実行メソッド</summary>
         /// <param name="request">検索の要求値</param>
-        /// <returns>ギアパワー配列のリスト</returns>
-        public List<Gear.TotalPoints> Start(Request[] request)
-        {
-            var candidate = new List<Gear.TotalPoints>(this.totalPointsList);
-            for (int i = 0; i < request.Length; i++)
-            {
-                if (request[i].GearPowerID != 0)
-                {
-                    candidate.RemoveAll(x => x.points[request[i].GearPowerID] < request[i].Point);
-                }
-                if (candidate.Count <= 1)
-                {
-                    break;
-                }
-            }
-            return candidate;
-        }
-
-        /// <summary>検索処理実行メソッド</summary>
-        /// <param name="request">検索の要求値</param>
         /// <param name="onlyEnhanced">強化済みのみを使用するか？</param>
         /// <returns>ギアパワー配列のリスト</returns>
-        public List<Gear.TotalPoints> Start(Request[] request, bool onlyEnhanced)
+        public List<Coordinate> Start(Request[] request, bool onlyEnhanced = false)
         {
-            var candidate = new List<Gear.TotalPoints>(this.totalPointsList);
+            var candidate = new List<Coordinate>(this.CoordinateList);
 
             //「なし」2個までは許容する。それ以上は除外する。
             if(onlyEnhanced)

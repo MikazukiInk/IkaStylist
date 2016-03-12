@@ -32,7 +32,7 @@ namespace IkaStylist.ViewModels
         public void Initialize()
         {
             GearData = new ObservableSynchronizedCollection<Gear>();
-            var data = Gear.ReadCSV(FileName);
+            var data = IOmanager.ReadCSV(FileName);
             for (int i = 0; i < data.Count; i++)
             {
                 GearData.Add(data[i]);
@@ -122,7 +122,7 @@ namespace IkaStylist.ViewModels
             //CSVファイルに保存して、ウィンドウを閉じる
             var list = new List<Gear>(GearData);
 
-            if (Gear.WriteCSV(list, FileName) == true)
+            if (IOmanager.WriteCSV(list, FileName) == true)
             {
                 Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
             }

@@ -160,9 +160,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\Equipment.cs" />
+    <Compile Include="Models\Coordinate.cs" />
+    <Compile Include="Models\Defs.cs" />
+    <Compile Include="Models\GearPower.cs" />
+    <Compile Include="Models\IOmanager.cs" />
     <Compile Include="Models\ReadGearData.cs" />
     <Compile Include="Models\Searcher.cs" />
+    <Compile Include="Models\Utility.cs" />
     <Compile Include="SubRoutine.cs" />
     <Compile Include="Models\Gear.cs" />
     <Compile Include="ViewModels\GearEditViewModel.cs" />

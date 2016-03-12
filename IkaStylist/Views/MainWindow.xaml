@@ -119,13 +119,13 @@
                     <v:BindingProxy x:Key="proxy" Data="{Binding}" />
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=HeadGearName}"
+                    <DataGridTextColumn Binding="{Binding Path=HeadGear.Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="アタマ" />
-                    <DataGridTextColumn Binding="{Binding Path=ClothGearName}"
+                    <DataGridTextColumn Binding="{Binding Path=ClothGear.Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="フク"  />
-                    <DataGridTextColumn Binding="{Binding Path=ShoesGearName}" 
+                    <DataGridTextColumn Binding="{Binding Path=ShoesGear.Name}" 
                     CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="クツ" />
                     <!--攻撃力アップ-->
                     <DataGridTextColumn Binding="{Binding Path=TotalPoint[1]}" CanUserResize ="False"
