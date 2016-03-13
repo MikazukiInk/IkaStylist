@@ -113,6 +113,17 @@ namespace IkaStylist.ViewModels
                 _Origin.SubPower2.Name = this.SubPower[1];
                 _Origin.SubPower3.Name = this.SubPower[2];
 
+                if ((this.SubPower[0] == "なし")
+                 && (this.SubPower[1] == "なし")
+                 && (this.SubPower[2] == "なし"))
+                {
+                    _Origin.LastUpdated = string.Empty;
+                }
+                else
+                {
+                    _Origin.LastUpdated = DateTime.Now.ToString();
+                }
+
                 Messenger.Raise(new WindowActionMessage(WindowAction.Close, "Close"));
             }
             else

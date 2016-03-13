@@ -47,8 +47,11 @@
 
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top" FontSize="10">
-            <MenuItem Header="データ" Command="{Binding OpenFolderCommand}"/>
+            <MenuItem Header="ファイル" Command="{Binding OpenFolderCommand}"/>
+            <MenuItem Header="ダメージ計算" Command="{Binding OpenLinkCommand}" CommandParameter="https://ikadb.herokuapp.com/weapons/damages"/>
+            <MenuItem Header="作者Twitter" Command="{Binding OpenLinkCommand}" CommandParameter="https://twitter.com/kazuki_mikan"/>
             <MenuItem Header="アップデート確認" Command="{Binding OnlineUpdateCommand}"/>
+            <!--<MenuItem Header="テスト" Command="{Binding TestCommand}"/>-->
         </Menu>
         <StackPanel  VerticalAlignment="Top" Margin="3">
 

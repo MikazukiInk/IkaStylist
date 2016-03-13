@@ -20,7 +20,8 @@ namespace IkaStylist.Models
     		this._MainPower = new GearPower();
     		this._SubPower1 = new GearPower();
     		this._SubPower2 = new GearPower();
-    		this._SubPower3 = new GearPower();
+            this._SubPower3 = new GearPower();
+            this.LastUpdated = "";
     	}
 
     	public Gear( Gear input )
@@ -31,6 +32,8 @@ namespace IkaStylist.Models
     		this._SubPower1 = new GearPower(input.SubPower1);
     		this._SubPower2 = new GearPower(input.SubPower2);
     		this._SubPower3 = new GearPower(input.SubPower3);
+            this.LastUpdated = input.LastUpdated;
+
     	}
     	
         static public string IdToName(int id)
@@ -191,5 +194,23 @@ namespace IkaStylist.Models
             }
         }
         #endregion
+
+        #region LastUpdated変更通知プロパティ
+        private string _LastUpdated;
+
+        public string LastUpdated
+        {
+            get
+            { return _LastUpdated; }
+            set
+            { 
+                if (_LastUpdated == value)
+                    return;
+                _LastUpdated = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
     }
 }//namespace IkaStylist.Models
