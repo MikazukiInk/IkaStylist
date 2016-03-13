@@ -234,6 +234,7 @@
     <Resource Include="Resources\ikamodoki1_0.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="GearDataCsv\れどめ.txt" />
     <Content Include="InfrastructureAssemblies\Design\Livet.Design.dll" />
     <Content Include="InfrastructureAssemblies\Livet.dll" />
     <Content Include="InfrastructureAssemblies\Livet.XML" />
