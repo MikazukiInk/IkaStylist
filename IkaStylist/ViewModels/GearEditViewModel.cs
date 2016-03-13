@@ -22,7 +22,6 @@ namespace IkaStylist.ViewModels
 
         ///<summary>コンストラクタ</summary>
         /// <param name="fname">ギアの部位名</param>
-        /// <param name="saveFlag">セーブ成功フラグ</param>
         public GearEditViewModel(string fname)
         {
             this.FileName = fname;

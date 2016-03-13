@@ -43,7 +43,7 @@ namespace IkaStylist.ViewModels
         public void Initialize()
         {
             //タイトルにバージョン情報を付けて初期化
-            this.Title = "イカスタイリスト（仮）" + "      " + SubRoutine.GetAppliVersion();
+            this.Title = "イカスタイリスト" + "      " + SubRoutine.GetAppliVersion();
 
             //GearPowerNames初期化
             var temp = new ObservableSynchronizedCollection<string>();
@@ -61,7 +61,7 @@ namespace IkaStylist.ViewModels
             }
             this.Requests = tempReq;
             this.Requests[0].GearPowerID = 1;//条件１は攻撃力に設定
-            this.Requests[0].Point = 3;//条件１は攻撃力に設定
+            this.Requests[0].Point = 10;//初期値10に設定
 
             //検索件数初期化
             ResultCount = 0;
@@ -136,9 +136,10 @@ namespace IkaStylist.ViewModels
                     }
                 }
 
-                if (this.MaxReslutSize < i){
+                if (this.MaxReslutSize < i)
+                {
                     break;
-            }
+                }
             }
             this.ColumnVisibilitys = tempVis;
             this.ResultCount = result.Count;
@@ -332,11 +333,20 @@ namespace IkaStylist.ViewModels
 
         public void OpenFolder()
         {
-            var path = SubRoutine.GetDirectoryName() + @"\GearDataCsvDefault";
+            string path = string.Empty;
+            // ClickOnceデータ・ディレクトリのフル・パスを取得する
+            if (!ApplicationDeployment.IsNetworkDeployed)
+            {
+                path = SubRoutine.GetDirectoryName();
+            }
+            else
+            {
+                path = ApplicationDeployment.CurrentDeployment.DataDirectory;
+            }
+            path += @"\GearDataCsv";
             System.Diagnostics.Process.Start(path);
         }
         #endregion
-
 
         #region OnlineUpdateCommand
         private ViewModelCommand _OnlineUpdateCommand;
@@ -356,7 +366,7 @@ namespace IkaStylist.ViewModels
         public void OnlineUpdate()
         {
             System.Windows.Input.Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
-            
+
             try
             {
                 //ClickOnceでのインストールかをチェック
@@ -385,6 +395,7 @@ namespace IkaStylist.ViewModels
                         , MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                     {
                         System.Windows.Forms.Application.Restart();
+                        Application.Current.Shutdown();
                     }
                 }
                 else
@@ -406,6 +417,26 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        #region OpenLinkCommand
+        private ListenerCommand<string> _OpenLinkCommand;
+
+        public ListenerCommand<string> OpenLinkCommand
+        {
+            get
+            {
+                if (_OpenLinkCommand == null)
+                {
+                    _OpenLinkCommand = new ListenerCommand<string>(OpenLink);
+                }
+                return _OpenLinkCommand;
+            }
+        }
+
+        public void OpenLink(string parameter)
+        {
+            System.Diagnostics.Process.Start(parameter);
+        }
+        #endregion
 
         #region TestCommand
         private ViewModelCommand _TestCommand;
@@ -424,7 +455,8 @@ namespace IkaStylist.ViewModels
 
         public void Test()
         {
-
+             System.Diagnostics.Process.Start("https://twitter.com/kazuki_mikan");
+          
         }
         #endregion
 
