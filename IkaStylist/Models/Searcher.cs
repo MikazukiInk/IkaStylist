@@ -59,19 +59,28 @@ namespace IkaStylist.Models
 
             for (int i = 0; i < OptMgr.Requests.Length; i++)
             {
-                /* 直せ */
                 if (OptMgr.Requests[i].GearPowerID != 0)
                 {
                     candidate.RemoveAll(x => x.points[OptMgr.Requests[i].GearPowerID] < (OptMgr.Requests[i].Point - OptMgr.Tolerance));
-                    if (OptMgr.Tolerance > 0)
+                    for (int ci = candidate.Count - 1; ci >= 0; ci--)
                     {
-                        for (int ci = candidate.Count - 1; ci >= 0; ci--)
+                        if (OptMgr.Tolerance > 0)
                         {
-                            if( candidate[ci].points[OptMgr.Requests[i].GearPowerID] < OptMgr.Requests[i].Point ){
-								candidate[ci].IsTolerance[OptMgr.Requests[i].GearPowerID] = true;
-							}
+                            if (candidate[ci].points[OptMgr.Requests[i].GearPowerID] < OptMgr.Requests[i].Point)
+                            {
+                                candidate[ci].IsTolerance[OptMgr.Requests[i].GearPowerID] = true;
+                            }
+                            else
+                            {
+                                candidate[ci].IsTolerance[OptMgr.Requests[i].GearPowerID] = false;
+                            }
                         }
-                    }                    
+                        else
+                        {
+                            candidate[ci].IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+                        }
+                    }
+
                 }
                 if (candidate.Count <= 1)
                 {
