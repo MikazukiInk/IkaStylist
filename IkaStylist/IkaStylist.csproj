@@ -167,6 +167,7 @@
     <Compile Include="Models\Defs.cs" />
     <Compile Include="Models\GearPower.cs" />
     <Compile Include="Models\IOmanager.cs" />
+    <Compile Include="Models\OptManager.cs" />
     <Compile Include="Models\ReadGearData.cs" />
     <Compile Include="Models\Searcher.cs" />
     <Compile Include="Models\Utility.cs" />

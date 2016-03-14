@@ -10,10 +10,13 @@ namespace IkaStylist.Models
     ///<summary>コーデの検索を行うクラス</summary>
     public class Searcher : NotificationObject
     {
-        ///<summary>リクエストの最大サイズ</summary>
-        const int MaxRequestSize = 5;
+        private OptManager OptMgr;
+        public Searcher(OptManager opt)
+        {
+        	OptMgr = opt;
+        }
+        
         ///<summary> </summary>
-        Request[] Requests = new Request[MaxRequestSize];
 
         public List<Coordinate> CoordinateList = new List<Coordinate>();
 
@@ -44,21 +47,31 @@ namespace IkaStylist.Models
         /// <param name="request">検索の要求値</param>
         /// <param name="onlyEnhanced">強化済みのみを使用するか？</param>
         /// <returns>ギアパワー配列のリスト</returns>
-        public List<Coordinate> Start(Request[] request, bool onlyEnhanced = false)
+        public List<Coordinate> Start()
         {
             var candidate = new List<Coordinate>(this.CoordinateList);
 
             //「なし」2個までは許容する。それ以上は除外する。
-            if(onlyEnhanced)
+            if (OptMgr.OnlyEnhanced)
             {
                 candidate.RemoveAll(x => x.points[0] > 8);
             }
 
-            for (int i = 0; i < request.Length; i++)
+            for (int i = 0; i < OptMgr.Requests.Length; i++)
             {
-                if (request[i].GearPowerID != 0)
+                /* 直せ */
+                if (OptMgr.Requests[i].GearPowerID != 0)
                 {
-                    candidate.RemoveAll(x => x.points[request[i].GearPowerID] < request[i].Point);
+                    candidate.RemoveAll(x => x.points[OptMgr.Requests[i].GearPowerID] < (OptMgr.Requests[i].Point - OptMgr.Tolerance));
+                    if (OptMgr.Tolerance > 0)
+                    {
+                        for (int ci = candidate.Count - 1; ci >= 0; ci--)
+                        {
+                            if( candidate[ci].points[OptMgr.Requests[i].GearPowerID] < OptMgr.Requests[i].Point ){
+								candidate[ci].IsTolerance[OptMgr.Requests[i].GearPowerID] = true;
+							}
+                        }
+                    }                    
                 }
                 if (candidate.Count <= 1)
                 {
@@ -68,48 +81,5 @@ namespace IkaStylist.Models
             return candidate;
         }
 
-    }
-
-    public class Request : NotificationObject
-    {
-        public Request()
-        {
-            Point = 0;
-            GearPowerID = 0;
-        }
-
-        #region Point変更通知プロパティ
-        private int _Point;
-
-        public int Point
-        {
-            get
-            { return _Point; }
-            set
-            {
-                if (_Point == value)
-                    return;
-                _Point = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        #region GearPowerID変更通知プロパティ
-        private int _GearPowerID;
-
-        public int GearPowerID
-        {
-            get
-            { return _GearPowerID; }
-            set
-            {
-                if (_GearPowerID == value)
-                    return;
-                _GearPowerID = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
     }
 }

@@ -14,29 +14,38 @@ namespace IkaStylist.Models
     {
     	public Coordinate()
         {
-            this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
+        	this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            //this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
+            this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            //this._IsTolerance = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
         }
 
         public Coordinate( Coordinate input )
         {
-            //this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
-            this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
+        	this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+        	this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             for (int i = 0; i < input.points.Length; i++)
             {
                 this.points[i] = input.points[i];
+            }
+            for (int i = 0; i < input._IsTolerance.Length; i++)
+            {
+                this._IsTolerance[i] = input._IsTolerance[i];
             }
             points.CopyTo(input.points, 0);
             this.HeadGear   = new Gear(input.HeadGear);
             this.ClothGear  = new Gear(input.ClothGear);
             this.ShoesGear  = new Gear(input.ShoesGear);
             this._PowersText = input._PowersText;
+            this.IsTolerance = input.IsTolerance;
 
         }
 
         public Coordinate( Gear head, Gear cloth, Gear shoes )
         {
+        	this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+        	this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             SetGears(head, cloth, shoes);
-            this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
             CalcPoints();
         }
 
@@ -121,6 +130,21 @@ namespace IkaStylist.Models
                 points = value;
                 RaisePropertyChanged();
             }
+        }
+
+        //許容値検索で抽出対象となったフラグ.
+        private bool[] _IsTolerance;
+        public bool[] IsTolerance
+        {
+            get
+            { return _IsTolerance; }
+        	set
+        	{
+        		if (_IsTolerance == value)
+                    return;
+                _IsTolerance = value;
+                RaisePropertyChanged();
+        	}
         }
     }
 }//namespace IkaStylist.Models

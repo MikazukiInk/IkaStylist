@@ -24,9 +24,6 @@ namespace IkaStylist.ViewModels
 
     public class MainWindowViewModel : ViewModel
     {
-        ///<summary>検索条件の最大サイズ</summary>
-        const int RequestSize = 5;
-
         ///<summary>アタマ装備のデータ群</summary>
         private List<Gear> AtamaData = new List<Gear>();
 
@@ -39,6 +36,25 @@ namespace IkaStylist.ViewModels
         ///<summary>コーデ検索クラスの実体</summary>
         public Searcher Searcher;
 
+        ///<summary>オプション管理クラスの実体</summary>
+        private OptManager _OptMgr;
+        public OptManager OptMgr
+        {
+            get
+            {
+                if ( _OptMgr == null )
+                {
+                    _OptMgr = new OptManager();
+                }
+                return _OptMgr;
+            }
+            set{
+            	if (_OptMgr == value)
+                    return;
+                _OptMgr = value;
+            }
+        }
+        
         ///<summary>メインウィンドウの初期化関数</summary>
         public void Initialize()
         {
@@ -54,18 +70,18 @@ namespace IkaStylist.ViewModels
             this.GearPowerNames = temp;
 
             //リクエスト初期化
-            var tempReq = new Request[RequestSize];
-            for (int i = 0; i < this.Requests.Length; i++)
+            var tempReq = new Request[OptMgr.RequestSize];
+            for (int i = 0; i < OptMgr.Requests.Length; i++)
             {
                 tempReq[i] = new Request();
             }
-            this.Requests = tempReq;
-            this.Requests[0].GearPowerID = 1;//条件１は攻撃力に設定
-            this.Requests[0].Point = 10;//初期値10に設定
+            OptMgr.Requests = tempReq;
+            OptMgr.Requests[0].GearPowerID = 1;//条件１は攻撃力に設定
+            OptMgr.Requests[0].Point = 10;//初期値10に設定
 
             //検索件数初期化
             ResultCount = 0;
-            this.MaxReslutSize = 200;
+            OptMgr.MaxReslutSize = 200;
 
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
@@ -115,13 +131,13 @@ namespace IkaStylist.ViewModels
                 HukuData = IOmanager.ReadCSV(GearKind.Cloth);
                 KutuData = IOmanager.ReadCSV(GearKind.Shoes);
                 //検索クラスのインスタンス生成
-                this.Searcher = new Searcher();
+                this.Searcher = new Searcher(OptMgr);
                 //ゴリ押し全パターン検索
                 this.Searcher.Init(AtamaData, HukuData, KutuData);
             }
 
             //絞込を実行してresultに格納
-            var result = this.Searcher.Start(this.Requests, this.OnlyEnhanced);
+            var result = this.Searcher.Start();
             var tempVis = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
             for (int i = 0; i < result.Count; i++)
             {
@@ -129,14 +145,13 @@ namespace IkaStylist.ViewModels
 
                 for (int j = 0; j < result[i].points.Length; j++)
                 {
-                    int test = result[i].points[j];
                     if (0 < result[i].points[j])
                     {
                         tempVis[j] = true;
                     }
                 }
 
-                if (this.MaxReslutSize < i)
+                if (OptMgr.MaxReslutSize < i)
                 {
                     break;
                 }
@@ -169,42 +184,6 @@ namespace IkaStylist.ViewModels
             using (var vm = new GearEditViewModel(parameter))
             {
                 Messenger.Raise(new TransitionMessage(vm, "EditCommand"));
-            }
-        }
-        #endregion
-
-        ///<summary>ギアパワーと要求Pt</summary>
-        #region Requests変更通知プロパティ
-        private Request[] _Requests = new Request[RequestSize];
-        //UIの検索条件を受け取るやつ
-        public Request[] Requests
-        {
-            get
-            { return _Requests; }
-            set
-            {
-                if (_Requests == value)
-                    return;
-                _Requests = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        ///<summary>強化済みのみを使用するフラグ</summary>
-        #region OnlyEnhanced変更通知プロパティ
-        private bool _OnlyEnhanced = true;
-
-        public bool OnlyEnhanced
-        {
-            get
-            { return _OnlyEnhanced; }
-            set
-            {
-                if (_OnlyEnhanced == value)
-                    return;
-                _OnlyEnhanced = value;
-                RaisePropertyChanged();
             }
         }
         #endregion
@@ -293,24 +272,6 @@ namespace IkaStylist.ViewModels
                 if (_ColumnVisibilitys == value)
                     return;
                 _ColumnVisibilitys = value;
-                RaisePropertyChanged();
-            }
-        }
-        #endregion
-
-        ///<summary>最大表示件数</summary>
-        #region MaxReslutSize変更通知プロパティ
-        private int _MaxReslutSize;
-
-        public int MaxReslutSize
-        {
-            get
-            { return _MaxReslutSize; }
-            set
-            {
-                if (_MaxReslutSize == value)
-                    return;
-                _MaxReslutSize = value;
                 RaisePropertyChanged();
             }
         }

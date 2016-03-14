@@ -1,6 +1,16 @@
 ﻿namespace IkaStylist.Models
 {
+    ///定数///
+    #region
+    static class Constants
+    {
+        public const int __REQUEST_SIZE__ = 5;
+        public const int __DEFAULT_RESULT_SIZE__ = 200;
+    }
+    #endregion
+    
     ///<summary>部位</summary>
+    #region
     public enum GearKind
     {
         [EnumLiteral("アタマ")]
@@ -10,6 +20,7 @@
         [EnumLiteral("クツ")]
         Shoes
     }
+    #endregion
 
     #region ギアパワー列挙型
     public enum GearPowerKind

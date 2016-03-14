@@ -77,18 +77,18 @@
                 <TextBlock Grid.Row="4" Text="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" />
                 <TextBlock Grid.Row="5" Text="5" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" />
                 <TextBlock Grid.Column="1" Text="ギアパワー" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" Margin="0"/>
-                <ComboBox Grid.Column="1" Grid.Row="1" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[0].GearPowerID}"/>
-                <ComboBox Grid.Column="1" Grid.Row="2" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[1].GearPowerID}"/>
-                <ComboBox Grid.Column="1" Grid.Row="3" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[2].GearPowerID}"/>
-                <ComboBox Grid.Column="1" Grid.Row="4" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[3].GearPowerID}"/>
-                <ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding Requests[4].GearPowerID}"/>
+                <ComboBox Grid.Column="1" Grid.Row="1" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[0].GearPowerID}"/>
+                <ComboBox Grid.Column="1" Grid.Row="2" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[1].GearPowerID}"/>
+                <ComboBox Grid.Column="1" Grid.Row="3" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[2].GearPowerID}"/>
+                <ComboBox Grid.Column="1" Grid.Row="4" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[3].GearPowerID}"/>
+                <ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[4].GearPowerID}"/>
                 <TextBlock Grid.Column="2" Text="ポイント" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="18"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="1" Maximum="57" Value="{Binding Requests[0].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="1" Maximum="57" Value="{Binding Requests[1].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="1" Maximum="57" Value="{Binding Requests[2].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="1" Maximum="57" Value="{Binding Requests[3].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="1" Maximum="57" Value="{Binding Requests[4].Point}"/>
-                <CheckBox Grid.Row="6" Grid.ColumnSpan="3" Content="未強化のギアを使わない" IsChecked="{Binding OnlyEnhanced}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[1].Point}"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[2].Point}"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[3].Point}"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}"/>
+                <CheckBox Grid.Row="6" Grid.ColumnSpan="3" Content="未強化のギアを使わない" IsChecked="{Binding OptMgr.OnlyEnhanced}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Grid.Row="7" Grid.ColumnSpan="3" Margin="6" Content="さがす　！" Command="{Binding SearchCommand}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             </Grid>
             <StackPanel Orientation="Horizontal">
@@ -96,10 +96,13 @@
                 <TextBox Text="{Binding ResultCount}" IsReadOnly="True" HorizontalAlignment="Center"/>
                 <TextBlock Text="件" VerticalAlignment="Center"/>
                 <TextBlock Text="最大表示件数" VerticalAlignment="Center" Margin="20,0,0,0"/>
-                <wpfTool:IntegerUpDown Margin="3" Minimum="50" Maximum="9999" Width="60" Value="{Binding MaxReslutSize}"/>
+                <wpfTool:IntegerUpDown Margin="3" Minimum="50" Maximum="9999" Width="60" Value="{Binding OptMgr.MaxReslutSize}"/>
                 <TextBlock Text="件" VerticalAlignment="Center"/>
-
-
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="許容誤差" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+                <wpfTool:IntegerUpDown Margin="3" Minimum="0" Maximum="57" Width="60" Value="{Binding OptMgr.Tolerance}"/>
+                <TextBlock Text="パワー" VerticalAlignment="Center"/>
             </StackPanel>
 
             <!--<Button Content="テスト" Command="{Binding TestCommand}"/>-->
@@ -139,6 +142,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[1]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[1]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -159,6 +165,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[2]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[2]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -181,6 +190,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[3]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[3]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -201,6 +213,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[4]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[4]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -223,6 +238,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[5]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[5]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -244,6 +262,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[6]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[6]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -263,6 +284,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[7]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[7]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -284,6 +308,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[8]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[8]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -303,6 +330,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[9]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[9]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -324,6 +354,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[10]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[10]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -343,6 +376,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[11]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[11]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -364,6 +400,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[12]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[12]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -383,6 +422,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[13]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[13]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -404,6 +446,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[14]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[14]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -423,6 +468,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[15]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[15]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -444,6 +492,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[16]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[16]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -463,6 +514,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[17]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[17]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -484,6 +538,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[18]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[18]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -503,6 +560,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[19]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[19]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -524,6 +584,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[20]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[20]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -543,6 +606,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[21]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[21]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -564,6 +630,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[22]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[22]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -584,6 +653,9 @@
                                     <DataTrigger Binding="{Binding Path=TotalPoint[23]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
                                     </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[23]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
+                                    </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGridTextColumn.CellStyle>
@@ -603,6 +675,9 @@
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding Path=TotalPoint[24]}" Value="0" >
                                         <Setter Property="Background" Value="Gray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Path=IsTolerance[24]}" Value="true" >
+                                        <Setter Property="Foreground" Value="Red" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
