@@ -46,9 +46,13 @@
 
 
     <DockPanel LastChildFill="True">
-        <Menu DockPanel.Dock="Top" FontSize="10">
+        <Menu DockPanel.Dock="Top" FontSize="11">
             <MenuItem Header="ファイル" Command="{Binding OpenFolderCommand}"/>
-            <MenuItem Header="ダメージ計算" Command="{Binding OpenLinkCommand}" CommandParameter="https://ikadb.herokuapp.com/weapons/damages"/>
+            <MenuItem Header="便利リンク集"  ToolTip="別サービスへ移動します">
+                <MenuItem IsCheckable="True" Command="{Binding OpenLinkCommand}" CommandParameter="https://ikadb.herokuapp.com/weapons/damages" Header="IkaDB! ダメージ計算機" ToolTip="別サービスへ移動します"/>
+            </MenuItem>
+
+
             <MenuItem Header="作者Twitter" Command="{Binding OpenLinkCommand}" CommandParameter="https://twitter.com/kazuki_mikan"/>
             <MenuItem Header="アップデート確認" Command="{Binding OnlineUpdateCommand}"/>
             <!--<MenuItem Header="テスト" Command="{Binding TestCommand}"/>-->
@@ -63,7 +67,7 @@
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="30"/>
-                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="60"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -83,12 +87,19 @@
                 <ComboBox Grid.Column="1" Grid.Row="4" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[3].GearPowerID}"/>
                 <ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[4].GearPowerID}"/>
                 <TextBlock Grid.Column="2" Text="ポイント" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="18"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}" ToolTip="aaaaa"/>
                 <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[1].Point}"/>
                 <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[2].Point}"/>
                 <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[3].Point}"/>
                 <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}"/>
-                <CheckBox Grid.Row="6" Grid.ColumnSpan="3" Content="未強化のギアを使わない" IsChecked="{Binding OptMgr.OnlyEnhanced}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <StackPanel Grid.Row="6" Grid.ColumnSpan="3" >
+                    <CheckBox Content="未強化のギアを使わない" IsChecked="{Binding OptMgr.OnlyEnhanced}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"/>
+                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <TextBlock Text="誤差は" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <wpfTool:IntegerUpDown Margin="3" Minimum="0" Maximum="9" Width="40" Value="{Binding OptMgr.Tolerance}"/>
+                        <TextBlock Text="ポイントまで認める" VerticalAlignment="Center"/>
+                    </StackPanel>-->
+                </StackPanel>
                 <Button Grid.Row="7" Grid.ColumnSpan="3" Margin="6" Content="さがす　！" Command="{Binding SearchCommand}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             </Grid>
             <StackPanel Orientation="Horizontal">
@@ -99,15 +110,12 @@
                 <wpfTool:IntegerUpDown Margin="3" Minimum="50" Maximum="9999" Width="60" Value="{Binding OptMgr.MaxReslutSize}"/>
                 <TextBlock Text="件" VerticalAlignment="Center"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="許容誤差" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0"/>
-                <wpfTool:IntegerUpDown Margin="3" Minimum="0" Maximum="57" Width="60" Value="{Binding OptMgr.Tolerance}"/>
-                <TextBlock Text="パワー" VerticalAlignment="Center"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
+
+            <!--<StackPanel Orientation="Horizontal">
                 <CheckBox Grid.Row="6" Grid.ColumnSpan="3" Content="フェスモード" IsChecked="{Binding toggleFesMode}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            </StackPanel>
-        <!--<Button Content="テスト" Command="{Binding TestCommand}"/>-->
+            </StackPanel>-->
+
+            <!--<Button Content="テスト" Command="{Binding TestCommand}"/>-->
 
             <!--<Button Margin="6" Content="へんしゅう" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />-->
             <TextBlock Text="ギアへんしゅう" Margin="6,50,6,6" FontSize="24" FontFamily="/IkaStylist;component/Resources/#イカモドキ" />

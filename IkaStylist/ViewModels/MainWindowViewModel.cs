@@ -38,6 +38,8 @@ namespace IkaStylist.ViewModels
 
         ///<summary>コーデ検索クラスの実体</summary>
         public Searcher Searcher;
+        ///<summary>コーデ検索クラスの実体　フェス用</summary>
+        public Searcher SearcherFes;
 
         ///<summary>オプション管理クラスの実体</summary>
         private OptManager _OptMgr;
