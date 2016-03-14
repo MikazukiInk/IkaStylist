@@ -33,6 +33,9 @@ namespace IkaStylist.ViewModels
         ///<summary>クツ装備のデータ群</summary>
         private List<Gear> KutuData = new List<Gear>();
 
+        ///<summary>フェス装備のデータ群</summary>
+        private List<Gear> FesTData = new List<Gear>();
+
         ///<summary>コーデ検索クラスの実体</summary>
         public Searcher Searcher;
 
@@ -81,7 +84,10 @@ namespace IkaStylist.ViewModels
 
             //検索件数初期化
             ResultCount = 0;
+
             OptMgr.MaxReslutSize = 200;
+            OptMgr.Tolerance = 0;
+            OptMgr.isFestival = false;
 
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
@@ -130,10 +136,17 @@ namespace IkaStylist.ViewModels
                 AtamaData = IOmanager.ReadCSV(GearKind.Head);
                 HukuData = IOmanager.ReadCSV(GearKind.Cloth);
                 KutuData = IOmanager.ReadCSV(GearKind.Shoes);
+                FesTData = IOmanager.ReadCSV(GearKind.FesT);
                 //検索クラスのインスタンス生成
                 this.Searcher = new Searcher(OptMgr);
                 //ゴリ押し全パターン検索
-                this.Searcher.Init(AtamaData, HukuData, KutuData);
+                if (OptMgr.isFestival) {
+                    this.Searcher.Init(AtamaData, FesTData, KutuData);
+                }
+                else
+                {
+                    this.Searcher.Init(AtamaData, HukuData, KutuData);
+                }
             }
 
             //絞込を実行してresultに格納
@@ -181,9 +194,26 @@ namespace IkaStylist.ViewModels
         {
             //CSVファイルが変更されるので既存の検索インスタンスを削除
             this.Searcher = null;
+            if (OptMgr.isFestival && parameter == "Cloth")
+            {
+                parameter = "FesT";
+            }
             using (var vm = new GearEditViewModel(parameter))
             {
                 Messenger.Raise(new TransitionMessage(vm, "EditCommand"));
+            }
+        }
+        #endregion
+
+        #region
+        public bool toggleFesMode
+        {
+            get{
+                return OptMgr.isFestival;
+            }
+            set{
+                this.Searcher = null;
+                OptMgr.isFestival = !OptMgr.isFestival;
             }
         }
         #endregion

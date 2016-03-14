@@ -62,6 +62,7 @@ namespace IkaStylist.Models
     		Requests = new Request[Constants.__REQUEST_SIZE__];
     		OnlyEnhanced = true;
     		Tolerance = 0;
+            isFestival = false;
     	}
     	
     	///<summary>検索条件の最大サイズ</summary>
@@ -143,6 +144,23 @@ namespace IkaStylist.Models
                     return;
                 }
                 _Tolerance = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        ///<summary>フェスTモード</summary>
+        #region フェスTモード
+        private bool _isFestival;
+        public bool isFestival
+        {
+            get
+            { return _isFestival; }
+            set
+            {
+                if (_isFestival == value)
+                    return;
+                _isFestival = value;
                 RaisePropertyChanged();
             }
         }

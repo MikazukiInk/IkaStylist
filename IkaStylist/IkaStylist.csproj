@@ -321,7 +321,8 @@
     <PostBuildEvent>if not exist "$(TargetDir)\GearDataCsvDefault" mkdir "$(TargetDir)\GearDataCsvDefault"
 Copy "$(SolutionDir)\GearDataCsv\Cloth.csv" "$(TargetDir)\GearDataCsvDefault"
 Copy "$(SolutionDir)\GearDataCsv\Head.csv" "$(TargetDir)\GearDataCsvDefault"
-Copy "$(SolutionDir)\GearDataCsv\Shoes.csv" "$(TargetDir)\GearDataCsvDefault"</PostBuildEvent>
+Copy "$(SolutionDir)\GearDataCsv\Shoes.csv" "$(TargetDir)\GearDataCsvDefault"
+Copy "$(SolutionDir)\GearDataCsv\FesT.csv" "$(TargetDir)\GearDataCsvDefault"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

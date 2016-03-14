@@ -18,7 +18,9 @@
         [EnumLiteral("フク")]
         Cloth,
         [EnumLiteral("クツ")]
-        Shoes
+        Shoes,
+        [EnumLiteral("フェスT")]
+        FesT
     }
     #endregion
 
