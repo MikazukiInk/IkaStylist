@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
@@ -54,7 +55,7 @@ namespace IkaStylist.ViewModels
                 return _OptMgr;
             }
             set{
-            	if (_OptMgr == value)
+                if (_OptMgr == value)
                     return;
                 _OptMgr = value;
             }
@@ -73,6 +74,9 @@ namespace IkaStylist.ViewModels
                 temp.Add(EnumLiteralAttribute.GetLiteral((GearPowerKind)ii));
             }
             this.GearPowerNames = temp;
+
+            //SelectionManager初期化
+            this.SelectionMgr = new SelectionManager();
 
             //リクエスト初期化
             var tempReq = new Request[OptMgr.RequestSize];
@@ -102,6 +106,18 @@ namespace IkaStylist.ViewModels
             this.ColumnVisibilitys = tempVisibility;
         }
 
+        ///<summary>検索結果オブジェクト選択</summary>
+        #region
+        public void SelectDataGridItem(DataGrid dataGrid)
+        {
+            int row = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
+            if( row < 0 || row > (ResultView.Count -1) ){
+            	return;
+            }
+            SelectionMgr.update(ResultView[row]);
+        }
+        #endregion
+        
         ///<summary>[さがす]ボタンの処理</summary>
         #region SearchCommand
         private ViewModelCommand _SearchCommand;
@@ -122,6 +138,8 @@ namespace IkaStylist.ViewModels
         {
             //検索結果DataGridを初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
+            SelectionMgr.init();
+            
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
 
@@ -233,6 +251,23 @@ namespace IkaStylist.ViewModels
                 if (_GearPowerNames == value)
                     return;
                 _GearPowerNames = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        ///<summary>検索結果で選択しているオブジェクトの取得</summary>
+        #region
+        public SelectionManager _SelectionMgr;
+        public SelectionManager SelectionMgr
+        {
+            get
+            { return _SelectionMgr; }
+            set
+            {
+                if (_SelectionMgr == value)
+                    return;
+                _SelectionMgr = value;
                 RaisePropertyChanged();
             }
         }

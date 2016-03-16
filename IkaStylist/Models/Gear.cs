@@ -22,6 +22,7 @@ namespace IkaStylist.Models
     		this._SubPower2 = new GearPower();
             this._SubPower3 = new GearPower();
             this.LastUpdated = "";
+            this._imgName = "";
     	}
 
     	public Gear( Gear input )
@@ -33,6 +34,7 @@ namespace IkaStylist.Models
     		this._SubPower2 = new GearPower(input.SubPower2);
     		this._SubPower3 = new GearPower(input.SubPower3);
             this.LastUpdated = input.LastUpdated;
+            this._imgName = input.imgName;
 
     	}
     	
@@ -70,6 +72,14 @@ namespace IkaStylist.Models
                 if (_Name == value)
                     return;
                 _Name   = value;
+                if (IkaUtil.GearImgDict.ContainsKey(_Name))
+                {
+                    imgName = IkaUtil.GearImgDict[_Name];
+                }
+                else
+                {
+                    imgName = "None";
+                }          
                 RaisePropertyChanged();
             }
         }
@@ -207,6 +217,23 @@ namespace IkaStylist.Models
                 if (_LastUpdated == value)
                     return;
                 _LastUpdated = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region 画像データ名変更通知プロパティ
+        private string _imgName;
+
+        public string imgName
+        {
+            get
+            { return _imgName; }
+            set
+            { 
+                if (_imgName == value)
+                    return;
+                _imgName = value;
                 RaisePropertyChanged();
             }
         }

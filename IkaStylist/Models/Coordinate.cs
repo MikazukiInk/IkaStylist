@@ -9,12 +9,12 @@ using Livet;
 
 namespace IkaStylist.Models
 {
-	///<summary>ギアパワーを管理するためのクラス</summary>
+    ///<summary>ギアパワーを管理するためのクラス</summary>
     public class Coordinate : NotificationObject
     {
-    	public Coordinate()
+        public Coordinate()
         {
-        	this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             //this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
             this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             //this._IsTolerance = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
@@ -22,8 +22,8 @@ namespace IkaStylist.Models
 
         public Coordinate( Coordinate input )
         {
-        	this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
-        	this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             for (int i = 0; i < input.points.Length; i++)
             {
                 this.points[i] = input.points[i];
@@ -43,8 +43,8 @@ namespace IkaStylist.Models
 
         public Coordinate( Gear head, Gear cloth, Gear shoes )
         {
-        	this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
-        	this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             SetGears(head, cloth, shoes);
             CalcPoints();
         }
@@ -58,18 +58,18 @@ namespace IkaStylist.Models
 
         private void addGearPowerPoint( Gear gear )
         {
-        	points[ gear.MainPower.Id ] += 10;   //メインは10ポイント
+            points[ gear.MainPower.Id ] += 10;   //メインは10ポイント
             points[ gear.SubPower1.Id ] += 3;    //サブは3ポイントとして計算
             points[ gear.SubPower2.Id ] += 3;
             points[ gear.SubPower3.Id ] += 3;
         }
             
-    	// メンバ変数.
-    	public  string _PowersText;
-    	public  int[]  points;
-    	
-    	// API
-    	private Gear   _HeadGear;
+        // メンバ変数.
+        public  string _PowersText;
+        public  int[]  points;
+        
+        // API
+        private Gear   _HeadGear;
         public Gear HeadGear
         {
             get
@@ -111,12 +111,12 @@ namespace IkaStylist.Models
             }
         }
         
-    	public void SetGears( Gear head, Gear cloth, Gear shoes )
-    	{
-    		HeadGear  = head;
+        public void SetGears( Gear head, Gear cloth, Gear shoes )
+        {
+            HeadGear  = head;
             ClothGear = cloth;
             ShoesGear = shoes;
-    	}
+        }
 
         //Total Points
         public int[] TotalPoint
@@ -138,13 +138,13 @@ namespace IkaStylist.Models
         {
             get
             { return _IsTolerance; }
-        	set
-        	{
-        		if (_IsTolerance == value)
+            set
+            {
+                if (_IsTolerance == value)
                     return;
                 _IsTolerance = value;
                 RaisePropertyChanged();
-        	}
+            }
         }
     }
 }//namespace IkaStylist.Models

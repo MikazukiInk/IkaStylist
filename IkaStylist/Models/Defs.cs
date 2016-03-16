@@ -79,4 +79,60 @@
         StealthJump	//24
     }
     #endregion
+
+    #region ギアパワー列挙型
+    public enum GearPowerImg
+    {
+        [EnumLiteral("None")]
+        None,	//0
+        [EnumLiteral("DamageUp")]
+        DamageUp,	//1
+        [EnumLiteral("DefenseUp")]
+        DefenseUp,	//2
+        [EnumLiteral("InkSaverMain")]
+        InkSaverMain,	//3
+        [EnumLiteral("InkSaverSub")]
+        InkSaverSub,	//4
+        [EnumLiteral("InkRecoveryUp")]
+        InkRecoveryUp,	//5
+        [EnumLiteral("RunSpeedUp")]
+        RunSpeedUp,	//6
+        [EnumLiteral("SwimSpeedUp")]
+        SwimSpeedUp,	//7
+        [EnumLiteral("SpecialChargeUp")]
+        SpecialChargeUp,	//8
+        [EnumLiteral("SpecialDurationUp")]
+        SpecialDurationUp,	//9
+        [EnumLiteral("QuickRespawn")]
+        QuickRespawn,	//10
+        [EnumLiteral("SpecialSaver")]
+        SpecialSaver,	//11
+        [EnumLiteral("QuickSuperJump")]
+        QuickSuperJump,	//12
+        [EnumLiteral("BombRangeUp")]
+        BombRangeUp,	//13
+        [EnumLiteral("OpeningGambit")]
+        OpeningGambit,	//14
+        [EnumLiteral("LastDitchEffort")]
+        LastDitchEffort,	//15
+        [EnumLiteral("Tenacity")]
+        Tenacity,	//16
+        [EnumLiteral("Comeback")]
+        Comeback,	//17
+        [EnumLiteral("ColdBlooded")]
+        ColdBlooded,	//18
+        [EnumLiteral("NinjaSquid")]
+        NinjaSquid,	//19
+        [EnumLiteral("Haunt")]
+        Haunt,	//20
+        [EnumLiteral("Recon")]
+        Recon,	//21
+        [EnumLiteral("BombSniffer")]
+        BombSniffer,	//22
+        [EnumLiteral("InkResistanceUp")]
+        InkResistanceUp,	//23
+        [EnumLiteral("StealthJump")]
+        StealthJump	//24
+    }
+    #endregion
 }

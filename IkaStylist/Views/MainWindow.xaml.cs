@@ -32,7 +32,6 @@ namespace IkaStylist.Views
         {
             InitializeComponent();
         }
-      
     }
 
     public class BindingProxy : Freezable
