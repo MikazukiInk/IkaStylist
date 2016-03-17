@@ -111,12 +111,35 @@ namespace IkaStylist.ViewModels
         #region
         public void SelectDataGridItem(DataGrid dataGrid)
         {
-            int row = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
-            if (row < 0 || row > (ResultView.Count - 1))
+            dataGrid.UpdateLayout();
+            dataGrid.ScrollIntoView(dataGrid.SelectedItem);
+            DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(dataGrid.SelectedItem);
+            if (row == null) { return; }
+            TextBlock   headNameBlock  = dataGrid.Columns[0].GetCellContent(row) as TextBlock;
+            string      headName       = headNameBlock.Text;
+            TextBlock   clothNameBlock = dataGrid.Columns[1].GetCellContent(row) as TextBlock;
+            string      clothName      = clothNameBlock.Text;
+            TextBlock   shoesNameBlock = dataGrid.Columns[2].GetCellContent(row) as TextBlock;
+            string      shoesName      = shoesNameBlock.Text;
+
+            int index = 0;//foreachの方が速いらしいのでこっち使う.
+            foreach( Coordinate item in ResultView)
+            {
+                if( item.HeadGear.Name == headName &&
+                    item.ClothGear.Name == clothName &&
+                    item.ShoesGear.Name == shoesName )
+                {
+                    break;
+                }
+                index++;
+            }
+
+            if (index >= ResultView.Count())
             {
                 return;
             }
-            SelectionMgr.update(ResultView[row]);
+
+            SelectionMgr.update(ResultView[index]);
         }
         #endregion
 
