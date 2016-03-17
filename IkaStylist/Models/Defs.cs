@@ -8,7 +8,7 @@
         public const int __DEFAULT_RESULT_SIZE__ = 200;
     }
     #endregion
-    
+
     ///<summary>部位</summary>
     #region
     public enum GearKind

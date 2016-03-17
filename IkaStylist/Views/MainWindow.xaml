@@ -123,7 +123,131 @@
             <Button Margin="6" Content="フク" Command="{Binding EditCommand}" CommandParameter="Cloth" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             <Button Margin="6" Content="クツ" Command="{Binding EditCommand}" CommandParameter="Shoes" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
         </StackPanel>
-        <Grid Margin="3" MinWidth="350" MaxWidth="800" Width="Auto">
+        
+        <!-- Detail Panel -->
+        <Grid DockPanel.Dock="Right" ShowGridLines="False" HorizontalAlignment="Right">
+            <!-- 4行定義 -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- 1列定義 -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Margin="3" 
+                       Text="しょうさい" 
+                       Grid.Row="0" 
+                       Grid.Column="0" 
+                       FontFamily="/IkaStylist;component/Resources/#イカモドキ" 
+                       FontSize="20"  
+                       HorizontalAlignment="Center" />
+
+            <Border Grid.Row="1" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,5">
+                <!-- アタマ -->
+                <Grid ShowGridLines="False">
+                    <!-- 3行定義 -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- 4列定義 -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.ColumnSpan="4" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="SteelBlue" CornerRadius="0">
+                        <TextBlock Margin="3" 
+                                   Text="{Binding Path=SelectionMgr.HeadGearName}"
+                                   HorizontalAlignment="Left" />
+                    </Border>
+                    <Image Grid.RowSpan="2" Grid.Row="1" Grid.Column="0"
+                           Source="{Binding Path=SelectionMgr.HeadGearImg}" Stretch="Uniform" Width="50" Height="50" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Image Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"
+                           Source="{Binding Path=SelectionMgr.HeadMainGearImg}" Stretch="Uniform" Width="40" Height="40" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="1"
+                           Source="{Binding Path=SelectionMgr.HeadSubGear1Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="2"
+                           Source="{Binding Path=SelectionMgr.HeadSubGear2Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="3"
+                           Source="{Binding Path=SelectionMgr.HeadSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <Border Grid.Row="2" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,5">
+                <!-- フク -->
+                <Grid ShowGridLines="False">
+                    <!-- 3行定義 -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- 4列定義 -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.ColumnSpan="4" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="SteelBlue" CornerRadius="0">
+                        <TextBlock Margin="3" 
+                                   Text="{Binding Path=SelectionMgr.ClothGearName}"
+                                   HorizontalAlignment="Left" />
+                    </Border>
+                    <Image Grid.RowSpan="2" Grid.Row="1" Grid.Column="0"
+                           Source="{Binding Path=SelectionMgr.ClothGearImg}" Stretch="Uniform" Width="50" Height="50" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Image Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"
+                           Source="{Binding Path=SelectionMgr.ClothMainGearImg}" Stretch="Uniform" Width="40" Height="40" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="1"
+                           Source="{Binding Path=SelectionMgr.ClothSubGear1Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="2"
+                           Source="{Binding Path=SelectionMgr.ClothSubGear2Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="3"
+                           Source="{Binding Path=SelectionMgr.ClothSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+            <Border Grid.Row="3" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,3">
+                <!-- クツ -->
+                <Grid ShowGridLines="False">
+                    <!-- 3行定義 -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <!-- 4列定義 -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.ColumnSpan="4" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="SteelBlue" CornerRadius="0">
+                        <TextBlock Margin="3" 
+                                   Text="{Binding Path=SelectionMgr.ShoesGearName}"
+                                   HorizontalAlignment="Left" />
+                    </Border>
+                    <Image Grid.RowSpan="2" Grid.Row="1" Grid.Column="0"
+                           Source="{Binding Path=SelectionMgr.ShoesGearImg}" Stretch="Uniform" Width="50" Height="50" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <Image Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"
+                           Source="{Binding Path=SelectionMgr.ShoesMainGearImg}" Stretch="Uniform" Width="40" Height="40" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="1"
+                           Source="{Binding Path=SelectionMgr.ShoesSubGear1Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="2"
+                           Source="{Binding Path=SelectionMgr.ShoesSubGear2Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image Grid.Row="2" Grid.Column="3"
+                           Source="{Binding Path=SelectionMgr.ShoesSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Grid>
+            </Border>
+        </Grid>
+        
+        <Grid Margin="3">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
                 <RowDefinition/>
@@ -142,14 +266,15 @@
                     <v:BindingProxy x:Key="proxy" Data="{Binding}" />
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Path=HeadGear.Name}"
-                    CanUserReorder="True" CanUserResize="True"
+                    <DataGridTextColumn Binding="{Binding Path=HeadGear.Name}" 
+                    CanUserReorder="True" CanUserResize="True" FontSize="10"
                     CanUserSort="True" Header="アタマ" />
                     <DataGridTextColumn Binding="{Binding Path=ClothGear.Name}"
-                    CanUserReorder="True" CanUserResize="True"
+                    CanUserReorder="True" CanUserResize="True" FontSize="10"
                     CanUserSort="True" Header="フク"  />
                     <DataGridTextColumn Binding="{Binding Path=ShoesGear.Name}" 
-                    CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="クツ" />
+                    CanUserReorder="True" CanUserResize="True" FontSize="10"
+                    CanUserSort="True" Header="クツ" />
                     <!--攻撃力アップ-->
                     <DataGridTextColumn Binding="{Binding Path=TotalPoint[1]}" CanUserResize ="False"
                     Visibility="{Binding Data.ColumnVisibilitys[1],Converter={StaticResource visibilityConverter}, Source={StaticResource proxy}}">
@@ -712,135 +837,6 @@
 
             </DataGrid>
 
-        </Grid>
-        
-        <!-- Detail Panel -->
-        <Grid DockPanel.Dock="Right" ShowGridLines="False" HorizontalAlignment="Right">
-            <!-- 4行定義 -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <!-- 1列定義 -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock Margin="3" 
-                       Text="しょうさい" 
-                       Grid.Row="0" 
-                       Grid.Column="0" 
-                       FontFamily="/IkaStylist;component/Resources/#イカモドキ" 
-                       FontSize="20"  
-                       HorizontalAlignment="Left" />
-
-            <Border Grid.Row="1" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,5">
-                <!-- アタマ -->
-                <Grid ShowGridLines="False">
-                    <!-- 3行定義 -->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <!-- 4列定義 -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.ColumnSpan="4" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="SteelBlue" CornerRadius="0">
-                        <TextBlock Margin="3" 
-                                   Text="{Binding Path=SelectionMgr.HeadGearName}"
-                                   FontFamily="/IkaStylist;component/Resources/#イカモドキ,/IkaStylist;component/Resources/#nicokaku" 
-                                   FontSize="15"
-                                   HorizontalAlignment="Left" />
-                    </Border>
-                    <Image Grid.RowSpan="2" Grid.Row="1" Grid.Column="0"
-                           Source="{Binding Path=SelectionMgr.HeadGearImg}" Stretch="Uniform" Width="50" Height="50" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Image Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"
-                           Source="{Binding Path=SelectionMgr.HeadMainGearImg}" Stretch="Uniform" Width="40" Height="40" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="1"
-                           Source="{Binding Path=SelectionMgr.HeadSubGear1Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="2"
-                           Source="{Binding Path=SelectionMgr.HeadSubGear2Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="3"
-                           Source="{Binding Path=SelectionMgr.HeadSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
-            </Border>
-            <Border Grid.Row="2" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,5">
-                <!-- フク -->
-                <Grid ShowGridLines="False">
-                    <!-- 3行定義 -->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <!-- 4列定義 -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.ColumnSpan="4" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="SteelBlue" CornerRadius="0">
-                        <TextBlock Margin="3" 
-                                   Text="{Binding Path=SelectionMgr.ClothGearName}"
-                                   FontFamily="/IkaStylist;component/Resources/#イカモドキ,/IkaStylist;component/Resources/#nicokaku" 
-                                   FontSize="15"
-                                   HorizontalAlignment="Left" />
-                    </Border>
-                    <Image Grid.RowSpan="2" Grid.Row="1" Grid.Column="0"
-                           Source="{Binding Path=SelectionMgr.ClothGearImg}" Stretch="Uniform" Width="50" Height="50" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Image Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"
-                           Source="{Binding Path=SelectionMgr.ClothMainGearImg}" Stretch="Uniform" Width="40" Height="40" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="1"
-                           Source="{Binding Path=SelectionMgr.ClothSubGear1Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="2"
-                           Source="{Binding Path=SelectionMgr.ClothSubGear2Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="3"
-                           Source="{Binding Path=SelectionMgr.ClothSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
-            </Border>
-            <Border Grid.Row="3" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,3">
-                <!-- クツ -->
-                <Grid ShowGridLines="False">
-                    <!-- 3行定義 -->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <!-- 4列定義 -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <Border Grid.ColumnSpan="4" Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="SteelBlue" CornerRadius="0">
-                        <TextBlock Margin="3" 
-                                   Text="{Binding Path=SelectionMgr.ShoesGearName}"
-                                   FontFamily="/IkaStylist;component/Resources/#イカモドキ,/IkaStylist;component/Resources/#nicokaku" 
-                                   FontSize="15"  
-                                   HorizontalAlignment="Left" />
-                    </Border>
-                    <Image Grid.RowSpan="2" Grid.Row="1" Grid.Column="0"
-                           Source="{Binding Path=SelectionMgr.ShoesGearImg}" Stretch="Uniform" Width="50" Height="50" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                    <Image Grid.ColumnSpan="3" Grid.Row="1" Grid.Column="1"
-                           Source="{Binding Path=SelectionMgr.ShoesMainGearImg}" Stretch="Uniform" Width="40" Height="40" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="1"
-                           Source="{Binding Path=SelectionMgr.ShoesSubGear1Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="2"
-                           Source="{Binding Path=SelectionMgr.ShoesSubGear2Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Image Grid.Row="2" Grid.Column="3"
-                           Source="{Binding Path=SelectionMgr.ShoesSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Grid>
-            </Border>
         </Grid>
     </DockPanel>
     

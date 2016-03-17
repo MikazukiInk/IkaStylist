@@ -34,9 +34,6 @@
             <Style x:Key="Ikamodoki">
                 <Setter Property="TextElement.FontFamily" Value="Resources/ikamodoki1_0.ttf"/>
             </Style>
-            <Style x:Key="nicokaku">
-                <Setter Property="TextElement.FontFamily" Value="Resources/nicokaku_v1.ttf"/>
-            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/ShinyBlue.xaml"/>
             </ResourceDictionary.MergedDictionaries>

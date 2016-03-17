@@ -48,19 +48,20 @@ namespace IkaStylist.ViewModels
         {
             get
             {
-                if ( _OptMgr == null )
+                if (_OptMgr == null)
                 {
                     _OptMgr = new OptManager();
                 }
                 return _OptMgr;
             }
-            set{
+            set
+            {
                 if (_OptMgr == value)
                     return;
                 _OptMgr = value;
             }
         }
-        
+
         ///<summary>メインウィンドウの初期化関数</summary>
         public void Initialize()
         {
@@ -111,13 +112,14 @@ namespace IkaStylist.ViewModels
         public void SelectDataGridItem(DataGrid dataGrid)
         {
             int row = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
-            if( row < 0 || row > (ResultView.Count -1) ){
-            	return;
+            if (row < 0 || row > (ResultView.Count - 1))
+            {
+                return;
             }
             SelectionMgr.update(ResultView[row]);
         }
         #endregion
-        
+
         ///<summary>[さがす]ボタンの処理</summary>
         #region SearchCommand
         private ViewModelCommand _SearchCommand;
@@ -139,7 +141,7 @@ namespace IkaStylist.ViewModels
             //検索結果DataGridを初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
             SelectionMgr.init();
-            
+
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
 
@@ -160,7 +162,8 @@ namespace IkaStylist.ViewModels
                 //検索クラスのインスタンス生成
                 this.Searcher = new Searcher(OptMgr);
                 //ゴリ押し全パターン検索
-                if (OptMgr.isFestival) {
+                if (OptMgr.isFestival)
+                {
                     this.Searcher.Init(AtamaData, FesTData, KutuData);
                 }
                 else
@@ -228,10 +231,12 @@ namespace IkaStylist.ViewModels
         #region
         public bool toggleFesMode
         {
-            get{
+            get
+            {
                 return OptMgr.isFestival;
             }
-            set{
+            set
+            {
                 this.Searcher = null;
                 OptMgr.isFestival = !OptMgr.isFestival;
             }
