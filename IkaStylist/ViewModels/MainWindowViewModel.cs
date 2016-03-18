@@ -112,6 +112,10 @@ namespace IkaStylist.ViewModels
         public void SelectDataGridItem(DataGrid dataGrid)
         {
             dataGrid.UpdateLayout();
+            if (dataGrid.SelectedItem == null)
+            {
+                return;
+            }
             dataGrid.ScrollIntoView(dataGrid.SelectedItem);
             DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(dataGrid.SelectedItem);
             if (row == null) { return; }
