@@ -137,7 +137,7 @@ namespace IkaStylist.Models
         private BitmapImage getGearBitmap(string filename)
         {
             string projectName = myAssembly.GetName().Name + ".Resources.";
-            string pngFile = projectName + "None2.png";
+            string pngFile = null;
 
             if (filename != null)
             {
@@ -149,7 +149,7 @@ namespace IkaStylist.Models
         private BitmapImage getGearPowerBitmap(int id)
         {
             string projectName = myAssembly.GetName().Name + ".Resources.";
-            string pngFile = projectName + "None2.png";
+            string pngFile = null;
             if (id != -1)
             {
                 pngFile = projectName + EnumLiteralAttribute.GetLiteral((GearPowerImg)(id)) + "2.png";
@@ -159,11 +159,11 @@ namespace IkaStylist.Models
 
         private BitmapImage getBitmap(string filePath)
         {
-            System.IO.Stream resourcePath = myAssembly.GetManifestResourceStream(filePath);
-            if (resourcePath == null)
+            if (filePath == null)
             {
-                return new BitmapImage();
+                return new BitmapImage();//何も表示しない.
             }
+            System.IO.Stream resourcePath = myAssembly.GetManifestResourceStream(filePath);
             BitmapImage bitmap = new BitmapImage();
             bitmap.BeginInit();
             bitmap.StreamSource = resourcePath;
