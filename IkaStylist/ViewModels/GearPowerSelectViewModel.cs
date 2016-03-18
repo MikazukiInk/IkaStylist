@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
 
 using Livet;
 using Livet.Commands;
@@ -19,6 +20,7 @@ namespace IkaStylist.ViewModels
     {
         const int SubPowerSize = 3;
         private Gear _Origin;
+        private System.Reflection.Assembly myAssembly;
 
         public GearPowerSelectViewModel(Gear gear)
         {
@@ -26,6 +28,7 @@ namespace IkaStylist.ViewModels
             this.SubPower = new string[SubPowerSize];
             this.GearName += gear.Name;
             _Origin = gear;
+            this.myAssembly = System.Reflection.Assembly.GetExecutingAssembly();
         }
 
         public void Initialize()
@@ -172,6 +175,53 @@ namespace IkaStylist.ViewModels
                     return;
                 _Message = value;
                 RaisePropertyChanged("Message");
+            }
+        }
+        #endregion
+
+        #region ギア画像変更通知プロパティ
+        private BitmapImage getBitmap(string filePath)
+        {
+            System.IO.Stream resourcePath = this.myAssembly.GetManifestResourceStream(filePath);
+            if (resourcePath == null)
+            {
+                return new BitmapImage();//なにも表示しない.
+            }
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.StreamSource = resourcePath;
+            bitmap.EndInit();
+            return bitmap;
+        }
+
+        private BitmapImage getGearBitmap(string filename)
+        {
+            string pngFile = null;
+
+            if (filename != null)
+            {
+                string projectName = this.myAssembly.GetName().Name + ".Resources.";
+                pngFile = projectName + filename + ".png";
+            }
+            return getBitmap(pngFile);
+        }
+
+        public BitmapImage GearImg
+        {
+        	get
+            {
+                if (_Origin != null)
+                {
+                    return getGearBitmap(_Origin.imgName);
+                }
+                else
+                {
+                    return getGearBitmap(null);//本来ない.
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
             }
         }
         #endregion

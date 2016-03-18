@@ -35,7 +35,25 @@
             <MouseBinding MouseAction="RightDoubleClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
         </StackPanel.InputBindings>
         <!--<TextBlock Margin="3" Text="{Binding GearName}" FontFamily="Segoe WP Black" FontSize="20"/>-->
-        <TextBlock Margin="3" Text="{Binding Message}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"  HorizontalAlignment="Center" />
+        <Grid DockPanel.Dock="Right" ShowGridLines="False" HorizontalAlignment="Left">
+            <!-- 1行定義 -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <!-- 2列定義 -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="2" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="10,5,0,0">
+                <Image Grid.Row="0" Grid.Column="0"
+                       Source="{Binding Path=GearImg}" Stretch="Uniform" Height="60" Margin="3" 
+                       HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </Border>
+            <TextBlock Grid.Row="0" Grid.Column="1" 
+                       Margin="6,0,3,3" Text="{Binding Message}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" 
+                       HorizontalAlignment="Center" VerticalAlignment="Bottom" />
+        </Grid>
         <!--<TextBlock Margin="10,0" Text="{Binding SubPower[0]}"/>-->
         <WrapPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3">
             <Button Width="50" Height="50" Command="{Binding SelectCommand}" CommandParameter="0" Margin="1">
