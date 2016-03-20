@@ -28,6 +28,8 @@ namespace IkaStylist.ViewModels
             this.FileName = fname;
             makeBrandNames();
             this.filterBrandId = 0;
+            this.UnInputed = false;
+            this.UnInputedNum = 1;
         }
 
         private void makeBrandNames()
@@ -56,22 +58,18 @@ namespace IkaStylist.ViewModels
 
         public void filtering()
         {
-            /*
-            foreach( Gear gearItem in GearData){
-                if (gearItem.Brand.Id != this.filterBrandId && this.filterBrandId != 0)
-                {
-                    gearItem.visibleGear = false;
-                }
-                else
-                {
-                    gearItem.visibleGear = true;
-                }
+            if (GearData_Master == null)
+            {
+                return;
             }
-            */
             List<Gear> tmp = new List<Gear>(GearData_Master);
             if (filterBrandId != 0)
             {
                 tmp.RemoveAll(x => x.Brand.Id != filterBrandId);
+            }
+            if (this.UnInputed)
+            {
+                tmp.RemoveAll(x => x.unInputedGearPower < this.UnInputedNum);
             }
             this.GearData = new ObservableSynchronizedCollection<Gear>(tmp);
         }
@@ -117,11 +115,6 @@ namespace IkaStylist.ViewModels
             { return _SelectedGear; }
             set
             {
-                /*
-                if (_SelectedGear == value)
-                    return;
-                _SelectedGear = value;
-                 */
                 if (_SelectedGear == value)
                 {
                     return;
@@ -175,6 +168,7 @@ namespace IkaStylist.ViewModels
             using (var vm = new GearPowerSelectViewModel(this.SelectedGear))
             {
                 Messenger.Raise(new TransitionMessage(vm, "SelectCommand"));
+                this.filtering();
             }
         }
         #endregion
@@ -258,6 +252,41 @@ namespace IkaStylist.ViewModels
                     return;
                 _filterBrandId = value;
                 BrandImg = new BitmapImage();//RaisePropertyChanged発火用.
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+        #region
+        private bool _UnInputed;
+        public bool UnInputed
+        {
+            get
+            { return _UnInputed; }
+            set
+            {
+                if (_UnInputed == value)
+                    return;
+                _UnInputed = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+        
+        #region
+        private int _UnInputedNum;
+        public int UnInputedNum
+        {
+            get
+            { return _UnInputedNum; }
+            set
+            {
+                if (_UnInputedNum == value)
+                    return;
+                if (value > 3 || value < 1)
+                    return;
+                _UnInputedNum = value;
                 filtering();
                 RaisePropertyChanged();
             }
