@@ -94,11 +94,11 @@
                 <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}"/>
                 <StackPanel Grid.Row="6" Grid.ColumnSpan="3" >
                     <CheckBox Content="未強化のギアを使わない" IsChecked="{Binding OptMgr.OnlyEnhanced}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"/>
-                    <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                         <TextBlock Text="誤差は" VerticalAlignment="Center" Margin="20,0,0,0"/>
                         <wpfTool:IntegerUpDown Margin="3" Minimum="0" Maximum="9" Width="40" Value="{Binding OptMgr.Tolerance}"/>
                         <TextBlock Text="ポイントまで認める" VerticalAlignment="Center"/>
-                    </StackPanel>-->
+                    </StackPanel>
                 </StackPanel>
                 <Button Grid.Row="7" Grid.ColumnSpan="3" Margin="6" Content="さがす　！" Command="{Binding SearchCommand}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
             </Grid>
@@ -255,7 +255,7 @@
             <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="30,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--結果表示用データグリッド-->
             <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" AutoGenerateColumns="False" IsReadOnly="True" 
-                      ItemsSource="{Binding ResultView}" SelectedItem="{Binding SelectedCoordinate}">
+                      ItemsSource="{Binding ResultView}" SelectedItem="{Binding SelectedCoordinate}" MinWidth="250" Width="Auto">
                 <DataGrid.Resources>
                     <v:BindingProxy x:Key="proxy" Data="{Binding}" />
                 </DataGrid.Resources>
