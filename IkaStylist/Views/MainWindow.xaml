@@ -144,7 +144,7 @@
                        Grid.Column="0" 
                        FontFamily="/IkaStylist;component/Resources/#イカモドキ" 
                        FontSize="20"  
-                       HorizontalAlignment="Center" />
+                       HorizontalAlignment="Left" />
 
             <Border Grid.Row="1" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,5">
                 <!-- アタマ -->
@@ -252,7 +252,7 @@
                 <RowDefinition Height="30" />
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="100,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="30,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--結果表示用データグリッド-->
             <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" AutoGenerateColumns="False" IsReadOnly="True" 
                       ItemsSource="{Binding ResultView}" SelectedItem="{Binding SelectedCoordinate}">
