@@ -60,7 +60,8 @@
                        Margin="3,3,3,3" Text="ブランドでしぼりこみたイカ？" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" 
                        HorizontalAlignment="Left" VerticalAlignment="Bottom" />
             <ComboBox Grid.Row="1" Grid.Column="0" 
-                      Margin="3" ItemsSource="{Binding BrandNames}" SelectedIndex="{Binding filterBrandId}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16"/>
+                      Margin="3" ItemsSource="{Binding BrandNames}" SelectedIndex="{Binding filterBrandId}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16"
+                      MaxDropDownHeight="1000"/>
             <Border Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Background="Ivory" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="3,0,0,0">
                 <Image Grid.Row="0" Grid.Column="0"
                        Source="{Binding Path=BrandImg}" Stretch="Uniform" Height="40" Width="40" Margin="3" 
