@@ -25,7 +25,6 @@ namespace IkaStylist.Models
             this.LastUpdated = "";
             this._imgName    = "";
             this.Brand       = new Brand();
-            this.visibleGear = true;
         }
 
         public Gear( Gear input )
@@ -39,7 +38,6 @@ namespace IkaStylist.Models
             this.LastUpdated = input.LastUpdated;
             this._imgName    = input.imgName;
             this.Brand       = input.Brand;
-            this.visibleGear = input.visibleGear;
         }
         
         static public string IdToName(int id)
@@ -287,18 +285,19 @@ namespace IkaStylist.Models
         #endregion
 
         #region
-        private bool _visibleGear;
-        public bool visibleGear
+        public int unInputedGearPower
         {
             get
             {
-                return _visibleGear;
+                int count = 0;
+                if (this.MainPower.Id == (int)GearPowerKind.None) { count++; }
+                if (this.SubPower1.Id == (int)GearPowerKind.None) { count++; }
+                if (this.SubPower2.Id == (int)GearPowerKind.None) { count++; }
+                if (this.SubPower3.Id == (int)GearPowerKind.None) { count++; }
+                return count;
             }
             set
             {
-                if (_visibleGear == value)
-                    return;
-                _visibleGear = value;
                 RaisePropertyChanged();
             }
         }
