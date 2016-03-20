@@ -36,19 +36,54 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Margin="-3,0,3,0">
-            <TextBlock Margin="6" Text="ギアをえらんでダブルクリックしてね" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" VerticalAlignment="Center" />
-            <Button Content="  セーブする  " Margin="3" Command="{Binding SaveCommand}" HorizontalAlignment="Right" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"/>
-        </DockPanel>
-        <DataGrid  Margin="3" Name="dataGrid1" ItemsSource="{Binding GearData}" AutoGenerateColumns="False" IsReadOnly="True"
-                   SelectedItem="{Binding SelectedGear}" Grid.Row="1">　
+        <Border Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="SteelBlue" Margin="0,0,0,3" >
+            <DockPanel Margin="-3,0,3,0">        
+                <TextBlock Margin="6" Text="ギアをえらんでダブルクリックしてね" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="26" VerticalAlignment="Center" />
+                <Button Content="  セーブする  " Margin="3" Command="{Binding SaveCommand}" HorizontalAlignment="Right" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20"/>        
+            </DockPanel>
+        </Border>
+        <Grid Grid.Row="1" ShowGridLines="False" HorizontalAlignment="Left">
+            <!-- 1行定義 -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="35" />
+            </Grid.RowDefinitions>
+            <!-- 2列定義 -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="65" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" 
+                       Margin="3,3,3,3" Text="ブランドでしぼりこみたイカ？" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16" 
+                       HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            <ComboBox Grid.Row="1" Grid.Column="0" 
+                      Margin="3" ItemsSource="{Binding BrandNames}" SelectedIndex="{Binding filterBrandId}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="16"/>
+            <Border Grid.RowSpan="2" Grid.Row="0" Grid.Column="1" Background="Ivory" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="3,0,0,0">
+                <Image Grid.Row="0" Grid.Column="0"
+                       Source="{Binding Path=BrandImg}" Stretch="Uniform" Height="40" Width="40" Margin="3" 
+                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+        </Grid>
+        <DataGrid  Grid.Row="2" Margin="3" Name="dataGrid1" ItemsSource="{Binding GearData}" AutoGenerateColumns="False" IsReadOnly="True"
+                   SelectedItem="{Binding SelectedGear}" >　
             <DataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding SelectGearPowerCommand}" />
             </DataGrid.InputBindings>
 
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <Image Source="{Binding Path=BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
                 <DataGridTextColumn Binding="{Binding Path=Name}"
                     CanUserReorder="True" CanUserResize="True"
                     CanUserSort="True" Header="ナマエ" />

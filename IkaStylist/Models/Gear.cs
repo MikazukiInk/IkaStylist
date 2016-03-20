@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows;
 using System.Linq;
 using System.Text;
+using System.Windows.Media.Imaging;
 
 using Livet;
 
@@ -13,31 +14,34 @@ namespace IkaStylist.Models
     ///<summary>ギアを管理するためのクラス</summary>
     public class Gear : NotificationObject
     {
-    	public Gear()
-    	{
-    		this._Id = -1;
-    		this._Name = "no input";
-    		this._MainPower = new GearPower();
-    		this._SubPower1 = new GearPower();
-    		this._SubPower2 = new GearPower();
-            this._SubPower3 = new GearPower();
+        public Gear()
+        {
+            this._Id         = -1;
+            this._Name       = "no input";
+            this._MainPower  = new GearPower();
+            this._SubPower1  = new GearPower();
+            this._SubPower2  = new GearPower();
+            this._SubPower3  = new GearPower();
             this.LastUpdated = "";
-            this._imgName = "";
-    	}
+            this._imgName    = "";
+            this.Brand       = new Brand();
+            this.visibleGear = true;
+        }
 
-    	public Gear( Gear input )
-    	{
-    		this._Id = input.Id;
-    		this._Name = input.Name;
-    		this._MainPower = new GearPower(input.MainPower);
-    		this._SubPower1 = new GearPower(input.SubPower1);
-    		this._SubPower2 = new GearPower(input.SubPower2);
-    		this._SubPower3 = new GearPower(input.SubPower3);
+        public Gear( Gear input )
+        {
+            this._Id         = input.Id;
+            this._Name       = input.Name;
+            this._MainPower  = new GearPower(input.MainPower);
+            this._SubPower1  = new GearPower(input.SubPower1);
+            this._SubPower2  = new GearPower(input.SubPower2);
+            this._SubPower3  = new GearPower(input.SubPower3);
             this.LastUpdated = input.LastUpdated;
-            this._imgName = input.imgName;
-
-    	}
-    	
+            this._imgName    = input.imgName;
+            this.Brand       = input.Brand;
+            this.visibleGear = input.visibleGear;
+        }
+        
         static public string IdToName(int id)
         {
             return EnumLiteralAttribute.GetLiteral( (GearPowerKind)(id) );
@@ -72,6 +76,9 @@ namespace IkaStylist.Models
                 if (_Name == value)
                     return;
                 _Name   = value;
+                //Id
+                this.Id = _Name.GetHashCode();
+                //画像ファイル名.
                 if (IkaUtil.GearImgDict.ContainsKey(_Name))
                 {
                     imgName = IkaUtil.GearImgDict[_Name];
@@ -79,7 +86,16 @@ namespace IkaStylist.Models
                 else
                 {
                     imgName = "None";
-                }          
+                }
+                //ブランド.
+                if (IkaUtil.BrandImgDict.ContainsKey(_Name))
+                {
+                    Brand = IkaUtil.BrandImgDict[_Name];
+                }
+                else
+                {
+                    Brand = new Brand();
+                }
                 RaisePropertyChanged();
             }
         }
@@ -239,5 +255,53 @@ namespace IkaStylist.Models
         }
         #endregion
 
+        #region
+        public BitmapImage BitmapImg
+        {
+            get
+            {
+                return IkaUtil.getGearBitmap( imgName );
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region ブランド変更通知プロパティ
+        private Brand _brand;
+
+        public Brand Brand
+        {
+            get
+            { return _brand; }
+            set
+            {
+                if (_brand == value)
+                    return;
+                _brand = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        private bool _visibleGear;
+        public bool visibleGear
+        {
+            get
+            {
+                return _visibleGear;
+            }
+            set
+            {
+                if (_visibleGear == value)
+                    return;
+                _visibleGear = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
     }
 }//namespace IkaStylist.Models

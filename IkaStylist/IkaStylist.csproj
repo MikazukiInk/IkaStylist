@@ -164,6 +164,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Coordinate.cs" />
     <Compile Include="Models\Defs.cs" />
     <Compile Include="Models\GearPower.cs" />
@@ -203,23 +204,23 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Resources\brand\amiibo.png" />
-    <Resource Include="Resources\brand\Cuttlegear.png" />
-    <Resource Include="Resources\brand\Famitsu.png" />
-    <Resource Include="Resources\brand\Firefin.png" />
-    <Resource Include="Resources\brand\Forge.png" />
-    <Resource Include="Resources\brand\Inkline.png" />
-    <Resource Include="Resources\brand\KOG.png" />
-    <Resource Include="Resources\brand\KrakOn.png" />
-    <Resource Include="Resources\brand\Rockenberg.png" />
-    <Resource Include="Resources\brand\Skalop.png" />
-    <Resource Include="Resources\brand\SplashMob.png" />
-    <Resource Include="Resources\brand\SquidForce.png" />
-    <Resource Include="Resources\brand\SquidGirl.png" />
-    <Resource Include="Resources\brand\Takoroka.png" />
-    <Resource Include="Resources\brand\Tentatek.png" />
-    <Resource Include="Resources\brand\Zekko.png" />
-    <Resource Include="Resources\brand\Zink.png" />
+    <EmbeddedResource Include="Resources\brand\amiibo.png" />
+    <EmbeddedResource Include="Resources\brand\Cuttlegear.png" />
+    <EmbeddedResource Include="Resources\brand\Famitsu.png" />
+    <EmbeddedResource Include="Resources\brand\Firefin.png" />
+    <EmbeddedResource Include="Resources\brand\Forge.png" />
+    <EmbeddedResource Include="Resources\brand\Inkline.png" />
+    <EmbeddedResource Include="Resources\brand\KOG.png" />
+    <EmbeddedResource Include="Resources\brand\KrakOn.png" />
+    <EmbeddedResource Include="Resources\brand\Rockenberg.png" />
+    <EmbeddedResource Include="Resources\brand\Skalop.png" />
+    <EmbeddedResource Include="Resources\brand\SplashMob.png" />
+    <EmbeddedResource Include="Resources\brand\SquidForce.png" />
+    <EmbeddedResource Include="Resources\brand\SquidGirl.png" />
+    <EmbeddedResource Include="Resources\brand\Takoroka.png" />
+    <EmbeddedResource Include="Resources\brand\Tentatek.png" />
+    <EmbeddedResource Include="Resources\brand\Zekko.png" />
+    <EmbeddedResource Include="Resources\brand\Zink.png" />
     <EmbeddedResource Include="Resources\BombRangeUp2.png" />
     <EmbeddedResource Include="Resources\BombSniffer2.png" />
     <EmbeddedResource Include="Resources\ColdBlooded2.png" />
