@@ -254,14 +254,8 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="100,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--結果表示用データグリッド-->
-            <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" ItemsSource="{Binding ResultView}" AutoGenerateColumns="False" IsReadOnly="True" >
-            
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="SelectDataGridItem" MethodParameter="{Binding ElementName=dataGrid1}" />
-                   </i:EventTrigger>
-                </i:Interaction.Triggers>
-                
+            <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" AutoGenerateColumns="False" IsReadOnly="True" 
+                      ItemsSource="{Binding ResultView}" SelectedItem="{Binding SelectedCoordinate}">
                 <DataGrid.Resources>
                     <v:BindingProxy x:Key="proxy" Data="{Binding}" />
                 </DataGrid.Resources>

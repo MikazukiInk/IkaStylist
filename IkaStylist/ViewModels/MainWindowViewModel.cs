@@ -107,46 +107,6 @@ namespace IkaStylist.ViewModels
             this.ColumnVisibilitys = tempVisibility;
         }
 
-        ///<summary>検索結果オブジェクト選択</summary>
-        #region
-        public void SelectDataGridItem(DataGrid dataGrid)
-        {
-            dataGrid.UpdateLayout();
-            if (dataGrid.SelectedItem == null)
-            {
-                return;
-            }
-            dataGrid.ScrollIntoView(dataGrid.SelectedItem);
-            DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator.ContainerFromItem(dataGrid.SelectedItem);
-            if (row == null) { return; }
-            TextBlock   headNameBlock  = dataGrid.Columns[0].GetCellContent(row) as TextBlock;
-            string      headName       = headNameBlock.Text;
-            TextBlock   clothNameBlock = dataGrid.Columns[1].GetCellContent(row) as TextBlock;
-            string      clothName      = clothNameBlock.Text;
-            TextBlock   shoesNameBlock = dataGrid.Columns[2].GetCellContent(row) as TextBlock;
-            string      shoesName      = shoesNameBlock.Text;
-
-            int index = 0;//foreachの方が速いらしいのでこっち使う.
-            foreach( Coordinate item in ResultView)
-            {
-                if( item.HeadGear.Name == headName &&
-                    item.ClothGear.Name == clothName &&
-                    item.ShoesGear.Name == shoesName )
-                {
-                    break;
-                }
-                index++;
-            }
-
-            if (index >= ResultView.Count())
-            {
-                return;
-            }
-
-            SelectionMgr.update(ResultView[index]);
-        }
-        #endregion
-
         ///<summary>[さがす]ボタンの処理</summary>
         #region SearchCommand
         private ViewModelCommand _SearchCommand;
@@ -255,7 +215,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region
+        #region toggleFesModeプロパティ
         public bool toggleFesMode
         {
             get
@@ -289,7 +249,7 @@ namespace IkaStylist.ViewModels
         #endregion
 
         ///<summary>検索結果で選択しているオブジェクトの取得</summary>
-        #region
+        #region SelectionMgrプロパティ
         public SelectionManager _SelectionMgr;
         public SelectionManager SelectionMgr
         {
@@ -300,6 +260,27 @@ namespace IkaStylist.ViewModels
                 if (_SelectionMgr == value)
                     return;
                 _SelectionMgr = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region SelectedCoordinate変更通知プロパティ
+        private Coordinate _SelectedCoordinate;
+        
+        ///<summary>結果表示DataGridの選択アイテム</summary>
+        public Coordinate SelectedCoordinate
+        {
+            get
+            { return _SelectedCoordinate; }
+            set
+            { 
+                if (_SelectedCoordinate == value)
+                    return;
+                _SelectedCoordinate = value;
+                
+                //詳細画面更新
+                SelectionMgr.update(value);
                 RaisePropertyChanged();
             }
         }
