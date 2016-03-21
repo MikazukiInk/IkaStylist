@@ -36,7 +36,8 @@ namespace IkaStylist.ViewModels
         {
             //BrandNames初期化
             var temp = new ObservableSynchronizedCollection<string>();
-            for (int ii = 0; ii < IkaUtil.brands.Length; ii++)
+            temp.Add("全てのブランド");
+            for (int ii = 1; ii < IkaUtil.brands.Length; ii++)
             {
                 temp.Add(IkaUtil.brands[ii].Name);
             }
@@ -123,14 +124,14 @@ namespace IkaStylist.ViewModels
                 {
                     return;
                 }
-                _SelectedGear = getMasteGear(value);
+                _SelectedGear = getMasterGear(value);
                 RaisePropertyChanged();
             }
         }
         #endregion
 
-        #region
-        private Gear getMasteGear(Gear selectGear)
+        #region getMasterGear
+        private Gear getMasterGear(Gear selectGear)
         {
             foreach(Gear m_gear in GearData_Master)
             {
@@ -200,7 +201,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region
+        #region BrandImg変更通知プロパティ
         private BitmapImage _BrandImg;
         public BitmapImage BrandImg
         {
@@ -240,7 +241,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region
+        #region filterBrandId
         private int _filterBrandId;
         public int filterBrandId
         {
@@ -257,7 +258,8 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-        #region
+
+        #region UnInputed
         private bool _UnInputed;
         public bool UnInputed
         {
@@ -273,8 +275,8 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-        
-        #region
+
+        #region UnInputedNum
         private int _UnInputedNum;
         public int UnInputedNum
         {
