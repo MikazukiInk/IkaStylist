@@ -52,30 +52,39 @@ namespace IkaStylist.Models
         }
         #endregion
     }
-    
+
     ///<summary>オプション値を管理するためのクラス</summary>
     public class OptManager : NotificationObject
     {
-    	public OptManager()
-    	{
-    		MaxReslutSize = Constants.__DEFAULT_RESULT_SIZE__;
-    		Requests = new Request[Constants.__REQUEST_SIZE__];
-    		OnlyEnhanced = true;
-    		Tolerance = 0;
-            isFestival = false;
-    	}
-    	
-    	///<summary>検索条件の最大サイズ</summary>
-        #region 
-        private int _RequestSize = Constants.__REQUEST_SIZE__;
-        public int RequestSize
+        public OptManager()
         {
-            get
-            { return _RequestSize; }
-            set
-            { /* set 不可 */}
+            this.MaxReslutSize = Constants.__DEFAULT_RESULT_SIZE__;
+            this.Requests = new Request[Constants.__REQUEST_SIZE__];
+            for (int i = 0; i < this.Requests.Length; i++)
+            {
+                this.Requests[i] = new Request();
+            }
+            this.OnlyEnhanced = true;
+            this.Tolerance = 0;
+            this.isFestival = false;
         }
-        #endregion
+
+        ///<summary>検索リクエストのリセット</summary>
+        public void ResetRequest()
+        {
+            var temp = new Request[OptManager.RequestSize];
+            for (int i = 0; i < temp.Length; i++)
+            {
+                temp[i] = new Request();
+            }
+            temp[0].GearPowerID = 1;//条件１は攻撃力に設定
+            temp[0].Point = 10;//初期値10に設定
+            this.Requests = temp;
+            this.Tolerance = 0;
+        }
+
+        ///<summary>検索条件の最大サイズ</summary>
+        public static readonly int RequestSize = Constants.__REQUEST_SIZE__;
 
         ///<summary>最大表示件数</summary>
         #region MaxReslutSize変更通知プロパティ

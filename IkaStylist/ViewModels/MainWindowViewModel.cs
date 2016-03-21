@@ -80,21 +80,10 @@ namespace IkaStylist.ViewModels
             this.SelectionMgr = new SelectionManager();
 
             //リクエスト初期化
-            var tempReq = new Request[OptMgr.RequestSize];
-            for (int i = 0; i < OptMgr.Requests.Length; i++)
-            {
-                tempReq[i] = new Request();
-            }
-            OptMgr.Requests = tempReq;
-            OptMgr.Requests[0].GearPowerID = 1;//条件１は攻撃力に設定
-            OptMgr.Requests[0].Point = 10;//初期値10に設定
+            this.OptMgr.ResetRequest();
 
             //検索件数初期化
             ResultCount = 0;
-
-            OptMgr.MaxReslutSize = 200;
-            OptMgr.Tolerance = 0;
-            OptMgr.isFestival = false;
 
             //結果発表の領域初期化
             ResultView = new ObservableSynchronizedCollection<Coordinate>();
@@ -107,7 +96,6 @@ namespace IkaStylist.ViewModels
             this.ColumnVisibilitys = tempVisibility;
         }
 
-        ///<summary>[さがす]ボタンの処理</summary>
         #region SearchCommand
         private ViewModelCommand _SearchCommand;
 
@@ -123,6 +111,7 @@ namespace IkaStylist.ViewModels
             }
         }
 
+        ///<summary>[さがす]ボタンの処理</summary>
         public void Search()
         {
             //検索結果DataGridを初期化
@@ -181,6 +170,28 @@ namespace IkaStylist.ViewModels
             }
             this.ColumnVisibilitys = tempVis;
             this.ResultCount = result.Count;
+        }
+        #endregion
+
+        #region ResetCommand
+        private ViewModelCommand _ResetCommand;
+
+        public ViewModelCommand ResetCommand
+        {
+            get
+            {
+                if (_ResetCommand == null)
+                {
+                    _ResetCommand = new ViewModelCommand(Reset);
+                }
+                return _ResetCommand;
+            }
+        }
+        ///<summary>[リセット]の処理</summary>
+        public void Reset()
+        {
+            //リクエスト初期化
+            this.OptMgr.ResetRequest();
         }
         #endregion
 
