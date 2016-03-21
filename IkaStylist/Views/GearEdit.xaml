@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
          WindowStartupLocation ="CenterOwner"
-        Title="ギア編集" Height="350" Width="525" SizeToContent="Width">
+        Title="ギア編集" Height="700" SizeToContent="Width">
 
     <i:Interaction.Triggers>
 
@@ -84,6 +84,8 @@
                                     FontSize="12" />
                             <wpfTool:IntegerUpDown Margin="0" Minimum="1" Maximum="3" Width="40"
                                                 Value="{Binding UnInputedNum}"/>
+                            <TextBlock Text="以上" VerticalAlignment="Center" Margin="3,0,0,0"
+                                    FontSize="12" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
