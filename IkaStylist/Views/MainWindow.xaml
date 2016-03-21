@@ -87,15 +87,11 @@
                 <ComboBox Grid.Column="1" Grid.Row="4" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[3].GearPowerID}"/>
                 <ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[4].GearPowerID}"/>
                 <TextBlock Grid.Column="2" Text="ポイント" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="18"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseRightButtonDown"/>
-                    </i:Interaction.Triggers>
-                </wpfTool:IntegerUpDown>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[1].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[2].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[3].Point}"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[1].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[2].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[3].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="1" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
 
                 <StackPanel Grid.Row="6" Grid.ColumnSpan="3" >
                     <CheckBox Content="未強化のギアを使わない" IsChecked="{Binding OptMgr.OnlyEnhanced}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"/>
@@ -265,7 +261,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="けんさくけっか" Margin="30,0,0,0" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <!--結果表示用データグリッド-->
-            <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" AutoGenerateColumns="False" IsReadOnly="True" 
+            <DataGrid Grid.Row="1"  Margin="3" Name="dataGrid1" AutoGenerateColumns="False" IsReadOnly="True" ToolTip="ギアパワーのアイコンを&#xa;　クリックでポイント順に並べ替え&#xa;　ドラッグで表示列を並べ替え"
                       ItemsSource="{Binding ResultView}" SelectedItem="{Binding SelectedCoordinate}" MinWidth="250" Width="Auto">
                 <DataGrid.Resources>
                     <v:BindingProxy x:Key="proxy" Data="{Binding}" />
