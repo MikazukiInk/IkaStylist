@@ -30,6 +30,10 @@ namespace IkaStylist.ViewModels
             this.filterBrandId = 0;
             this.UnInputed = false;
             this.UnInputedNum = 1;
+            this.filterF = 0;
+            this.filterAll = true;
+            this.filterOnlyStrength = false;
+            this.filterOnlyNotStrength = false;
         }
 
         private void makeBrandNames()
@@ -68,9 +72,16 @@ namespace IkaStylist.ViewModels
             {
                 tmp.RemoveAll(x => x.Brand.Id != filterBrandId);
             }
-            if (this.UnInputed)
+
+            if (filterOnlyStrength)
             {
-                tmp.RemoveAll(x => x.unInputedGearPower < this.UnInputedNum);
+                //強化済みのみ.
+                tmp.RemoveAll(x => x.unInputedGearPower > 0);
+            }
+            else if (filterOnlyNotStrength)
+            {
+                //未強化のみ.
+                tmp.RemoveAll(x => x.unInputedGearPower < UnInputedNum);
             }
             this.GearData = new ObservableSynchronizedCollection<Gear>(tmp);
         }
@@ -294,5 +305,58 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
+
+        private int filterF;
+
+        private bool _filterAll;
+        public bool filterAll
+        {
+            get
+            {
+                return _filterAll;
+            }
+            set
+            {
+                if (_filterAll == value)
+                    return;
+                _filterAll = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _filterOnlyStrength;
+        public bool filterOnlyStrength
+        {
+            get
+            {
+                return _filterOnlyStrength;
+            }
+            set
+            {
+                if (_filterOnlyStrength == value)
+                    return;
+                _filterOnlyStrength = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _filterOnlyNotStrength;
+        public bool filterOnlyNotStrength
+        {
+            get
+            {
+                return _filterOnlyNotStrength;
+            }
+            set
+            {
+                if (_filterOnlyNotStrength == value)
+                    return;
+                _filterOnlyNotStrength = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
     }
 }
