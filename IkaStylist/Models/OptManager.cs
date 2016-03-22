@@ -201,7 +201,6 @@ namespace IkaStylist.Models
                     temp -= this.Requests[i].Point;
             }
             RemainingPoint = temp;
-            MainWindowViewModel.Instance.SearchCommand.RaiseCanExecuteChanged();
         }
 
         #region RemainingPoint変更通知プロパティ
@@ -216,11 +215,13 @@ namespace IkaStylist.Models
                 if (_RemainingPoint == value)
                     return;
                 _RemainingPoint = value;
-                if (_RemainingPoint < 0) {
+                if (_RemainingPoint < 0)
+                {
                     canSearch = false;
                     RemainingPointColor = Brushes.Red;
                 }
-                else {
+                else
+                {
                     canSearch = true;
                     RemainingPointColor = Brushes.Black;
                 }
