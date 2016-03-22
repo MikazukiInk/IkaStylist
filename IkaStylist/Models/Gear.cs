@@ -290,7 +290,7 @@ namespace IkaStylist.Models
             get
             {
                 int count = 0;
-                if (this.MainPower.Id == (int)GearPowerKind.None) { count++; }
+                //if (this.MainPower.Id == (int)GearPowerKind.None) { count++; }
                 if (this.SubPower1.Id == (int)GearPowerKind.None) { count++; }
                 if (this.SubPower2.Id == (int)GearPowerKind.None) { count++; }
                 if (this.SubPower3.Id == (int)GearPowerKind.None) { count++; }

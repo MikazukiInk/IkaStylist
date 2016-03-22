@@ -30,13 +30,18 @@ namespace IkaStylist.ViewModels
             this.filterBrandId = 0;
             this.UnInputed = false;
             this.UnInputedNum = 1;
+            this.filterF = 0;
+            this.filterAll = true;
+            this.filterOnlyStrength = false;
+            this.filterOnlyNotStrength = false;
         }
 
         private void makeBrandNames()
         {
             //BrandNames初期化
             var temp = new ObservableSynchronizedCollection<string>();
-            for (int ii = 0; ii < IkaUtil.brands.Length; ii++)
+            temp.Add("全てのブランド");
+            for (int ii = 1; ii < IkaUtil.brands.Length; ii++)
             {
                 temp.Add(IkaUtil.brands[ii].Name);
             }
@@ -67,9 +72,16 @@ namespace IkaStylist.ViewModels
             {
                 tmp.RemoveAll(x => x.Brand.Id != filterBrandId);
             }
-            if (this.UnInputed)
+
+            if (filterOnlyStrength)
             {
-                tmp.RemoveAll(x => x.unInputedGearPower < this.UnInputedNum);
+                //強化済みのみ.
+                tmp.RemoveAll(x => x.unInputedGearPower > 0);
+            }
+            else if (filterOnlyNotStrength)
+            {
+                //未強化のみ.
+                tmp.RemoveAll(x => x.unInputedGearPower < UnInputedNum);
             }
             this.GearData = new ObservableSynchronizedCollection<Gear>(tmp);
         }
@@ -123,14 +135,14 @@ namespace IkaStylist.ViewModels
                 {
                     return;
                 }
-                _SelectedGear = getMasteGear(value);
+                _SelectedGear = getMasterGear(value);
                 RaisePropertyChanged();
             }
         }
         #endregion
 
-        #region
-        private Gear getMasteGear(Gear selectGear)
+        #region getMasterGear
+        private Gear getMasterGear(Gear selectGear)
         {
             foreach(Gear m_gear in GearData_Master)
             {
@@ -200,7 +212,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region
+        #region BrandImg変更通知プロパティ
         private BitmapImage _BrandImg;
         public BitmapImage BrandImg
         {
@@ -240,7 +252,7 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region
+        #region filterBrandId
         private int _filterBrandId;
         public int filterBrandId
         {
@@ -257,7 +269,8 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-        #region
+
+        #region UnInputed
         private bool _UnInputed;
         public bool UnInputed
         {
@@ -273,8 +286,8 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
-        
-        #region
+
+        #region UnInputedNum
         private int _UnInputedNum;
         public int UnInputedNum
         {
@@ -292,5 +305,58 @@ namespace IkaStylist.ViewModels
             }
         }
         #endregion
+
+        private int filterF;
+
+        private bool _filterAll;
+        public bool filterAll
+        {
+            get
+            {
+                return _filterAll;
+            }
+            set
+            {
+                if (_filterAll == value)
+                    return;
+                _filterAll = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _filterOnlyStrength;
+        public bool filterOnlyStrength
+        {
+            get
+            {
+                return _filterOnlyStrength;
+            }
+            set
+            {
+                if (_filterOnlyStrength == value)
+                    return;
+                _filterOnlyStrength = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _filterOnlyNotStrength;
+        public bool filterOnlyNotStrength
+        {
+            get
+            {
+                return _filterOnlyNotStrength;
+            }
+            set
+            {
+                if (_filterOnlyNotStrength == value)
+                    return;
+                _filterOnlyNotStrength = value;
+                filtering();
+                RaisePropertyChanged();
+            }
+        }
     }
 }
