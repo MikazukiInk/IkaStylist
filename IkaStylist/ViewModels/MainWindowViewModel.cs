@@ -6,7 +6,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Windows;
 using System.Deployment.Application;
-using System.Data;
+using System.Windows.Data;
 using System.IO;
 
 using Livet;
@@ -25,6 +25,15 @@ namespace IkaStylist.ViewModels
 
     public class MainWindowViewModel : ViewModel
     {
+        private static readonly MainWindowViewModel _Instance = new MainWindowViewModel();
+        public static MainWindowViewModel Instance
+        {
+            get
+            { return _Instance; }
+            set
+            { }
+        }
+
         ///<summary>アタマ装備のデータ群</summary>
         private List<Gear> AtamaData = new List<Gear>();
 
@@ -50,7 +59,7 @@ namespace IkaStylist.ViewModels
             {
                 if (_OptMgr == null)
                 {
-                    _OptMgr = new OptManager();
+                    _OptMgr = OptManager.GetInstance();
                 }
                 return _OptMgr;
             }
@@ -105,13 +114,22 @@ namespace IkaStylist.ViewModels
             {
                 if (_SearchCommand == null)
                 {
-                    _SearchCommand = new ViewModelCommand(Search);
+                    _SearchCommand = new ViewModelCommand(Search, CanSearch);
                 }
                 return _SearchCommand;
             }
         }
 
-        ///<summary>[さがす]ボタンの処理</summary>
+        public bool CanSearch()
+        {
+            if (0 <= OptMgr.RemainingPoint)
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
         public void Search()
         {
             //検索結果DataGridを初期化
@@ -278,18 +296,18 @@ namespace IkaStylist.ViewModels
 
         #region SelectedCoordinate変更通知プロパティ
         private Coordinate _SelectedCoordinate;
-        
+
         ///<summary>結果表示DataGridの選択アイテム</summary>
         public Coordinate SelectedCoordinate
         {
             get
             { return _SelectedCoordinate; }
             set
-            { 
+            {
                 if (_SelectedCoordinate == value)
                     return;
                 _SelectedCoordinate = value;
-                
+
                 //詳細画面更新
                 SelectionMgr.update(value);
                 RaisePropertyChanged();
@@ -507,10 +525,38 @@ namespace IkaStylist.ViewModels
 
         public void Test()
         {
-             System.Diagnostics.Process.Start("https://twitter.com/kazuki_mikan");
-          
+            // System.Diagnostics.Process.Start("https://twitter.com/kazuki_mikan");
+            this.SearchCommand.RaiseCanExecuteChanged();
         }
         #endregion
 
+    }
+
+    public class IsGreaterThanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var v = System.Convert.ToDouble(value);
+            var compareValue = double.Parse(parameter as string);
+            return v > compareValue;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class IsLessThanConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var v = System.Convert.ToDouble(value);
+            var compareValue = double.Parse(parameter as string);
+            return v < compareValue;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

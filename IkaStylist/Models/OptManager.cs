@@ -7,13 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Deployment.Application;
 using Livet;
+using IkaStylist.ViewModels;
 
 namespace IkaStylist.Models
 {
     public class Request : NotificationObject
     {
+        private OptManager Opt;
+
         public Request()
         {
+            Opt = OptManager.GetInstance();
             Point = 0;
             GearPowerID = 0;
         }
@@ -30,6 +34,8 @@ namespace IkaStylist.Models
                 if (_Point == value)
                     return;
                 _Point = value;
+
+                Opt.CalcRemainingPoint();
                 RaisePropertyChanged();
             }
         }
@@ -56,7 +62,12 @@ namespace IkaStylist.Models
     ///<summary>オプション値を管理するためのクラス</summary>
     public class OptManager : NotificationObject
     {
-        public OptManager()
+        //フォームのインスタンスを保持するフィールド
+        private static readonly OptManager _Instance = new OptManager();
+        ///<summary>検索条件の最大サイズ</summary>
+        public static readonly int RequestSize = Constants.__REQUEST_SIZE__;
+
+        private OptManager()
         {
             this.MaxReslutSize = Constants.__DEFAULT_RESULT_SIZE__;
             this.Requests = new Request[Constants.__REQUEST_SIZE__];
@@ -67,6 +78,11 @@ namespace IkaStylist.Models
             this.OnlyEnhanced = true;
             this.Tolerance = 0;
             this.isFestival = false;
+        }
+
+        public static OptManager GetInstance()
+        {
+            return _Instance;
         }
 
         ///<summary>検索リクエストのリセット</summary>
@@ -82,9 +98,6 @@ namespace IkaStylist.Models
             this.Requests = temp;
             this.Tolerance = 0;
         }
-
-        ///<summary>検索条件の最大サイズ</summary>
-        public static readonly int RequestSize = Constants.__REQUEST_SIZE__;
 
         ///<summary>最大表示件数</summary>
         #region MaxReslutSize変更通知プロパティ
@@ -115,6 +128,8 @@ namespace IkaStylist.Models
                 if (_Requests == value)
                     return;
                 _Requests = value;
+
+                CalcRemainingPoint();
                 RaisePropertyChanged();
             }
         }
@@ -174,5 +189,35 @@ namespace IkaStylist.Models
             }
         }
         #endregion
+
+        public void CalcRemainingPoint()
+        {
+            int temp = 57;
+            for (int i = 0; i < this.Requests.Length; i++)
+            {
+                if (this.Requests[i] != null)
+                    temp -= this.Requests[i].Point;
+            }
+            RemainingPoint = temp;
+            MainWindowViewModel.Instance.SearchCommand.RaiseCanExecuteChanged();
+        }
+
+        #region RemainingPoint変更通知プロパティ
+        private int _RemainingPoint;
+
+        public int RemainingPoint
+        {
+            get
+            { return _RemainingPoint; }
+            set
+            {
+                if (_RemainingPoint == value)
+                    return;
+                _RemainingPoint = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
     }
 }//namespace IkaStylist.Models

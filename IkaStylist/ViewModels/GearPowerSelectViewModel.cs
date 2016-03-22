@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
+using System.Windows.Data;
 
 using Livet;
 using Livet.Commands;
