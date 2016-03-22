@@ -103,6 +103,7 @@ namespace IkaStylist.ViewModels
                 tempVisibility[i] = false;
             }
             this.ColumnVisibilitys = tempVisibility;
+
         }
 
         #region SearchCommand
@@ -127,7 +128,9 @@ namespace IkaStylist.ViewModels
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
 
         public void Search()

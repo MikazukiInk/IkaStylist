@@ -96,7 +96,7 @@
 
                 <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
                     <TextBlock Text="残り" VerticalAlignment="Center"/>
-                    <TextBox Margin="3" Text="{Binding OptMgr.RemainingPoint}" Width="30" x:Name="sldValue" TextAlignment="Right"/>
+                    <TextBox Margin="3" Text="{Binding OptMgr.RemainingPoint}" Foreground="{Binding OptMgr.RemainingPointColor}" Width="30" x:Name="sldValue" TextAlignment="Right"/>
                     <!--<TextBox Margin="5" Text="{Binding OptMgr.RemainingPoint}" Width="30" x:Name="sldValue">
                             <TextBox.Style>
                                 <Style TargetType="{x:Type TextBox}">
@@ -125,7 +125,7 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Margin="3" Content="さがす　！" Command="{Binding SearchCommand}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
+                    <Button Grid.Column="0" Margin="3" Content="さがす　！" IsEnabled="{Binding OptMgr.canSearch}" Command="{Binding SearchCommand}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
                     <Button Grid.Column="1" Margin="3" Content="リセット" Command="{Binding ResetCommand}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="22" />
                 </Grid>
             </Grid>

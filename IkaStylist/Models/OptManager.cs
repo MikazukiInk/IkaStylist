@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
 using System.Linq;
 using System.Text;
 using System.Deployment.Application;
@@ -78,6 +79,7 @@ namespace IkaStylist.Models
             this.OnlyEnhanced = true;
             this.Tolerance = 0;
             this.isFestival = false;
+            this.canSearch = true;
         }
 
         public static OptManager GetInstance()
@@ -214,10 +216,49 @@ namespace IkaStylist.Models
                 if (_RemainingPoint == value)
                     return;
                 _RemainingPoint = value;
+                if (_RemainingPoint < 0) {
+                    canSearch = false;
+                    RemainingPointColor = Brushes.Red;
+                }
+                else {
+                    canSearch = true;
+                    RemainingPointColor = Brushes.Black;
+                }
                 RaisePropertyChanged();
             }
         }
         #endregion
 
+        private bool _canSearch;
+        public bool canSearch
+        {
+            get
+            {
+                return _canSearch;
+            }
+            set
+            {
+                _canSearch = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private System.Windows.Media.Brush _RemainingPointColor;
+        public System.Windows.Media.Brush RemainingPointColor
+        {
+            get
+            {
+                return _RemainingPointColor;
+            }
+            set
+            {
+                if (_RemainingPointColor == value)
+                {
+                    return;
+                }
+                _RemainingPointColor = value;
+                RaisePropertyChanged();
+            }
+        }
     }
 }//namespace IkaStylist.Models
