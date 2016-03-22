@@ -9,7 +9,7 @@
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels" 
         Background="AliceBlue"
-        Title="{Binding Title}" Height="620" Width="1003" >
+        Title="{Binding Title}" Height="620" Width="1003" SizeToContent="Width" >
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -55,7 +55,7 @@
             </MenuItem>
             <MenuItem Header="作者Twitter" Command="{Binding OpenLinkCommand}" CommandParameter="https://twitter.com/kazuki_mikan"/>
             <MenuItem Header="アップデート確認" Command="{Binding OnlineUpdateCommand}"/>
-            <MenuItem Header="テスト" Command="{Binding TestCommand}"/>
+            <!--<MenuItem Header="テスト" Command="{Binding TestCommand}"/>-->
         </Menu>
         <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top" Margin="3">
 
@@ -96,7 +96,7 @@
 
                 <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
                     <TextBlock Text="残り" VerticalAlignment="Center"/>
-                    <TextBox Margin="3" Text="{Binding OptMgr.RemainingPoint}" Foreground="{Binding OptMgr.RemainingPointColor}" Width="30" x:Name="sldValue" TextAlignment="Right"/>
+                    <TextBox Margin="3" Text="{Binding OptMgr.RemainingPoint}" Foreground="{Binding OptMgr.RemainingPointColor}" Width="30" x:Name="sldValue" TextAlignment="Right" IsReadOnly="True"/>
                     <!--<TextBox Margin="5" Text="{Binding OptMgr.RemainingPoint}" Width="30" x:Name="sldValue">
                             <TextBox.Style>
                                 <Style TargetType="{x:Type TextBox}">
