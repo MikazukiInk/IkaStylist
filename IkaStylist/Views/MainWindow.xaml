@@ -88,11 +88,11 @@
                 <ComboBox Grid.Column="1" Grid.Row="4" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[3].GearPowerID}"/>
                 <ComboBox Grid.Column="1" Grid.Row="5" Margin="3" ItemsSource="{Binding GearPowerNames}" SelectedIndex="{Binding OptMgr.Requests[4].GearPowerID}"/>
                 <TextBlock Grid.Column="2" Text="ポイント" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="18"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[1].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[2].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[3].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
-                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="1" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[0].Point}" IsEnabled="{Binding OptMgr.Requests[0].isNotMainOnlyGearPower}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="2" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[1].Point}" IsEnabled="{Binding OptMgr.Requests[1].isNotMainOnlyGearPower}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="3" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[2].Point}" IsEnabled="{Binding OptMgr.Requests[2].isNotMainOnlyGearPower}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="4" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[3].Point}" IsEnabled="{Binding OptMgr.Requests[3].isNotMainOnlyGearPower}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
+                <wpfTool:IntegerUpDown Grid.Column="2" Grid.Row="5" Margin="3" Minimum="0" Maximum="57" Value="{Binding OptMgr.Requests[4].Point}" IsEnabled="{Binding OptMgr.Requests[4].isNotMainOnlyGearPower}" ToolTip="メインギアパワーは10ポイント&#xa;サブギアパワーは3ポイント"/>
 
                 <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Horizontal">
                     <TextBlock Text="残り" VerticalAlignment="Center"/>

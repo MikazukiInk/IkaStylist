@@ -580,6 +580,21 @@ namespace IkaStylist.Models
             { "クレイジーアローズ", brands[15] }
         };
 
+        public static string[] MainOnlyGear = {
+            "ボム飛距離アップ",
+            "スタートダッシュ",
+            "ラストスパート",
+            "逆境強化",
+            "カムバック",
+            "マーキングガード",
+            "イカニンジャ",
+            "うらみ",
+            "スタートレーダー",
+            "ボムサーチ",
+            "安全シューズ",
+            "ステルスジャンプ"
+        };
+
         //******************* ギアの埋め込みデータ読み込み *******************//
 
         public static BitmapImage getGearBitmap(string filename)

@@ -54,6 +54,55 @@ namespace IkaStylist.Models
                 if (_GearPowerID == value)
                     return;
                 _GearPowerID = value;
+                isNotMainOnlyGearPower = true;
+                if (!isNotMainOnlyGearPower)
+                {
+                    //メイン限定ギアパワーは 10 で固定する.
+                    Point = 10;
+                }
+                else if (_GearPowerID == (int)GearPowerKind.None)
+                {
+                    //"なし"は 0 にする.
+                    Point = 0;
+                }
+                else
+                {
+                    //その他のギアパワーは、前が未設定だと 10 になる.
+                    if (this.Point == 0)
+                    {
+                        Point = 10;
+                    }
+                }
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region メイン限定ギアかどうか.
+        public bool isNotMainOnlyGearPower
+        {
+            get
+            {
+                if (this.GearPowerID < 0 && this.GearPowerID > EnumExtension<GearPowerKind>.Length())
+                {
+                    return true;
+                }
+                if (IkaUtil.MainOnlyGear.Contains(EnumLiteralAttribute.GetLiteral((GearPowerKind)this.GearPowerID)))
+                {
+                    return false;
+                }
+                else if (this.GearPowerID == (int)GearPowerKind.None)
+                {
+                    //"なし"も、編集不可にする.
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            set
+            {
                 RaisePropertyChanged();
             }
         }

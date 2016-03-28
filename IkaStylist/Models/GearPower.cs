@@ -89,5 +89,19 @@ namespace IkaStylist.Models
         }
         #endregion
 
+        #region 自身がメイン限定ギアパワーかどうかを返す.
+        public bool isOnlyMainGearPower
+        {
+            get
+            {
+                return IkaUtil.MainOnlyGear.Contains(this.Name);
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
     }
 }//namespace IkaStylist.Models
