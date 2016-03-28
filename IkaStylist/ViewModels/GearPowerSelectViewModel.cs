@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Data;
 
@@ -82,6 +83,7 @@ namespace IkaStylist.ViewModels
                 if (_Count == value)
                     return;
                 _Count = value;
+                updateSelectGearPowerImg();
                 RaisePropertyChanged();
             }
         }
@@ -199,5 +201,272 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        #region 選択中のギア画像を表示/更新する.
+        private void updateSelectGearPowerImg()
+        {
+            SelectGearPowerImg1 = new BitmapImage();
+            SelectGearPowerImg2 = new BitmapImage();
+            SelectGearPowerImg3 = new BitmapImage();
+            SelectGearPowerBorderBrush1 = Brushes.SteelBlue;
+            SelectGearPowerBorderBrush2 = Brushes.SteelBlue;
+            SelectGearPowerBorderBrush3 = Brushes.SteelBlue;
+            SelectGearPowerOpacity1 = 1.0;
+            SelectGearPowerOpacity2 = 1.0;
+            SelectGearPowerOpacity3 = 1.0;
+            SelectGearPowerBorderThickness1 = 1;
+            SelectGearPowerBorderThickness2 = 1;
+            SelectGearPowerBorderThickness3 = 1;
+        }
+
+        private int getGearPowerId( string name )
+        {
+            int Id = 0;
+            if (IkaUtil.GearPowerDict.ContainsValue(name))
+            {
+                Id = (int)IkaUtil.GearPowerDict.First(x => x.Value == name).Key;
+            }
+            return Id;
+        }
+
+        public BitmapImage SelectGearPowerImg1
+        {
+            get
+            {
+                if (this.Count > 0)
+                {
+                    return IkaUtil.getGearPowerBitmap(getGearPowerId(this.SubPower[0]));
+                }
+                else
+                {
+                    return IkaUtil.getGearPowerBitmap(getGearPowerId(_Origin.SubPower1.Name));
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage SelectGearPowerImg2
+        {
+            get
+            {
+                if (this.Count > 1)
+                {
+                    return IkaUtil.getGearPowerBitmap(getGearPowerId(this.SubPower[1]));
+                }
+                else
+                {
+                    return IkaUtil.getGearPowerBitmap(getGearPowerId(_Origin.SubPower2.Name));
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage SelectGearPowerImg3
+        {
+            get
+            {
+                if (this.Count > 2)
+                {
+                    return IkaUtil.getGearPowerBitmap(getGearPowerId(this.SubPower[2]));
+                }
+                else
+                {
+                    return IkaUtil.getGearPowerBitmap(getGearPowerId(_Origin.SubPower3.Name));
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush SelectGearPowerBorderBrush1
+        {
+            get
+            {
+                if (this.Count == 0)
+                {
+                    return Brushes.PaleVioletRed;
+                }
+                else if (this.Count > 0)
+                {
+                    return Brushes.SteelBlue;
+                }
+                else
+                {
+                    return Brushes.Silver;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush SelectGearPowerBorderBrush2
+        {
+            get
+            {
+                if (this.Count == 1)
+                {
+                    return Brushes.PaleVioletRed;
+                }
+                else if (this.Count > 1)
+                {
+                    return Brushes.SteelBlue;
+                }
+                else
+                {
+                    return Brushes.Silver;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush SelectGearPowerBorderBrush3
+        {
+            get
+            {
+                if (this.Count == 2)
+                {
+                    return Brushes.PaleVioletRed;
+                }
+                else if (this.Count > 2)
+                {
+                    return Brushes.SteelBlue;
+                }
+                else
+                {
+                    return Brushes.Silver;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public double SelectGearPowerOpacity1
+        {
+            get
+            {
+                if (this.Count > 0)
+                {
+                    return 1.0;
+                }
+                else
+                {
+                    return 0.2;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public double SelectGearPowerOpacity2
+        {
+            get
+            {
+                if (this.Count > 1)
+                {
+                    return 1.0;
+                }
+                else
+                {
+                    return 0.2;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public double SelectGearPowerOpacity3
+        {
+            get
+            {
+                if (this.Count > 2)
+                {
+                    return 1.0;
+                }
+                else
+                {
+                    return 0.2;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public int SelectGearPowerBorderThickness1
+        {
+            get
+            {
+                if (this.Count == 0)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public int SelectGearPowerBorderThickness2
+        {
+            get
+            {
+                if (this.Count == 1)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public int SelectGearPowerBorderThickness3
+        {
+            get
+            {
+                if (this.Count == 2)
+                {
+                    return 4;
+                }
+                else
+                {
+                    return 2;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
     }
 }

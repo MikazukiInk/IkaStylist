@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         WindowStartupLocation ="CenterOwner"
-        Title="{Binding GearName}" Width="400" Height="210" ResizeMode="NoResize" SizeToContent="Height" >
+        Title="{Binding GearName}" Width="400" ResizeMode="NoResize" SizeToContent="Height" >
 
     <!--<Window.DataContext>
         <vm:GearPowerSelectViewModel/>
@@ -36,21 +36,36 @@
         </StackPanel.InputBindings>
         <!--<TextBlock Margin="3" Text="{Binding GearName}" FontFamily="Segoe WP Black" FontSize="20"/>-->
         <Grid DockPanel.Dock="Right" ShowGridLines="False" HorizontalAlignment="Left">
-            <!-- 1行定義 -->
+            <!-- 2行定義 -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="28" />
             </Grid.RowDefinitions>
             <!-- 2列定義 -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="85" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Row="2" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="10,5,0,0">
+            <Border Grid.RowSpan="2" Grid.Row="0" Grid.Column="0" Background="Ivory" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Height="70" Margin="10,5,0,0" VerticalAlignment="Top">
                 <Image Grid.Row="0" Grid.Column="0"
                        Source="{Binding Path=GearImg}" Stretch="Uniform" Height="60" Margin="3" 
                        HorizontalAlignment="Left" VerticalAlignment="Top" />
             </Border>
-            <TextBlock Grid.Row="0" Grid.Column="1" 
+            <StackPanel  Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                <Border Background="Black" BorderThickness="{Binding Path=SelectGearPowerBorderThickness1}" BorderBrush="{Binding Path=SelectGearPowerBorderBrush1}" CornerRadius="5" Margin="5,5,0,0">
+                    <Image Source="{Binding Path=SelectGearPowerImg1}" Stretch="Uniform" Height="40" Width="40" Margin="1" 
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Opacity="{Binding Path=SelectGearPowerOpacity1}"/>
+                </Border>
+                <Border Background="Black" BorderThickness="{Binding Path=SelectGearPowerBorderThickness2}" BorderBrush="{Binding Path=SelectGearPowerBorderBrush2}" CornerRadius="5" Margin="5,5,0,0">
+                    <Image Source="{Binding Path=SelectGearPowerImg2}" Stretch="Uniform" Height="40" Width="40" Margin="1" 
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Opacity="{Binding Path=SelectGearPowerOpacity2}"/>
+                </Border>
+                <Border Background="Black" BorderThickness="{Binding Path=SelectGearPowerBorderThickness3}" BorderBrush="{Binding Path=SelectGearPowerBorderBrush3}" CornerRadius="5" Margin="5,5,0,0">
+                    <Image Source="{Binding Path=SelectGearPowerImg3}" Stretch="Uniform" Height="40" Width="40" Margin="1" 
+                       HorizontalAlignment="Left" VerticalAlignment="Center" Opacity="{Binding Path=SelectGearPowerOpacity3}"/>
+                </Border>
+            </StackPanel>
+            <TextBlock Grid.Row="2" Grid.Column="1" 
                        Margin="6,0,3,3" Text="{Binding Message}" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="20" 
                        HorizontalAlignment="Center" VerticalAlignment="Bottom" />
         </Grid>
