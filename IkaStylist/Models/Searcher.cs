@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 using Livet;
 
@@ -18,7 +19,14 @@ namespace IkaStylist.Models
         
         ///<summary> </summary>
 
-        public List<Coordinate> CoordinateList = new List<Coordinate>();
+        public List<Coordinate> CoordinateList     = new List<Coordinate>();
+        public List<Coordinate> CoordinateList_Fes = new List<Coordinate>(); //フェスモード用.
+        private List<Gear> HeadGear;
+        private List<Gear> ClothGear;
+        private List<Gear> ShoesGear;
+        private List<Gear> FesTGear;
+        Thread thread_normal;
+        Thread thread_fes;
 
         /// <summary>検索クラスの初期化
         /// 全パターンのギアパワー値を計算して持っておく
@@ -26,9 +34,40 @@ namespace IkaStylist.Models
         /// <param name="head">アタマのギアリスト</param>
         /// <param name="cloth">フクのギアリスト</param>
         /// <param name="shoes">クツのギアリスト</param>
-        public void Init(List<Gear> head, List<Gear> cloth, List<Gear> shoes)
+        public void Init()
         {
-            /**とりあえず全組み合わせを列挙するんだぜ（物理）**/
+            this.CoordinateList.Clear();
+            this.CoordinateList_Fes.Clear();
+
+            this.HeadGear  = IOmanager.ReadCSV(GearKind.Head);
+            this.ClothGear = IOmanager.ReadCSV(GearKind.Cloth);
+            this.ShoesGear = IOmanager.ReadCSV(GearKind.Shoes);
+            this.FesTGear  = IOmanager.ReadCSV(GearKind.FesT);
+        }
+
+        public void remakeCoordinateListOnThread()
+        {
+            this.thread_normal = new Thread(new ThreadStart(makeCoordinateList_normal));
+            this.thread_normal.IsBackground = true;
+            this.thread_normal.Start();
+
+            this.thread_fes = new Thread(new ThreadStart(makeCoordinateList_fes));
+            this.thread_fes.IsBackground = true;
+            this.thread_fes.Start();
+        }
+
+        private void makeCoordinateList_normal()
+        {
+            makeCoordinateList(this.HeadGear, this.ClothGear, this.ShoesGear, this.CoordinateList);
+        }
+
+        private void makeCoordinateList_fes()
+        {
+            makeCoordinateList(this.HeadGear, this.FesTGear, this.ShoesGear, this.CoordinateList_Fes);
+        }
+
+        private void makeCoordinateList( List<Gear> head, List<Gear> cloth, List<Gear> shoes, List<Coordinate> coordinateL )
+        {
             for (int h = 0; h < head.Count; h++)
             {
                 for (int c = 0; c < cloth.Count; c++)
@@ -36,11 +75,34 @@ namespace IkaStylist.Models
                     for (int s = 0; s < shoes.Count; s++)
                     {
                         var temp = new Coordinate(head[h], cloth[c], shoes[s]);
-                        this.CoordinateList.Add(temp);
+                        coordinateL.Add(temp);
                     }
                 }
             }
-            /***/
+        }
+
+        private List<Coordinate> getCoordinateList4Search()
+        {
+            if (OptMgr.isFestival)
+            {
+                if (this.CoordinateList_Fes.Count == 0)
+                {
+                    //万が一作れていなかった時のため.
+                    this.thread_fes.Abort();
+                    makeCoordinateList( this.HeadGear, this.FesTGear, this.ShoesGear, this.CoordinateList_Fes );
+                }
+                return this.CoordinateList_Fes;
+            }
+            else
+            {
+                if (this.CoordinateList.Count == 0)
+                {
+                    //万が一作れていなかった時のため.
+                    this.thread_normal.Abort();
+                    makeCoordinateList(this.HeadGear, this.ClothGear, this.ShoesGear, this.CoordinateList);
+                }
+                return this.CoordinateList;
+            }
         }
 
         /// <summary>検索処理実行メソッド</summary>
@@ -49,7 +111,15 @@ namespace IkaStylist.Models
         /// <returns>ギアパワー配列のリスト</returns>
         public List<Coordinate> Start()
         {
-            var candidate = new List<Coordinate>(this.CoordinateList);
+            if (OptMgr.isFestival)
+            {
+                this.thread_fes.Join();
+            }
+            else
+            {
+                this.thread_normal.Join();
+            }
+            var candidate = new List<Coordinate>(getCoordinateList4Search());
 
             //「なし」2個までは許容する。それ以上は除外する。
             if (OptMgr.OnlyEnhanced)

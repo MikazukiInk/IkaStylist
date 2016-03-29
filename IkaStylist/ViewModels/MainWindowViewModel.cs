@@ -48,8 +48,6 @@ namespace IkaStylist.ViewModels
 
         ///<summary>コーデ検索クラスの実体</summary>
         public Searcher Searcher;
-        ///<summary>コーデ検索クラスの実体　フェス用</summary>
-        public Searcher SearcherFes;
 
         ///<summary>オプション管理クラスの実体</summary>
         private OptManager _OptMgr;
@@ -104,6 +102,10 @@ namespace IkaStylist.ViewModels
             }
             this.ColumnVisibilitys = tempVisibility;
 
+            //検索クラスのインスタンス生成
+            this.Searcher = new Searcher(OptMgr);
+            this.Searcher.Init();
+            this.Searcher.remakeCoordinateListOnThread();
         }
 
         #region SearchCommand
@@ -148,26 +150,6 @@ namespace IkaStylist.ViewModels
                 tempVisibility[i] = false;
             }
             this.ColumnVisibilitys = tempVisibility;
-            //めんどくさい処理は初回のみ実行
-            if (this.Searcher == null)
-            {
-                //各部位のギアデータをCSVから読み出す
-                AtamaData = IOmanager.ReadCSV(GearKind.Head);
-                HukuData = IOmanager.ReadCSV(GearKind.Cloth);
-                KutuData = IOmanager.ReadCSV(GearKind.Shoes);
-                FesTData = IOmanager.ReadCSV(GearKind.FesT);
-                //検索クラスのインスタンス生成
-                this.Searcher = new Searcher(OptMgr);
-                //ゴリ押し全パターン検索
-                if (OptMgr.isFestival)
-                {
-                    this.Searcher.Init(AtamaData, FesTData, KutuData);
-                }
-                else
-                {
-                    this.Searcher.Init(AtamaData, HukuData, KutuData);
-                }
-            }
 
             //絞込を実行してresultに格納
             var result = this.Searcher.Start();
@@ -234,8 +216,6 @@ namespace IkaStylist.ViewModels
 
         public void Edit(string parameter)
         {
-            //CSVファイルが変更されるので既存の検索インスタンスを削除
-            this.Searcher = null;
             if (OptMgr.isFestival && parameter == "Cloth")
             {
                 parameter = "FesT";
@@ -244,6 +224,8 @@ namespace IkaStylist.ViewModels
             {
                 Messenger.Raise(new TransitionMessage(vm, "EditCommand"));
             }
+            this.Searcher.Init();
+            this.Searcher.remakeCoordinateListOnThread();
         }
         #endregion
 
@@ -256,7 +238,6 @@ namespace IkaStylist.ViewModels
             }
             set
             {
-                this.Searcher = null;
                 OptMgr.isFestival = !OptMgr.isFestival;
             }
         }
