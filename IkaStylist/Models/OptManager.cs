@@ -130,6 +130,12 @@ namespace IkaStylist.Models
             this.Tolerance = 0;
             this.isFestival = false;
             this.canSearch = true;
+            this.UnifiedGP_selectParts = 0;
+            this.UnifiedGP_displayFakeGear = true;
+            this.UnifiedGP_displayPureGear = true;
+            this.UnifiedGP_displayOnlyExchange = true;
+            this.UnifiedGP_fakeGearNum = 2;
+            this.UnifiedGP_pureGearNum = 2;
         }
 
         public static OptManager GetInstance()
@@ -311,5 +317,101 @@ namespace IkaStylist.Models
                 RaisePropertyChanged();
             }
         }
+
+        #region
+        private bool _UnifiedGP_displayFakeGear;
+        public bool UnifiedGP_displayFakeGear
+        {
+            get
+            { return _UnifiedGP_displayFakeGear; }
+            set
+            {
+                if (_UnifiedGP_displayFakeGear == value)
+                    return;
+                _UnifiedGP_displayFakeGear = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        private bool _UnifiedGP_displayPureGear;
+        public bool UnifiedGP_displayPureGear
+        {
+            get
+            { return _UnifiedGP_displayPureGear; }
+            set
+            {
+                if (_UnifiedGP_displayPureGear == value)
+                    return;
+                _UnifiedGP_displayPureGear = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        private bool _UnifiedGP_displayOnlyExchange;
+        public bool UnifiedGP_displayOnlyExchange
+        {
+            get
+            { return _UnifiedGP_displayOnlyExchange; }
+            set
+            {
+                if (_UnifiedGP_displayOnlyExchange == value)
+                    return;
+                _UnifiedGP_displayOnlyExchange = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        private int _UnifiedGP_selectParts;
+        public int UnifiedGP_selectParts
+        {
+            get
+            { return _UnifiedGP_selectParts; }
+            set
+            {
+                if (_UnifiedGP_selectParts == value)
+                    return;
+                _UnifiedGP_selectParts = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        private int _UnifiedGP_fakeGearNum;
+        public int UnifiedGP_fakeGearNum
+        {
+            get
+            { return _UnifiedGP_fakeGearNum; }
+            set
+            {
+                if (_UnifiedGP_fakeGearNum == value)
+                    return;
+                _UnifiedGP_fakeGearNum = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        private int _UnifiedGP_pureGearNum;
+        public int UnifiedGP_pureGearNum
+        {
+            get
+            { return _UnifiedGP_pureGearNum; }
+            set
+            {
+                if (_UnifiedGP_pureGearNum == value)
+                    return;
+                _UnifiedGP_pureGearNum = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
     }
 }//namespace IkaStylist.Models

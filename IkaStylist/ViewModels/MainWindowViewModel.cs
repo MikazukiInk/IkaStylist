@@ -402,6 +402,29 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        ///<summary>純ブラ偽ブラ表示コマンド処理</summary>
+        #region DisplayUnifiedGearPowerCommand
+        private ViewModelCommand _DisplayUnifiedGearPowerCommand;
+        public ViewModelCommand DisplayUnifiedGearPowerCommand
+        {
+            get
+            {
+                if (_DisplayUnifiedGearPowerCommand == null)
+                {
+                    _DisplayUnifiedGearPowerCommand = new ViewModelCommand(DisplayUnifiedGearPower);
+                }
+                return _DisplayUnifiedGearPowerCommand;
+            }
+        }
+        public void DisplayUnifiedGearPower()
+        {
+            using (var vm = new DisplayUnifiedGearPowerViewModel())
+            {
+                Messenger.Raise(new TransitionMessage(vm, "DisplayUnifiedGearPowerCommand"));
+            }
+        }
+        #endregion
+
         #region OnlineUpdateCommand
         private ViewModelCommand _OnlineUpdateCommand;
 

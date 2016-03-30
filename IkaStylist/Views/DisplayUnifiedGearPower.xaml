@@ -1,0 +1,68 @@
+﻿<Window x:Class="IkaStylist.Views.DisplayUnifiedGearPower"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+        xmlns:v="clr-namespace:IkaStylist.Views"
+        xmlns:vm="clr-namespace:IkaStylist.ViewModels"
+        xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        WindowStartupLocation ="CenterOwner"
+        Title="マイギア表示" Width="518" Height="Auto" ResizeMode="NoResize" SizeToContent="Height" >
+
+    <!--
+    <Window.DataContext>
+        <vm:DisplayUnifiedGearPowerViewModel/>
+    </Window.DataContext>
+    -->
+
+    <i:Interaction.Triggers>
+        <l:InteractionMessageTrigger MessageKey="DisplayResultCommand" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction 
+                WindowType="{x:Type v:DisplayResultUnifiedGear}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+        
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
+        </i:EventTrigger>
+        
+        <l:InteractionMessageTrigger MessageKey="Close" Messenger="{Binding Messenger}">
+            <l:WindowInteractionMessageAction InvokeActionOnlyWhenWindowIsActive="False" />
+        </l:InteractionMessageTrigger>
+        
+        <!--Windowが閉じたタイミングでViewModelのDisposeメソッドが呼ばれます-->
+        <i:EventTrigger EventName="Closed">
+            <l:DataContextDisposeAction/>
+        </i:EventTrigger>
+        
+    </i:Interaction.Triggers>
+
+    <StackPanel VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+            <TextBlock Text="対象部位：" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="16" />
+            <ComboBox Margin="3" ItemsSource="{Binding PartsNames}" SelectedIndex="{Binding OptMgr.UnifiedGP_selectParts}" 
+                      MinWidth="100" FontSize="16" />
+        </StackPanel>
+        <CheckBox Content="メインパワーと同じサブパワーが揃っているギアを表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayFakeGear}" 
+                  Foreground="Black" FontSize="16" 
+                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+        <StackPanel Orientation="Horizontal" IsEnabled="{Binding OptMgr.UnifiedGP_displayFakeGear}" Margin="0,0,0,10">
+            <TextBlock Text="揃っているサブパワーの下限数：" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" />
+            <wpfTool:IntegerUpDown Margin="0" Minimum="1" Maximum="3" Width="40" Value="{Binding OptMgr.UnifiedGP_fakeGearNum}"/>
+        </StackPanel>
+        <CheckBox Content="メインパワーと異なるサブパワーが揃っているギアを表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayPureGear}" 
+                  Foreground="Black" FontSize="16" 
+                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+        <TextBlock Text="※左端のギアパワーに一致するものが対象です。" VerticalAlignment="Center" Margin="20,0,0,0"
+                   FontSize="14" />
+        <StackPanel Orientation="Horizontal" IsEnabled="{Binding OptMgr.UnifiedGP_displayPureGear}" Margin="0,0,0,10">
+            <TextBlock Text="揃っているサブパワーの下限数：" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" />
+            <wpfTool:IntegerUpDown Margin="0" Minimum="2" Maximum="3" Width="40" Value="{Binding OptMgr.UnifiedGP_pureGearNum}"/>
+        </StackPanel>
+        <CheckBox Content="交換可能なギアのみ表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayOnlyExchange}" 
+                  Foreground="Black" FontSize="16" 
+                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
+        <Button Content="  ひょうじする ！  " Margin="3" Command="{Binding DisplayResultCommand}" CommandParameter="exec"
+                HorizontalAlignment="Right" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="25"/>
+    </StackPanel>
+</Window>

@@ -302,5 +302,73 @@ namespace IkaStylist.Models
             }
         }
         #endregion
+
+        #region
+        public int getFakeBrandNum
+        {
+            get
+            {
+                int count = 0;
+                if (this.MainPower.Id == this.SubPower1.Id) {
+                    count++;
+                    if (this.MainPower.Id == this.SubPower2.Id) {
+                        count++;
+                        if (this.MainPower.Id == this.SubPower3.Id) {
+                            count++;
+                        }
+                    }
+                }
+                return count;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        public int getPureBrandNum
+        {
+            get
+            {
+                int count = 0;
+                if (this.SubPower1.Id == (int)GearPowerKind.None)
+                {
+                    return count;
+                }
+                if (this.SubPower1.Id == this.SubPower2.Id) {
+                    count = 2;
+                    if (this.SubPower1.Id == this.SubPower3.Id) { count++; }
+                }
+                return count;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region
+        public bool canExchange
+        {
+            get
+            {
+                if (IkaUtil.cantExchangeGear.Contains(this.Name))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
     }
 }//namespace IkaStylist.Models

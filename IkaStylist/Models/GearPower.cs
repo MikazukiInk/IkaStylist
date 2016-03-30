@@ -4,6 +4,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 using Livet;
 
@@ -102,6 +103,28 @@ namespace IkaStylist.Models
             }
         }
         #endregion
+
+        public BitmapImage BitmapImg
+        {
+            get
+            {
+                return IkaUtil.getGearPowerBitmap(getGearPowerId(this.Name));
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        private int getGearPowerId(string name)
+        {
+            int Id = 0;
+            if (IkaUtil.GearPowerDict.ContainsValue(name))
+            {
+                Id = (int)IkaUtil.GearPowerDict.First(x => x.Value == name).Key;
+            }
+            return Id;
+        }
 
     }
 }//namespace IkaStylist.Models

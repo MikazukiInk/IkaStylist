@@ -149,6 +149,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Resource>
+    <Page Include="Views\DisplayResultUnifiedGear.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DisplayUnifiedGearPower.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\GearEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,9 +185,17 @@
     <Compile Include="Models\Utility.cs" />
     <Compile Include="SubRoutine.cs" />
     <Compile Include="Models\Gear.cs" />
+    <Compile Include="ViewModels\DisplayResultUnifiedGearViewModel.cs" />
+    <Compile Include="ViewModels\DisplayUnifiedGearPowerViewModel.cs" />
     <Compile Include="ViewModels\GearEditViewModel.cs" />
     <Compile Include="ViewModels\GearPowerSelectViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\DisplayResultUnifiedGear.xaml.cs">
+      <DependentUpon>DisplayResultUnifiedGear.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DisplayUnifiedGearPower.xaml.cs">
+      <DependentUpon>DisplayUnifiedGearPower.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GearEdit.xaml.cs">
       <DependentUpon>GearEdit.xaml</DependentUpon>
     </Compile>
