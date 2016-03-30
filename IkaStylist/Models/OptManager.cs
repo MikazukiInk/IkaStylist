@@ -55,15 +55,16 @@ namespace IkaStylist.Models
                     return;
                 _GearPowerID = value;
                 isNotMainOnlyGearPower = true;
-                if (!isNotMainOnlyGearPower)
-                {
-                    //メイン限定ギアパワーは 10 で固定する.
-                    Point = 10;
-                }
-                else if (_GearPowerID == (int)GearPowerKind.None)
+
+                if (_GearPowerID == (int)GearPowerKind.None)
                 {
                     //"なし"は 0 にする.
                     Point = 0;
+                }
+                else if (!isNotMainOnlyGearPower)
+                {
+                    //メイン限定ギアパワーは 10 で固定する.
+                    Point = 10;
                 }
                 else
                 {
