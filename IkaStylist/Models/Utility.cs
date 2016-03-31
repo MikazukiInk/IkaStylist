@@ -7,7 +7,7 @@ namespace IkaStylist.Models
     static public class IkaUtil
     {
         static public System.Reflection.Assembly myAssembly = System.Reflection.Assembly.GetExecutingAssembly();
-                
+
         //ギアパワーのIDをキーに名前を引ける辞書。逆引きのために作った。
         static public Dictionary<int, string> GearPowerDict = new Dictionary<int, string>(){
             { (int)GearPowerKind.None, EnumLiteralAttribute.GetLiteral( (GearPowerKind)( GearPowerKind.None ) ) },
@@ -294,7 +294,8 @@ namespace IkaStylist.Models
             {"ラバーソール チェリー","rabberSoleCherry"},
             {"レイニーモスグリーン","rainnyMosGreen"},
             {"アイスダウンブーツ","iceDownBoots"},
-            {"クレイジーアローズ","crazyArrows"}
+            {"クレイジーアローズ","crazyArrows"},
+            {"フェスT","fesT"},
         };
 
         //ブランド.
@@ -318,7 +319,7 @@ namespace IkaStylist.Models
             new Brand("ロッケンベルグ","Rockenberg",16),   // [ 16 ]            
             new Brand("侵略!イカ娘","SquidGirl",17)        // [ 17 ]
         };
-        
+
         public static Dictionary<string, Brand> BrandImgDict = new Dictionary<string, Brand>()
         {
             { "スカッシュバンド", brands[3] },
@@ -577,7 +578,8 @@ namespace IkaStylist.Models
             { "ラバーソール チェリー", brands[16] },
             { "レイニーモスグリーン", brands[8] },
             { "アイスダウンブーツ", brands[5] },
-            { "クレイジーアローズ", brands[15] }
+            { "クレイジーアローズ", brands[15] },
+            {"フェスT", brands[11]},
         };
 
         public static string[] MainOnlyGear = {
@@ -658,12 +660,12 @@ namespace IkaStylist.Models
 
         public static BitmapImage getBrandBitmapByImgName(string imgName)
         {
-            if( String.IsNullOrEmpty(imgName) == true )
+            if (String.IsNullOrEmpty(imgName) == true)
             {
                 return new BitmapImage();//何も表示しない.
             }
             string projectName = myAssembly.GetName().Name + ".Resources.brand.";
-            string pngFile     = projectName + imgName + ".png";
+            string pngFile = projectName + imgName + ".png";
             return getBitmap(pngFile);
         }
     }

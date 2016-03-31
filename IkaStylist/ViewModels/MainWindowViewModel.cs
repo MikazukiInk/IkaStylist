@@ -82,6 +82,8 @@ namespace IkaStylist.ViewModels
                 temp.Add(EnumLiteralAttribute.GetLiteral((GearPowerKind)ii));
             }
             this.GearPowerNames = temp;
+            //フェスモードOFF
+            toggleFesMode = false;
 
             //SelectionManager初期化
             this.SelectionMgr = new SelectionManager();
@@ -229,16 +231,31 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
-        #region toggleFesModeプロパティ
+        #region toggleFesMode変更通知プロパティ
+        private bool _toggleFesMode;
+
         public bool toggleFesMode
         {
             get
-            {
-                return OptMgr.isFestival;
-            }
+            { return _toggleFesMode; }
             set
-            {
-                OptMgr.isFestival = !OptMgr.isFestival;
+            { 
+                if (_toggleFesMode == value)
+                    return;
+                _toggleFesMode = value;
+                RaisePropertyChanged();
+
+                OptMgr.isFestival = toggleFesMode;
+                if (OptMgr.isFestival)
+                {
+                    ClothButtonVisibility = Visibility.Collapsed;
+                    FesTButtonVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    ClothButtonVisibility = Visibility.Visible;
+                    FesTButtonVisibility = Visibility.Collapsed;
+                }
             }
         }
         #endregion
@@ -399,6 +416,41 @@ namespace IkaStylist.ViewModels
             }
             path += @"\GearDataCsv";
             System.Diagnostics.Process.Start(path);
+        }
+        #endregion
+
+        //「フク」ボタンの表示切り替え用
+        #region ClothButtonVisibility変更通知プロパティ
+        private Visibility _ClothButtonVisibility;
+
+        public Visibility ClothButtonVisibility
+        {
+            get
+            { return _ClothButtonVisibility; }
+            set
+            { 
+                if (_ClothButtonVisibility == value)
+                    return;
+                _ClothButtonVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
+        //「フェスT」ボタンの表示切り替え用
+        #region FesTButtonVisibility変更通知プロパティ
+        private Visibility _FesTButtonVisibility = Visibility.Collapsed;
+
+        public Visibility FesTButtonVisibility
+        {
+            get
+            { return _FesTButtonVisibility; }
+            set
+            { 
+                if (_FesTButtonVisibility == value)
+                    return;
+                _FesTButtonVisibility = value;
+                RaisePropertyChanged();
+            }
         }
         #endregion
 

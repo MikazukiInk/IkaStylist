@@ -31,6 +31,7 @@
             <BitmapImage x:Key="IconSwimSpeedUp" UriSource="Resources/SwimSpeedUp.png"/>
             <BitmapImage x:Key="IconTenacity" UriSource="Resources/Tenacity.png"/>
             <BitmapImage x:Key="IconHatena" UriSource="Resources/hatena.png"/>
+            <BitmapImage x:Key="FesTButton" UriSource="Resources/FesTButton.png"/>
             <Style x:Key="Ikamodoki">
                 <Setter Property="TextElement.FontFamily" Value="Resources/ikamodoki1_0.ttf"/>
             </Style>

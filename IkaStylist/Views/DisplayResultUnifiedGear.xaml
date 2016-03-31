@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         WindowStartupLocation ="CenterScreen"
-        Title="イカスタイリスト" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Title="イカスタイリスト" ResizeMode="NoResize" SizeToContent="WidthAndHeight" MaxHeight="744">
 
     <!--<Window.DataContext>
         <vm:DisplayResultUnifiedGear/>
@@ -29,17 +29,11 @@
         
     </i:Interaction.Triggers>
 
-    <StackPanel x:Name="mainStackPanel" VerticalAlignment="Center">
-        <StackPanel.InputBindings>
-            <MouseBinding MouseAction="RightClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
-            <MouseBinding MouseAction="RightDoubleClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
-        </StackPanel.InputBindings>
         <Grid ShowGridLines="False">
-            <!-- 3行定義 -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="35" />
-            </Grid.RowDefinitions>
-            <!-- 4列定義 -->
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="*" />
@@ -52,8 +46,7 @@
                 <Button Content="  保存  " Margin="3" Click="Button_Click"
                 HorizontalAlignment="Right"  FontSize="20"/>
             </StackPanel>
-        </Grid>
-        <DataGrid x:Name="grid" Margin="5" ItemsSource="{Binding ResultGearData}" AutoGenerateColumns="False" IsReadOnly="True" >
+        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"  x:Name="grid" Margin="5" ItemsSource="{Binding ResultGearData}" AutoGenerateColumns="False" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="" CanUserReorder="True" CanUserResize="False" CanUserSort="True">
                     <DataGridTemplateColumn.CellTemplate>
@@ -128,5 +121,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-    </StackPanel>
+        </Grid>
+
 </Window>

@@ -59,8 +59,9 @@
                 <MenuItem IsCheckable="True" Command="{Binding OpenLinkCommand}" CommandParameter="https://ikadb.herokuapp.com/weapons/damages" Header="IkaDB! ダメージ計算機" ToolTip="別サービスへ移動します"/>
             </MenuItem>
             <MenuItem Header="作者Twitter" Command="{Binding OpenLinkCommand}" CommandParameter="https://twitter.com/kazuki_mikan"/>
+            <MenuItem Header="ギア自慢" Command="{Binding DisplayUnifiedGearPowerCommand}"/>
+            <MenuItem Header="フェス" IsCheckable="True" IsChecked="{Binding toggleFesMode}" ToolTip="フクをフェスTに固定します"/>
             <MenuItem Header="アップデート確認" Command="{Binding OnlineUpdateCommand}"/>
-            <MenuItem Header="偽ブラ純ブラ表示" Command="{Binding DisplayUnifiedGearPowerCommand}"/>
             <!--<MenuItem Header="テスト" Command="{Binding TestCommand}"/>-->
         </Menu>
         <StackPanel DockPanel.Dock="Left" VerticalAlignment="Top" Margin="3">
@@ -151,9 +152,12 @@
             <!--<Button Content="テスト" Command="{Binding TestCommand}"/>-->
 
             <TextBlock Text="ギアへんしゅう" Margin="6,50,6,6" FontSize="24" FontFamily="/IkaStylist;component/Resources/#イカモドキ" />
-            <Button Margin="6" Content="アタマ" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
-            <Button Margin="6" Content="フク" Command="{Binding EditCommand}" CommandParameter="Cloth" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
-            <Button Margin="6" Content="クツ" Command="{Binding EditCommand}" CommandParameter="Shoes" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
+            <Button Margin="6" Height ="35" Content="アタマ" Command="{Binding EditCommand}" CommandParameter="Head" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
+            <Button Margin="6" Height ="35" Content="フク" Command="{Binding EditCommand}" CommandParameter="Cloth" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24"  Visibility="{Binding ClothButtonVisibility}"/>
+            <Button Margin="6" Height ="35" Command="{Binding EditCommand}" CommandParameter="FesT" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24"  Visibility="{Binding FesTButtonVisibility}">
+                <Image Source="{StaticResource FesTButton}" Height="25"/>
+            </Button>
+            <Button Margin="6" Height ="35" Content="クツ" Command="{Binding EditCommand}" CommandParameter="Shoes" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="24" />
         </StackPanel>
 
         <!-- Detail Panel -->
