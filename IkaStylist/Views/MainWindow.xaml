@@ -59,7 +59,7 @@
                 <MenuItem IsCheckable="True" Command="{Binding OpenLinkCommand}" CommandParameter="https://ikadb.herokuapp.com/weapons/damages" Header="IkaDB! ダメージ計算機" ToolTip="別サービスへ移動します"/>
             </MenuItem>
             <MenuItem Header="作者Twitter" Command="{Binding OpenLinkCommand}" CommandParameter="https://twitter.com/kazuki_mikan"/>
-            <MenuItem Header="ギア自慢" Command="{Binding DisplayUnifiedGearPowerCommand}"/>
+            <MenuItem Header="純/偽ブラ一覧" Command="{Binding DisplayUnifiedGearPowerCommand}"/>
             <MenuItem Header="フェス" IsCheckable="True" IsChecked="{Binding toggleFesMode}" ToolTip="フクをフェスTに固定します"/>
             <MenuItem Header="アップデート確認" Command="{Binding OnlineUpdateCommand}"/>
             <!--<MenuItem Header="テスト" Command="{Binding TestCommand}"/>-->
