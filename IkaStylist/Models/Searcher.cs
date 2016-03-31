@@ -124,19 +124,19 @@ namespace IkaStylist.Models
             //「なし」2個までは許容する。それ以上は除外する。
             if (OptMgr.OnlyEnhanced)
             {
-                candidate.RemoveAll(x => x.points[0] > 8);
+                candidate.RemoveAll(x => x.TotalPoint[0] > 8);
             }
 
             for (int i = 0; i < OptMgr.Requests.Length; i++)
             {
                 if (OptMgr.Requests[i].GearPowerID != 0)
                 {
-                    candidate.RemoveAll(x => x.points[OptMgr.Requests[i].GearPowerID] < (OptMgr.Requests[i].Point - OptMgr.Tolerance));
+                    candidate.RemoveAll(x => x.TotalPoint[OptMgr.Requests[i].GearPowerID] < (OptMgr.Requests[i].Point - OptMgr.Tolerance));
                     for (int ci = candidate.Count - 1; ci >= 0; ci--)
                     {
                         if (OptMgr.Tolerance > 0)
                         {
-                            if (candidate[ci].points[OptMgr.Requests[i].GearPowerID] < OptMgr.Requests[i].Point)
+                            if (candidate[ci].TotalPoint[OptMgr.Requests[i].GearPowerID] < OptMgr.Requests[i].Point)
                             {
                                 candidate[ci].IsTolerance[OptMgr.Requests[i].GearPowerID] = true;
                             }

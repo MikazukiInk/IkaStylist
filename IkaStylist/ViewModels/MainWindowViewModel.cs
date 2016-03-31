@@ -232,20 +232,17 @@ namespace IkaStylist.ViewModels
         #endregion
 
         #region toggleFesMode変更通知プロパティ
-        private bool _toggleFesMode;
-
         public bool toggleFesMode
         {
             get
-            { return _toggleFesMode; }
+            { return OptMgr.isFestival; }
             set
-            { 
-                if (_toggleFesMode == value)
+            {
+                if (OptMgr.isFestival == value)
                     return;
-                _toggleFesMode = value;
+                OptMgr.isFestival = value;
                 RaisePropertyChanged();
 
-                OptMgr.isFestival = toggleFesMode;
                 if (OptMgr.isFestival)
                 {
                     ClothButtonVisibility = Visibility.Collapsed;

@@ -15,24 +15,29 @@ namespace IkaStylist.Models
         public Coordinate()
         {
             this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
-            //this.points = new int[Enum.GetNames(typeof(GearPowerKind)).Length];
+            this.fes_points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
-            //this._IsTolerance = new bool[Enum.GetNames(typeof(GearPowerKind)).Length];
         }
 
         public Coordinate( Coordinate input )
         {
             this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this.fes_points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             for (int i = 0; i < input.points.Length; i++)
             {
                 this.points[i] = input.points[i];
+            }
+            for (int i = 0; i < input.fes_points.Length; i++)
+            {
+                this.fes_points[i] = input.fes_points[i];
             }
             for (int i = 0; i < input._IsTolerance.Length; i++)
             {
                 this._IsTolerance[i] = input._IsTolerance[i];
             }
             points.CopyTo(input.points, 0);
+            fes_points.CopyTo(input.fes_points, 0);
             this.HeadGear   = new Gear(input.HeadGear);
             this.ClothGear  = new Gear(input.ClothGear);
             this.ShoesGear  = new Gear(input.ShoesGear);
@@ -44,9 +49,30 @@ namespace IkaStylist.Models
         public Coordinate( Gear head, Gear cloth, Gear shoes )
         {
             this.points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
+            this.fes_points = Enumerable.Repeat<int>(0, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             this._IsTolerance = Enumerable.Repeat<bool>(false, Enum.GetNames(typeof(GearPowerKind)).Length).ToArray();
             SetGears(head, cloth, shoes);
             CalcPoints();
+        }
+
+        ///<summary>オプション管理クラスの実体</summary>
+        private OptManager _OptMgr;
+        public OptManager OptMgr
+        {
+            get
+            {
+                if (_OptMgr == null)
+                {
+                    _OptMgr = OptManager.GetInstance();
+                }
+                return _OptMgr;
+            }
+            set
+            {
+                if (_OptMgr == value)
+                    return;
+                _OptMgr = value;
+            }
         }
 
         public void CalcPoints()
@@ -58,15 +84,36 @@ namespace IkaStylist.Models
 
         private void addGearPowerPoint( Gear gear )
         {
-            points[ gear.MainPower.Id ] += 10;   //メインは10ポイント
-            points[ gear.SubPower1.Id ] += 3;    //サブは3ポイントとして計算
-            points[ gear.SubPower2.Id ] += 3;
-            points[ gear.SubPower3.Id ] += 3;
+            if (gear.Name == "フェスT" || gear.Name == "フェスＴ")
+            {
+                points[gear.MainPower.Id] += 10;   //メインは10ポイント
+                points[gear.SubPower1.Id] += 3;    //サブは3ポイントとして計算
+                points[gear.SubPower2.Id] += 3;
+                points[gear.SubPower3.Id] += 3;
+
+                fes_points[gear.MainPower.Id] += 10;
+                if (gear.SubPower1.Id != (int)GearPowerKind.None) { fes_points[gear.SubPower1.Id] += 3; }
+                if (gear.SubPower2.Id != (int)GearPowerKind.None) { fes_points[gear.SubPower2.Id] += 3; }
+                if (gear.SubPower3.Id != (int)GearPowerKind.None) { fes_points[gear.SubPower3.Id] += 3; }
+            }
+            else
+            {
+                points[gear.MainPower.Id] += 10;   //メインは10ポイント
+                points[gear.SubPower1.Id] += 3;    //サブは3ポイントとして計算
+                points[gear.SubPower2.Id] += 3;
+                points[gear.SubPower3.Id] += 3;
+
+                fes_points[gear.MainPower.Id] += 10;   //メインは10ポイント
+                fes_points[gear.SubPower1.Id] += 3;    //サブは3ポイントとして計算
+                fes_points[gear.SubPower2.Id] += 3;
+                fes_points[gear.SubPower3.Id] += 3;
+            }
         }
             
         // メンバ変数.
         public  string _PowersText;
         public  int[]  points;
+        public  int[]  fes_points;
         
         // API
         private Gear   _HeadGear;
@@ -122,12 +169,29 @@ namespace IkaStylist.Models
         public int[] TotalPoint
         {
             get
-            { return points; }
+            {
+                if (OptMgr.isFestival)
+                {
+                    return fes_points;
+                }
+                else
+                {
+                    return points;
+                }
+            }
             set
-            { 
-                if (points == value)
-                    return;
-                points = value;
+            {
+                if (OptMgr.isFestival)
+                {
+                    if (fes_points == value)
+                        return;
+                    fes_points = value;
+                }
+                else{
+                    if (points == value)
+                        return;
+                    points = value;
+                }
                 RaisePropertyChanged();
             }
         }
