@@ -43,10 +43,26 @@ namespace IkaStylist.Views
 
         public void Button_Click(object sender, RoutedEventArgs e)
         {
+            IkaStylist.Models.OptManager OptMgr = IkaStylist.Models.OptManager.GetInstance();
+            string defaultFileName = "myGears_";
+            if (OptMgr.UnifiedGP_selectParts == 0)
+            {
+                defaultFileName = defaultFileName + IkaStylist.Models.GearKind.Head.ToString();
+            }
+            else if (OptMgr.UnifiedGP_selectParts == 1)
+            {
+                defaultFileName = defaultFileName + IkaStylist.Models.GearKind.Cloth.ToString();
+            }
+            else
+            {
+                defaultFileName = defaultFileName + IkaStylist.Models.GearKind.Shoes.ToString();
+            }
+            defaultFileName = defaultFileName + ".png";
+
             System.Windows.Forms.SendKeys.SendWait("%{PRTSC}");
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.FileName = "myGears.png";
+            sfd.FileName = defaultFileName;
             sfd.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
             sfd.Filter = "PNGファイル(*.png)|*.png";
             sfd.FilterIndex = 1;

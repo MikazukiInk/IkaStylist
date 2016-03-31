@@ -337,6 +337,10 @@ namespace IkaStylist.Models
                 {
                     return count;
                 }
+                if (this.MainPower.Id == this.SubPower1.Id)
+                {
+                    return count;
+                }
                 if (this.SubPower1.Id == this.SubPower2.Id) {
                     count = 2;
                     if (this.SubPower1.Id == this.SubPower3.Id) { count++; }

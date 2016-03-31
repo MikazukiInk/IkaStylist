@@ -45,7 +45,7 @@
 
         <l:InteractionMessageTrigger MessageKey="DisplayUnifiedGearPowerCommand" Messenger="{Binding Messenger}">
             <l:TransitionInteractionMessageAction 
-                WindowType="{x:Type v:DisplayUnifiedGearPower}" Mode="NewOrActive" />
+                WindowType="{x:Type v:DisplayUnifiedGearPower}" Mode="Modal" />
         </l:InteractionMessageTrigger>
         
         <!--WindowのCloseキャンセル処理に対応する場合は、WindowCloseCancelBehaviorの使用を検討してください-->

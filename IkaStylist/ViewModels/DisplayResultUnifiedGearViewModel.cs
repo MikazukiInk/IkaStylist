@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 using Livet;
@@ -68,7 +69,7 @@ namespace IkaStylist.ViewModels
                 partsName = "アタマ";
                 partsNameE = GearKind.Head.ToString();
             }
-            else if (partsIndex == 0)
+            else if (partsIndex == 1)
             {
                 partsName = "フク";
                 partsNameE = GearKind.Cloth.ToString();

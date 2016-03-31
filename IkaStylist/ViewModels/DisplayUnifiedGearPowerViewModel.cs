@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 using Livet;
@@ -46,6 +47,7 @@ namespace IkaStylist.ViewModels
         public void Initialize()
         {
             makePartsNames();
+            updateGearImg();
         }
 
         private void makePartsNames()
@@ -76,85 +78,82 @@ namespace IkaStylist.ViewModels
         #endregion
 
         #region
-        private int _selectParts;
         public int selectParts
         {
             get
-            { return _selectParts; }
+            { return OptMgr.UnifiedGP_selectParts; }
             set
             {
-                if (_selectParts == value)
+                if (OptMgr.UnifiedGP_selectParts == value)
                     return;
-                _selectParts = value;
+                OptMgr.UnifiedGP_selectParts = value;
                 RaisePropertyChanged();
             }
         }
         #endregion
 
-        private bool _pureBrand;
         public bool pureBrand
         {
             get
             {
-                return _pureBrand;
+                return OptMgr.UnifiedGP_displayPureGear;
             }
             set
             {
-                if (_pureBrand == value)
+                if (OptMgr.UnifiedGP_displayPureGear == value)
                     return;
-                _pureBrand = value;
+                OptMgr.UnifiedGP_displayPureGear = value;
                 RaisePropertyChanged();
             }
         }
 
-        private int _pureBrandNum;
         public int pureBrandNum
         {
             get
             {
-                return _pureBrandNum;
+                return OptMgr.UnifiedGP_pureGearNum;
             }
             set
             {
-                if (_pureBrandNum == value)
+                if (OptMgr.UnifiedGP_pureGearNum == value)
                     return;
                 if (value < 2 || value > 3)
                     return;
-                _pureBrandNum = value;
+                OptMgr.UnifiedGP_pureGearNum = value;
+                updateGearImg();
                 RaisePropertyChanged();
             }
         }
 
-        private bool _fakeBrand;
         public bool fakeBrand
         {
             get
             {
-                return _fakeBrand;
+                return OptMgr.UnifiedGP_displayFakeGear;
             }
             set
             {
-                if (_fakeBrand == value)
+                if (OptMgr.UnifiedGP_displayFakeGear == value)
                     return;
-                _fakeBrand = value;
+                OptMgr.UnifiedGP_displayFakeGear = value;
                 RaisePropertyChanged();
             }
         }
 
-        private int _fakeBrandNum;
         public int fakeBrandNum
         {
             get
             {
-                return _fakeBrandNum;
+                return OptMgr.UnifiedGP_fakeGearNum;
             }
             set
             {
-                if (_fakeBrandNum == value)
+                if (OptMgr.UnifiedGP_fakeGearNum == value)
                     return;
                 if (value < 1 || value > 3)
                     return;
-                _fakeBrandNum = value;
+                OptMgr.UnifiedGP_fakeGearNum = value;
+                updateGearImg();
                 RaisePropertyChanged();
             }
         }
@@ -183,5 +182,259 @@ namespace IkaStylist.ViewModels
         }
         #endregion
 
+        private void updateGearImg()
+        {
+            FakeMainGearPowerImg = new BitmapImage();
+            FakeSubGearPowerImg1 = new BitmapImage();
+            FakeSubGearPowerImg2 = new BitmapImage();
+            FakeSubGearPowerImg3 = new BitmapImage();
+            PureMainGearPowerImg = new BitmapImage();
+            PureSubGearPowerImg1 = new BitmapImage();
+            PureSubGearPowerImg2 = new BitmapImage();
+            PureSubGearPowerImg3 = new BitmapImage();
+
+            FakeMainGearPowerBorderBrush = Brushes.Silver;
+            FakeSubGearPowerBorderBrush1 = Brushes.Silver;
+            FakeSubGearPowerBorderBrush2 = Brushes.Silver;
+            FakeSubGearPowerBorderBrush3 = Brushes.Silver;
+            PureMainGearPowerBorderBrush = Brushes.Silver;
+            PureSubGearPowerBorderBrush1 = Brushes.Silver;
+            PureSubGearPowerBorderBrush2 = Brushes.Silver;
+            PureSubGearPowerBorderBrush3 = Brushes.Silver;
+        }
+
+        public BitmapImage FakeMainGearPowerImg
+        {
+            get
+            {
+                return IkaUtil.getGearPowerBitmap(1);
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage FakeSubGearPowerImg1
+        {
+            get
+            {
+                return IkaUtil.getGearPowerBitmap(1);
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage FakeSubGearPowerImg2
+        {
+            get
+            {
+                if (OptMgr.UnifiedGP_fakeGearNum < 2)
+                {
+                    return IkaUtil.getGearPowerBitmap(0);
+                }
+                else
+                {
+                    return IkaUtil.getGearPowerBitmap(1);
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage FakeSubGearPowerImg3
+        {
+            get
+            {
+                if (OptMgr.UnifiedGP_fakeGearNum < 3)
+                {
+                    return IkaUtil.getGearPowerBitmap(0);
+                }
+                else
+                {
+                    return IkaUtil.getGearPowerBitmap(1);
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage PureMainGearPowerImg
+        {
+            get
+            {
+                return IkaUtil.getGearPowerBitmap(1);
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage PureSubGearPowerImg1
+        {
+            get
+            {
+                return IkaUtil.getGearPowerBitmap(3);
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage PureSubGearPowerImg2
+        {
+            get
+            {
+                return IkaUtil.getGearPowerBitmap(3);
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public BitmapImage PureSubGearPowerImg3
+        {
+            get
+            {
+                if (OptMgr.UnifiedGP_pureGearNum < 3)
+                {
+                    return IkaUtil.getGearPowerBitmap(0);
+                }
+                else
+                {
+                    return IkaUtil.getGearPowerBitmap(3);
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush FakeMainGearPowerBorderBrush
+        {
+            get
+            {
+                return Brushes.DodgerBlue;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush FakeSubGearPowerBorderBrush1
+        {
+            get
+            {
+                return Brushes.DodgerBlue;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush FakeSubGearPowerBorderBrush2
+        {
+            get
+            {
+                if (OptMgr.UnifiedGP_fakeGearNum < 2)
+                {
+                    return Brushes.Silver;
+                }
+                else
+                {
+                    return Brushes.DodgerBlue;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush FakeSubGearPowerBorderBrush3
+        {
+            get
+            {
+                if (OptMgr.UnifiedGP_fakeGearNum < 3)
+                {
+                    return Brushes.Silver;
+                }
+                else
+                {
+                    return Brushes.DodgerBlue;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush PureMainGearPowerBorderBrush
+        {
+            get
+            {
+                return Brushes.DodgerBlue;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush PureSubGearPowerBorderBrush1
+        {
+            get
+            {
+                return Brushes.DodgerBlue;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush PureSubGearPowerBorderBrush2
+        {
+            get
+            {
+                return Brushes.DodgerBlue;
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+
+        public System.Windows.Media.Brush PureSubGearPowerBorderBrush3
+        {
+            get
+            {
+                if (OptMgr.UnifiedGP_pureGearNum < 3)
+                {
+                    return Brushes.Silver;
+                }
+                else
+                {
+                    return Brushes.DodgerBlue;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
     }
 }

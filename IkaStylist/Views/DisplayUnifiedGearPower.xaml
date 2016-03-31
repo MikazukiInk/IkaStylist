@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         xmlns:wpfTool="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         WindowStartupLocation ="CenterOwner"
-        Title="マイギア表示" Width="518" Height="Auto" ResizeMode="NoResize" SizeToContent="Height" >
+        Title="マイギア表示" ResizeMode="NoResize" SizeToContent="WidthAndHeight" >
 
     <!--
     <Window.DataContext>
@@ -37,32 +37,92 @@
         
     </i:Interaction.Triggers>
 
-    <StackPanel VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
-            <TextBlock Text="対象部位：" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="16" />
-            <ComboBox Margin="3" ItemsSource="{Binding PartsNames}" SelectedIndex="{Binding OptMgr.UnifiedGP_selectParts}" 
+    <Grid ShowGridLines="False">
+        <!-- 3行定義 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!-- 5列定義 -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10">
+                <TextBlock Text="対象部位：" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="16" />
+                <ComboBox Margin="3" ItemsSource="{Binding PartsNames}" SelectedIndex="{Binding selectParts}" 
                       MinWidth="100" FontSize="16" />
+            </StackPanel>
         </StackPanel>
-        <CheckBox Content="メインパワーと同じサブパワーが揃っているギアを表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayFakeGear}" 
+        <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+            <CheckBox Content="メインパワーと同じサブパワーが揃っているギアを表示する" IsChecked="{Binding fakeBrand}" 
                   Foreground="Black" FontSize="16" 
                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-        <StackPanel Orientation="Horizontal" IsEnabled="{Binding OptMgr.UnifiedGP_displayFakeGear}" Margin="0,0,0,10">
-            <TextBlock Text="揃っているサブパワーの下限数：" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" />
-            <wpfTool:IntegerUpDown Margin="0" Minimum="1" Maximum="3" Width="40" Value="{Binding OptMgr.UnifiedGP_fakeGearNum}"/>
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding OptMgr.UnifiedGP_displayFakeGear}" Margin="0,0,0,10">
+                <TextBlock Text="揃っているサブパワーの下限数：" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" />
+                <wpfTool:IntegerUpDown Margin="0" Minimum="1" Maximum="3" Width="40" Value="{Binding fakeBrandNum}"/>
+            </StackPanel>
         </StackPanel>
-        <CheckBox Content="メインパワーと異なるサブパワーが揃っているギアを表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayPureGear}" 
+        <Border Grid.Row="1" Grid.Column="1" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=FakeMainGearPowerBorderBrush}" CornerRadius="5" Margin="5,0,0,10">
+            <Image Source="{Binding Path=FakeMainGearPowerImg}" Stretch="Uniform" Height="40" Width="40" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Row="1" Grid.Column="2" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=FakeSubGearPowerBorderBrush1}" CornerRadius="5" Margin="5,10,0,10">
+            <Image Source="{Binding Path=FakeSubGearPowerImg1}" Stretch="Uniform" Height="30" Width="30" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Row="1" Grid.Column="3" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=FakeSubGearPowerBorderBrush2}" CornerRadius="5" Margin="5,10,0,10">
+            <Image Source="{Binding Path=FakeSubGearPowerImg2}" Stretch="Uniform" Height="30" Width="30" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Row="1" Grid.Column="4" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=FakeSubGearPowerBorderBrush3}" CornerRadius="5" Margin="5,10,5,10">
+            <Image Source="{Binding Path=FakeSubGearPowerImg3}" Stretch="Uniform" Height="30" Width="30" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
+            <CheckBox Content="メインパワーと異なるサブパワーが揃っているギアを表示する" IsChecked="{Binding pureBrand}" 
                   Foreground="Black" FontSize="16" 
-                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-        <TextBlock Text="※左端のギアパワーに一致するものが対象です。" VerticalAlignment="Center" Margin="20,0,0,0"
+                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,10,0,0"/>
+            <TextBlock Text="※左端のサブパワーに一致するものが対象です。" VerticalAlignment="Center" Margin="20,0,0,0"
                    FontSize="14" />
-        <StackPanel Orientation="Horizontal" IsEnabled="{Binding OptMgr.UnifiedGP_displayPureGear}" Margin="0,0,0,10">
-            <TextBlock Text="揃っているサブパワーの下限数：" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" />
-            <wpfTool:IntegerUpDown Margin="0" Minimum="2" Maximum="3" Width="40" Value="{Binding OptMgr.UnifiedGP_pureGearNum}"/>
+            <StackPanel Orientation="Horizontal" IsEnabled="{Binding OptMgr.UnifiedGP_displayPureGear}" Margin="0,0,0,10">
+                <TextBlock Text="揃っているサブパワーの下限数：" VerticalAlignment="Center" Margin="20,0,0,0" FontSize="14" />
+                <wpfTool:IntegerUpDown Margin="0" Minimum="2" Maximum="3" Width="40" Value="{Binding pureBrandNum}"/>
+            </StackPanel>
         </StackPanel>
-        <CheckBox Content="交換可能なギアのみ表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayOnlyExchange}" 
+        <Border Grid.Row="2" Grid.Column="1" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=PureMainGearPowerBorderBrush}" CornerRadius="5" Margin="5,35,0,10">
+            <Image Source="{Binding Path=PureMainGearPowerImg}" Stretch="Uniform" Height="40" Width="40" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="2" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=PureSubGearPowerBorderBrush1}" CornerRadius="5" Margin="5,45,0,10">
+            <Image Source="{Binding Path=PureSubGearPowerImg1}" Stretch="Uniform" Height="30" Width="30" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="3" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=PureSubGearPowerBorderBrush2}" CornerRadius="5" Margin="5,45,0,10">
+            <Image Source="{Binding Path=PureSubGearPowerImg2}" Stretch="Uniform" Height="30" Width="30" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        <Border Grid.Row="2" Grid.Column="4" Background="Black" BorderThickness="2.2" BorderBrush="{Binding Path=PureSubGearPowerBorderBrush3}" CornerRadius="5" Margin="5,45,5,10">
+            <Image Source="{Binding Path=PureSubGearPowerImg3}" Stretch="Uniform" Height="30" Width="30" Margin="2" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+        </Border>
+        
+        <StackPanel Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">
+            <CheckBox Content="交換可能なギアのみ表示する" IsChecked="{Binding OptMgr.UnifiedGP_displayOnlyExchange}" 
                   Foreground="Black" FontSize="16" 
-                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0,0,0"/>
-        <Button Content="  ひょうじする ！  " Margin="3" Command="{Binding DisplayResultCommand}" CommandParameter="exec"
-                HorizontalAlignment="Right" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="25"/>
-    </StackPanel>
+                  VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,10,0,10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
+        <Button Content="                    ひ ょ う じ す る ！                    " Margin="3" Command="{Binding DisplayResultCommand}" CommandParameter="exec"
+                HorizontalAlignment="Center" FontFamily="/IkaStylist;component/Resources/#イカモドキ" FontSize="25"/>
+        </StackPanel>
+    </Grid>
 </Window>

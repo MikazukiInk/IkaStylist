@@ -6,7 +6,7 @@
         xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
-        WindowStartupLocation ="CenterOwner"
+        WindowStartupLocation ="CenterScreen"
         Title="イカスタイリスト" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
 
     <!--<Window.DataContext>
