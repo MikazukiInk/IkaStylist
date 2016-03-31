@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace IkaStylist.Views
 {
@@ -30,6 +33,47 @@ namespace IkaStylist.Views
         public DisplayResultUnifiedGear()
         {
             InitializeComponent();
+        }
+
+        private Rect GetRectOnScreen(UIElement control)
+        {
+            System.Windows.Point targetLeftTop = control.PointToScreen(new System.Windows.Point(0.0, 0.0));
+            return new Rect(targetLeftTop.X, targetLeftTop.Y, control.RenderSize.Width, control.RenderSize.Height);
+        }
+
+        public void Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.SendKeys.SendWait("%{PRTSC}");
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.FileName = "myGears.png";
+            sfd.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+            sfd.Filter = "PNGファイル(*.png)|*.png";
+            sfd.FilterIndex = 1;
+            sfd.Title = "保存先のファイルを指定してください";
+            sfd.RestoreDirectory = true;
+            sfd.OverwritePrompt = true;
+            sfd.CheckPathExists = true;
+
+            //ダイアログを表示する
+            if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                System.Windows.IDataObject dobj = System.Windows.Clipboard.GetDataObject();
+                if (dobj.GetDataPresent(System.Windows.DataFormats.Bitmap) == true)
+                {
+                    System.Windows.Interop.InteropBitmap ibmp
+                      = (System.Windows.Interop.InteropBitmap)dobj.GetData(System.Windows.DataFormats.Bitmap);
+
+                    PngBitmapEncoder enc = new PngBitmapEncoder();
+                    enc.Frames.Add(BitmapFrame.Create(ibmp));
+                    System.IO.FileStream fs = new System.IO.FileStream(sfd.FileName,
+                      System.IO.FileMode.Create, System.IO.FileAccess.Write);
+                    enc.Save(fs);
+                    fs.Close();
+                    fs.Dispose();
+                    this.Close();
+                }
+            }
         }
     }
 }

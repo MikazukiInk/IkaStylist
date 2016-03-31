@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         WindowStartupLocation ="CenterOwner"
-        Title="{Binding GearName}" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Title="イカスタイリスト" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
 
     <!--<Window.DataContext>
         <vm:DisplayResultUnifiedGear/>
@@ -29,7 +29,7 @@
         
     </i:Interaction.Triggers>
 
-    <StackPanel VerticalAlignment="Center">
+    <StackPanel x:Name="mainStackPanel" VerticalAlignment="Center">
         <StackPanel.InputBindings>
             <MouseBinding MouseAction="RightClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
             <MouseBinding MouseAction="RightDoubleClick" Command="{Binding CancelCommand}" CommandParameter="1"/>
@@ -49,11 +49,11 @@
                 <TextBlock Text="{Binding partsName}" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="16" />
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" Margin="0" HorizontalAlignment="Right">
-                <Button Content="  保存  " Margin="3" Command="{Binding DisplayCommand}" CommandParameter="Head"
+                <Button Content="  保存  " Margin="3" Click="Button_Click"
                 HorizontalAlignment="Right"  FontSize="20"/>
             </StackPanel>
         </Grid>
-        <DataGrid Margin="5" Name="resultGrid" ItemsSource="{Binding ResultGearData}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="800">
+        <DataGrid x:Name="grid" Margin="5" ItemsSource="{Binding ResultGearData}" AutoGenerateColumns="False" IsReadOnly="True" >
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="" CanUserReorder="True" CanUserResize="False" CanUserSort="True">
                     <DataGridTemplateColumn.CellTemplate>
