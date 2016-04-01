@@ -7,7 +7,7 @@
         xmlns:v="clr-namespace:IkaStylist.Views"
         xmlns:vm="clr-namespace:IkaStylist.ViewModels"
         WindowStartupLocation ="CenterScreen"
-        Title="イカスタイリスト" ResizeMode="NoResize" SizeToContent="WidthAndHeight" MaxHeight="744">
+        Title="イカスタイリスト" ResizeMode="NoResize" SizeToContent="WidthAndHeight" MaxHeight="750">
 
     <!--<Window.DataContext>
         <vm:DisplayResultUnifiedGear/>
@@ -48,15 +48,25 @@
             HorizontalAlignment="Right"  FontSize="20"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" HorizontalAlignment="Left" Orientation="Horizontal" >
-            <TextBlock Text="[ソート]" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="14" />
-            <TextBlock Text="名前:" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="14" />
-            <Button Content=" ↓ " Margin="5,2,0,0" Command="{Binding SortAscendingOrderByNameCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ギア名昇順で並びまえます"/>
-            <Button Content=" ↑ " Margin="5,2,0,0" Command="{Binding SortDescendingOrderByNameCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ギア名降順で並びまえます"/>
-            <TextBlock Text="ブランド:" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" />
-            <Button Content=" ↓ " Margin="5,2,0,0" Command="{Binding SortAscendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます"/>
-            <Button Content=" ↑ " Margin="5,2,0,0" Command="{Binding SortDescendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます"/>
-            <TextBlock Text="メインパワー:" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" />
-            <Button Content=" ↓ " Margin="5,2,0,0" Command="{Binding SortAscendingOrderByMainPowerCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="メインパワーで揃えます"/>
+            <TextBlock Text="[ソート]" VerticalAlignment="Center" Margin="5,2,0,0" FontSize="14" />
+            <TextBlock Text="名前:" VerticalAlignment="Center" Margin="5,2,0,0" FontSize="14" />
+            <Button Margin="5,2,0,0" Command="{Binding SortAscendingOrderByNameCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ギア名昇順で並びまえます">
+                <Image Source="{StaticResource IconAscendingOrder}" />
+            </Button>
+            <Button Margin="5,2,0,0" Command="{Binding SortDescendingOrderByNameCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ギア名降順で並びまえます">
+                <Image Source="{StaticResource IconDescendingOrder}" />
+            </Button>
+            <TextBlock Text="ブランド:" VerticalAlignment="Center" Margin="10,2,0,0" FontSize="14" />
+            <Button Margin="5,2,0,0" Command="{Binding SortAscendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます">
+                <Image Source="{StaticResource IconAscendingOrder}" />
+            </Button>
+            <Button Margin="5,2,0,0" Command="{Binding SortDescendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます">
+                <Image Source="{StaticResource IconDescendingOrder}" />
+            </Button>
+            <TextBlock Text="メインパワー:" VerticalAlignment="Center" Margin="10,2,0,0" FontSize="14" />
+            <Button Margin="5,2,0,0" Command="{Binding SortAscendingOrderByMainPowerCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="メインパワーで揃えます">
+                <Image Source="{StaticResource IconMainPowerOrder}" />
+            </Button>
             <!-- <Button Content=" ↑ " Margin="5,0,0,0" Command="{Binding SortDescendingOrderByMainPowerCOM}" HorizontalAlignment="Left"  FontSize="14"/> -->
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">

@@ -221,6 +221,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Resources\Common\AscendingOrder.png" />
+    <Resource Include="Resources\Common\DescendingOrder.png" />
+    <Resource Include="Resources\Common\mainPowerOrder.png" />
     <Resource Include="Resources\FesTButton.png" />
     <EmbeddedResource Include="Resources\brand\amiibo.png" />
     <EmbeddedResource Include="Resources\brand\Cuttlegear.png" />

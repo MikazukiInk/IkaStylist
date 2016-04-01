@@ -32,6 +32,9 @@
             <BitmapImage x:Key="IconTenacity" UriSource="Resources/Tenacity.png"/>
             <BitmapImage x:Key="IconHatena" UriSource="Resources/hatena.png"/>
             <BitmapImage x:Key="FesTButton" UriSource="Resources/FesTButton.png"/>
+            <BitmapImage x:Key="IconAscendingOrder" UriSource="Resources/Common/AscendingOrder.png"/>
+            <BitmapImage x:Key="IconDescendingOrder" UriSource="Resources/Common/DescendingOrder.png"/>
+            <BitmapImage x:Key="IconMainPowerOrder" UriSource="Resources/Common/mainPowerOrder.png"/>
             <Style x:Key="Ikamodoki">
                 <Setter Property="TextElement.FontFamily" Value="Resources/ikamodoki1_0.ttf"/>
             </Style>
