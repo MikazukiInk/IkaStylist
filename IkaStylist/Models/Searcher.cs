@@ -152,7 +152,7 @@ namespace IkaStylist.Models
                     }
 
                 }
-                if (candidate.Count <= 1)
+                if (candidate.Count <= 0)
                 {
                     break;
                 }
