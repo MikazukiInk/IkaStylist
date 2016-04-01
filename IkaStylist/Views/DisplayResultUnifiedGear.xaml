@@ -57,7 +57,7 @@
                 <Image Source="{StaticResource IconDescendingOrder}" />
             </Button>
             <TextBlock Text="ブランド:" VerticalAlignment="Center" Margin="10,2,0,0" FontSize="14" />
-            <Button Margin="5,2,0,0" Command="{Binding SortAscendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます">
+            <Button Margin="5,2,0,0" Command="{Binding SortAscendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名昇順で並びまえます">
                 <Image Source="{StaticResource IconAscendingOrder}" />
             </Button>
             <Button Margin="5,2,0,0" Command="{Binding SortDescendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます">
