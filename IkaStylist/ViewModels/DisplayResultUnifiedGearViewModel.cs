@@ -60,7 +60,10 @@ namespace IkaStylist.ViewModels
             fakeBrandNum = OptMgr.UnifiedGP_fakeGearNum;
             pureBrandNum = OptMgr.UnifiedGP_pureGearNum;
 
-            ResultGearData = new ObservableSynchronizedCollection<Gear>();
+            ResultGearData = new List<Gear>();
+            ResultGearDataGrid1 = new ObservableSynchronizedCollection<Gear>();
+            ResultGearDataGrid2 = new ObservableSynchronizedCollection<Gear>();
+            ResultGearDataGrid3 = new ObservableSynchronizedCollection<Gear>();
             fakeGearData = new List<Gear>();
             pureGearData = new List<Gear>();
             string partsNameE = "";
@@ -136,8 +139,8 @@ namespace IkaStylist.ViewModels
         #endregion
 
         #region GearData変更通知プロパティ
-        private ObservableSynchronizedCollection<Gear> _ResultGearData;
-        public ObservableSynchronizedCollection<Gear> ResultGearData
+        private List<Gear> _ResultGearData;
+        public List<Gear> ResultGearData
         {
             get
             { return _ResultGearData; }
@@ -146,6 +149,45 @@ namespace IkaStylist.ViewModels
                 if (_ResultGearData == value)
                     return;
                 _ResultGearData = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableSynchronizedCollection<Gear> _ResultGearDataGrid1;
+        public ObservableSynchronizedCollection<Gear> ResultGearDataGrid1
+        {
+            get
+            { return _ResultGearDataGrid1; }
+            set
+            {
+                if (_ResultGearDataGrid1 == value)
+                    return;
+                _ResultGearDataGrid1 = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableSynchronizedCollection<Gear> _ResultGearDataGrid2;
+        public ObservableSynchronizedCollection<Gear> ResultGearDataGrid2
+        {
+            get
+            { return _ResultGearDataGrid2; }
+            set
+            {
+                if (_ResultGearDataGrid2 == value)
+                    return;
+                _ResultGearDataGrid2 = value;
+                RaisePropertyChanged();
+            }
+        }
+        private ObservableSynchronizedCollection<Gear> _ResultGearDataGrid3;
+        public ObservableSynchronizedCollection<Gear> ResultGearDataGrid3
+        {
+            get
+            { return _ResultGearDataGrid3; }
+            set
+            {
+                if (_ResultGearDataGrid3 == value)
+                    return;
+                _ResultGearDataGrid3 = value;
                 RaisePropertyChanged();
             }
         }
@@ -204,7 +246,227 @@ namespace IkaStylist.ViewModels
             {
                 fakeGearData.RemoveAll(x => !x.canExchange);
             }
-            this.ResultGearData = new ObservableSynchronizedCollection<Gear>(fakeGearData);
+            this.ResultGearData = new List<Gear>(fakeGearData);
+            this.ResultGearData.Sort(CompareGearAscendingOrderByName);
+            makeResultListGrid();
         }
+
+        private void resetResultListGrid()
+        {
+            this.ResultGearDataGrid1.Clear();
+            this.ResultGearDataGrid2.Clear();
+            this.ResultGearDataGrid3.Clear();
+        }
+            
+        private void makeResultListGrid()
+        {
+            resetResultListGrid();
+            for( int i = 0; i < this.ResultGearData.Count; i++)
+            {
+                if (i < 10)
+                {
+                    this.ResultGearDataGrid1.Add(this.ResultGearData[i]);
+                }
+                else if( i < 20)
+                {
+                    this.ResultGearDataGrid2.Add(this.ResultGearData[i]);
+                }
+                else
+                {
+                    this.ResultGearDataGrid3.Add(this.ResultGearData[i]);
+                }
+            }
+            updateGridVisiblity();
+        }
+
+        #region ソートボタンコマンド.
+        //名前.
+        private ViewModelCommand _SortAscendingOrderByNameCOM;
+        public ViewModelCommand SortAscendingOrderByNameCOM
+        {
+            get
+            {
+                if (_SortAscendingOrderByNameCOM == null)
+                {
+                    _SortAscendingOrderByNameCOM = new ViewModelCommand(SortAscendingOrderByName);
+                }
+                return _SortAscendingOrderByNameCOM;
+            }
+        }
+        public void SortAscendingOrderByName()
+        {
+            this.ResultGearData.Sort(CompareGearAscendingOrderByName);
+            makeResultListGrid();
+        }
+
+        private ViewModelCommand _SortDescendingOrderByNameCOM;
+        public ViewModelCommand SortDescendingOrderByNameCOM
+        {
+            get
+            {
+                if (_SortDescendingOrderByNameCOM == null)
+                {
+                    _SortDescendingOrderByNameCOM = new ViewModelCommand(SortDescendingOrderByName);
+                }
+                return _SortDescendingOrderByNameCOM;
+            }
+        }
+        public void SortDescendingOrderByName()
+        {
+            this.ResultGearData.Sort(CompareGearDescendingOrderByName);
+            makeResultListGrid();
+        }
+
+        // ブランド.
+        private ViewModelCommand _SortAscendingOrderByBrandCOM;
+        public ViewModelCommand SortAscendingOrderByBrandCOM
+        {
+            get
+            {
+                if (_SortAscendingOrderByBrandCOM == null)
+                {
+                    _SortAscendingOrderByBrandCOM = new ViewModelCommand(SortAscendingOrderByBrand);
+                }
+                return _SortAscendingOrderByBrandCOM;
+            }
+        }
+        public void SortAscendingOrderByBrand()
+        {
+            this.ResultGearData.Sort(CompareGearAscendingOrderByBrand);
+            makeResultListGrid();
+        }
+
+        private ViewModelCommand _SortDescendingOrderByBrandCOM;
+        public ViewModelCommand SortDescendingOrderByBrandCOM
+        {
+            get
+            {
+                if (_SortDescendingOrderByBrandCOM == null)
+                {
+                    _SortDescendingOrderByBrandCOM = new ViewModelCommand(SortDescendingOrderByBrand);
+                }
+                return _SortDescendingOrderByBrandCOM;
+            }
+        }
+        public void SortDescendingOrderByBrand()
+        {
+            this.ResultGearData.Sort(CompareGearDescendingOrderByBrand);
+            makeResultListGrid();
+        }
+
+        // メインパワー.
+        private ViewModelCommand _SortAscendingOrderByMainPowerCOM;
+        public ViewModelCommand SortAscendingOrderByMainPowerCOM
+        {
+            get
+            {
+                if (_SortAscendingOrderByMainPowerCOM == null)
+                {
+                    _SortAscendingOrderByMainPowerCOM = new ViewModelCommand(SortAscendingOrderByMainPower);
+                }
+                return _SortAscendingOrderByMainPowerCOM;
+            }
+        }
+        public void SortAscendingOrderByMainPower()
+        {
+            this.ResultGearData.Sort(CompareGearAscendingOrderByMainPower);
+            makeResultListGrid();
+        }
+
+        private ViewModelCommand _SortDescendingOrderByMainPowerCOM;
+        public ViewModelCommand SortDescendingOrderByMainPowerCOM
+        {
+            get
+            {
+                if (_SortDescendingOrderByMainPowerCOM == null)
+                {
+                    _SortDescendingOrderByMainPowerCOM = new ViewModelCommand(SortDescendingOrderByMainPower);
+                }
+                return _SortDescendingOrderByMainPowerCOM;
+            }
+        }
+        public void SortDescendingOrderByMainPower()
+        {
+            this.ResultGearData.Sort(CompareGearDescendingOrderByMainPower);
+            makeResultListGrid();
+        }
+        #endregion
+
+        #region ソート系
+        // 名前.
+        private static int CompareGearAscendingOrderByName(Gear a, Gear b)
+        {
+            return string.Compare(a.Name, b.Name);
+        }
+        private static int CompareGearDescendingOrderByName(Gear a, Gear b)
+        {
+            return string.Compare(b.Name, a.Name);
+        }
+
+        // ブランド.
+        private static int CompareGearAscendingOrderByBrand(Gear a, Gear b)
+        {
+            return a.Brand.Id - b.Brand.Id;
+        }
+        private static int CompareGearDescendingOrderByBrand(Gear a, Gear b)
+        {
+            return b.Brand.Id - a.Brand.Id;
+        }
+
+        // メインパワー.
+        private static int CompareGearAscendingOrderByMainPower(Gear a, Gear b)
+        {
+            return a.MainPower.Id - b.MainPower.Id;
+        }
+        private static int CompareGearDescendingOrderByMainPower(Gear a, Gear b)
+        {
+            return b.MainPower.Id - a.MainPower.Id;
+        }
+        #endregion
+
+        #region
+        private void updateGridVisiblity()
+        {
+            this.isVisiblityGrid2 = System.Windows.Visibility.Visible;
+            this.isVisiblityGrid3 = System.Windows.Visibility.Visible;
+        }
+
+        public System.Windows.Visibility isVisiblityGrid2
+        {
+            get
+            {
+                if (ResultGearData.Count > 10)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    return System.Windows.Visibility.Collapsed;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        public System.Windows.Visibility isVisiblityGrid3
+        {
+            get
+            {
+                if (ResultGearData.Count > 20)
+                {
+                    return System.Windows.Visibility.Visible;
+                }
+                else
+                {
+                    return System.Windows.Visibility.Collapsed;
+                }
+            }
+            set
+            {
+                RaisePropertyChanged();
+            }
+        }
+        #endregion
     }
 }

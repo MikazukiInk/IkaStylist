@@ -32,95 +32,266 @@
         <Grid ShowGridLines="False">
             <Grid.RowDefinitions>
             <RowDefinition Height="35" />
+            <RowDefinition Height="27" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,3,0,3" >
-                <TextBlock Text="対象部位：" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="16" />
-                <TextBlock Text="{Binding partsName}" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="16" />
-            </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="1" Margin="0" HorizontalAlignment="Right">
-                <Button Content="  保存  " Margin="3" Click="Button_Click"
-                HorizontalAlignment="Right"  FontSize="20"/>
-            </StackPanel>
-        <DataGrid Grid.Row="1" Grid.ColumnSpan="2"  x:Name="grid" Margin="5" ItemsSource="{Binding ResultGearData}" AutoGenerateColumns="False" IsReadOnly="True" >
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="" CanUserReorder="True" CanUserResize="False" CanUserSort="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Image Source="{Binding Path=BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTextColumn Binding="{Binding Path=Name}" CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="ナマエ" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,3,0,3" >
+            <TextBlock Text="対象部位：" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="16" />
+            <TextBlock Text="{Binding partsName}" VerticalAlignment="Center" Margin="0,0,0,0" FontSize="16" />
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0" HorizontalAlignment="Right">
+            <Button Content="  保存  " Margin="3" Click="Button_Click"
+            HorizontalAlignment="Right"  FontSize="20"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" HorizontalAlignment="Left" Orientation="Horizontal" >
+            <TextBlock Text="[ソート]" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="14" />
+            <TextBlock Text="名前:" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="14" />
+            <Button Content=" ↓ " Margin="5,2,0,0" Command="{Binding SortAscendingOrderByNameCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ギア名昇順で並びまえます"/>
+            <Button Content=" ↑ " Margin="5,2,0,0" Command="{Binding SortDescendingOrderByNameCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ギア名降順で並びまえます"/>
+            <TextBlock Text="ブランド:" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" />
+            <Button Content=" ↓ " Margin="5,2,0,0" Command="{Binding SortAscendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます"/>
+            <Button Content=" ↑ " Margin="5,2,0,0" Command="{Binding SortDescendingOrderByBrandCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="ブランド名降順で並びまえます"/>
+            <TextBlock Text="メインパワー:" VerticalAlignment="Center" Margin="10,0,0,0" FontSize="14" />
+            <Button Content=" ↓ " Margin="5,2,0,0" Command="{Binding SortAscendingOrderByMainPowerCOM}" HorizontalAlignment="Left"  FontSize="14" ToolTip="メインパワーで揃えます"/>
+            <!-- <Button Content=" ↑ " Margin="5,0,0,0" Command="{Binding SortDescendingOrderByMainPowerCOM}" HorizontalAlignment="Left"  FontSize="14"/> -->
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2">
+            <DataGrid x:Name="grid1" Margin="5" ItemsSource="{Binding ResultGearDataGrid1}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="744">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="" CanUserReorder="True" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Source="{Binding Path=BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="ブランド" SortMemberPath="Brand.Id" CanUserReorder="True" CanUserResize="False" CanUserSort="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Border Background="Ivory" BorderThickness="1.0" BorderBrush="Silver" CornerRadius="5" Margin="0">
-                                    <Image Source="{Binding Path=Brand.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTextColumn Binding="{Binding Path=Name}" CanUserReorder="True" CanUserResize="True" CanUserSort="False" Header="ナマエ" />
 
-                <DataGridTemplateColumn Header="メイン" SortMemberPath="MainPower.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Border Background="Black" BorderThickness="1.0" BorderBrush="PaleVioletRed" CornerRadius="5" Margin="0">
-                                    <Image Source="{Binding Path=MainPower.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="ブランド" SortMemberPath="Brand.Id" CanUserReorder="True" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Ivory" BorderThickness="1.0" BorderBrush="Silver" CornerRadius="5" Margin="0">
+                                        <Image Source="{Binding Path=Brand.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="サブ1" SortMemberPath="SubPower1.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
-                                    <Image Source="{Binding Path=SubPower1.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="メイン" SortMemberPath="MainPower.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="PaleVioletRed" CornerRadius="5" Margin="0">
+                                        <Image Source="{Binding Path=MainPower.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="サブ2" CanUserReorder="False" CanUserResize="False" CanUserSort="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
-                                    <Image Source="{Binding Path=SubPower2.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="サブ1" SortMemberPath="SubPower1.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower1.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="サブ3" CanUserReorder="False" CanUserResize="False" CanUserSort="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
-                                    <Image Source="{Binding Path=SubPower3.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
-        </Grid>
+                    <DataGridTemplateColumn Header="サブ2" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower2.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ3" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower3.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- ****************** Grid 2 ****************** -->
+
+            <DataGrid x:Name="grid2" Margin="5" ItemsSource="{Binding ResultGearDataGrid2}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="744" Visibility="{Binding isVisiblityGrid2}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="" CanUserReorder="True" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Source="{Binding Path=BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Binding="{Binding Path=Name}" CanUserReorder="True" CanUserResize="True" CanUserSort="False" Header="ナマエ" />
+
+                    <DataGridTemplateColumn Header="ブランド" SortMemberPath="Brand.Id" CanUserReorder="True" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Ivory" BorderThickness="1.0" BorderBrush="Silver" CornerRadius="5" Margin="0">
+                                        <Image Source="{Binding Path=Brand.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="メイン" SortMemberPath="MainPower.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="PaleVioletRed" CornerRadius="5" Margin="0">
+                                        <Image Source="{Binding Path=MainPower.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ1" SortMemberPath="SubPower1.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower1.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ2" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower2.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ3" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower3.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- ****************** Grid 3 ****************** -->
+
+            <DataGrid x:Name="grid3" Margin="5" ItemsSource="{Binding ResultGearDataGrid3}" AutoGenerateColumns="False" IsReadOnly="True" MaxHeight="744" Visibility="{Binding isVisiblityGrid3}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="" CanUserReorder="True" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Image Source="{Binding Path=BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Binding="{Binding Path=Name}" CanUserReorder="True" CanUserResize="True" CanUserSort="True" Header="ナマエ" />
+
+                    <DataGridTemplateColumn Header="ブランド" SortMemberPath="Brand.Id" CanUserReorder="True" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Ivory" BorderThickness="1.0" BorderBrush="Silver" CornerRadius="5" Margin="0">
+                                        <Image Source="{Binding Path=Brand.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="メイン" SortMemberPath="MainPower.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="PaleVioletRed" CornerRadius="5" Margin="0">
+                                        <Image Source="{Binding Path=MainPower.BitmapImg}" Stretch="Uniform" Width="50" Height="50" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ1" SortMemberPath="SubPower1.Id" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower1.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ2" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower2.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="サブ3" CanUserReorder="False" CanUserResize="False" CanUserSort="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Border Background="Black" BorderThickness="1.0" BorderBrush="SteelBlue" CornerRadius="5" Margin="6">
+                                        <Image Source="{Binding Path=SubPower3.BitmapImg}" Stretch="Uniform" Width="40" Height="40" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
 
 </Window>
