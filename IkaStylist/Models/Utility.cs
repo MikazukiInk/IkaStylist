@@ -583,7 +583,6 @@ namespace IkaStylist.Models
         };
 
         public static string[] MainOnlyGear = {
-            "ボム飛距離アップ",
             "スタートダッシュ",
             "ラストスパート",
             "逆境強化",
