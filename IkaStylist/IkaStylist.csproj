@@ -81,6 +81,10 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CoreTweet, Version=0.6.2.277, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoreTweet.0.6.2.277\lib\net45\CoreTweet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="CsvHelper">
       <HintPath>..\packages\CsvHelper.2.13.5.0\lib\net40-client\CsvHelper.dll</HintPath>
     </Reference>
@@ -92,10 +96,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>InfrastructureAssemblies\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity">
       <SpecificVersion>False</SpecificVersion>
@@ -121,6 +130,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\TwitterKey.cs" />
+    <Compile Include="ViewModels\TweetWindowViewModel.cs" />
+    <Compile Include="Views\TweetWindow.xaml.cs">
+      <DependentUpon>TweetWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\TweetWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Resource Include="Themes\BureauBlack.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -165,6 +183,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InputBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -189,6 +211,7 @@
     <Compile Include="ViewModels\DisplayUnifiedGearPowerViewModel.cs" />
     <Compile Include="ViewModels\GearEditViewModel.cs" />
     <Compile Include="ViewModels\GearPowerSelectViewModel.cs" />
+    <Compile Include="ViewModels\InputBoxViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\DisplayResultUnifiedGear.xaml.cs">
       <DependentUpon>DisplayResultUnifiedGear.xaml</DependentUpon>
@@ -201,6 +224,9 @@
     </Compile>
     <Compile Include="Views\GearPowerSelect.xaml.cs">
       <DependentUpon>GearPowerSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputBox.xaml.cs">
+      <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

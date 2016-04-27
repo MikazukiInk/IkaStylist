@@ -42,10 +42,20 @@
             <l:TransitionInteractionMessageAction 
                 WindowType="{x:Type v:GearEdit}" Mode="Modal" />
         </l:InteractionMessageTrigger>
+        
+        <l:InteractionMessageTrigger MessageKey="InputBox" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction 
+                WindowType="{x:Type v:InputBox}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
 
         <l:InteractionMessageTrigger MessageKey="DisplayUnifiedGearPowerCommand" Messenger="{Binding Messenger}">
             <l:TransitionInteractionMessageAction 
                 WindowType="{x:Type v:DisplayUnifiedGearPower}" Mode="Modal" />
+        </l:InteractionMessageTrigger>
+
+        <l:InteractionMessageTrigger MessageKey="Twitter" Messenger="{Binding Messenger}">
+            <l:TransitionInteractionMessageAction 
+                WindowType="{x:Type v:TweetWindow}" Mode="Modal" />
         </l:InteractionMessageTrigger>
         
         <!--WindowのCloseキャンセル処理に対応する場合は、WindowCloseCancelBehaviorの使用を検討してください-->
@@ -168,6 +178,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <!-- 1列定義 -->
             <Grid.ColumnDefinitions>
@@ -248,7 +259,7 @@
                            Source="{Binding Path=SelectionMgr.ClothSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
-            <Border Grid.Row="3" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,3">
+            <Border Grid.Row="3" Background="Ivory" Grid.Column="0" BorderThickness="3" BorderBrush="SteelBlue" CornerRadius="5" Margin="0,0,3,5">
                 <!-- クツ -->
                 <Grid ShowGridLines="False">
                     <!-- 3行定義 -->
@@ -281,6 +292,9 @@
                            Source="{Binding Path=SelectionMgr.ShoesSubGear3Img}" Stretch="Uniform" Width="30" Height="30" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Grid>
             </Border>
+            <Button Grid.Row="4" Content="ツイート" Margin="10" Command="{Binding TweetCommand}" Visibility="{Binding CanTweet}"
+                    FontSize="24" FontFamily="/IkaStylist;component/Resources/#イカモドキ" />
+            
         </Grid>
 
         <Grid Margin="3">

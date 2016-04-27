@@ -8,6 +8,8 @@ using System.Windows;
 using System.Deployment.Application;
 using System.Windows.Data;
 using System.IO;
+using System.Xml;
+using System.Runtime.Serialization;
 
 using Livet;
 using Livet.Commands;
@@ -108,6 +110,7 @@ namespace IkaStylist.ViewModels
             this.Searcher = new Searcher(OptMgr);
             this.Searcher.Init();
             this.Searcher.remakeCoordinateListOnThread();
+            this.CanTweet = Visibility.Hidden;
         }
 
         #region SearchCommand
@@ -305,7 +308,14 @@ namespace IkaStylist.ViewModels
                 if (_SelectedCoordinate == value)
                     return;
                 _SelectedCoordinate = value;
-
+                if(value == null)
+                {
+                    this.CanTweet = Visibility.Hidden;
+                }
+                else
+                {
+                    this.CanTweet = Visibility.Visible;
+                }
                 //詳細画面更新
                 SelectionMgr.update(value);
                 RaisePropertyChanged();
@@ -425,7 +435,7 @@ namespace IkaStylist.ViewModels
             get
             { return _ClothButtonVisibility; }
             set
-            { 
+            {
                 if (_ClothButtonVisibility == value)
                     return;
                 _ClothButtonVisibility = value;
@@ -442,11 +452,28 @@ namespace IkaStylist.ViewModels
             get
             { return _FesTButtonVisibility; }
             set
-            { 
+            {
                 if (_FesTButtonVisibility == value)
                     return;
                 _FesTButtonVisibility = value;
                 RaisePropertyChanged();
+            }
+        }
+        #endregion
+
+        #region CanTweet変更通知プロパティ
+        private Visibility _CanTweet = Visibility.Hidden;
+
+        public Visibility CanTweet
+        {
+            get
+            { return _CanTweet; }
+            set
+            { 
+                if (_CanTweet == value)
+                    return;
+                _CanTweet = value;
+                RaisePropertyChanged("CanTweet");
             }
         }
         #endregion
@@ -561,6 +588,108 @@ namespace IkaStylist.ViewModels
         public void OpenLink(string parameter)
         {
             System.Diagnostics.Process.Start(parameter);
+        }
+        #endregion
+
+        #region TweetCommand
+        private ViewModelCommand _TweetCommand;
+
+        public ViewModelCommand TweetCommand
+        {
+            get
+            {
+                if (_TweetCommand == null)
+                {
+                    _TweetCommand = new ViewModelCommand(Tweet);
+                }
+                return _TweetCommand;
+            }
+        }
+
+        public void Tweet()
+        {
+            CoreTweet.Tokens tokens;
+
+            //保存元のファイル名
+            string fileName = @".\Setting\TwitterToken.xml";
+            string folderName = @".\Setting";
+
+            if (ApplicationDeployment.IsNetworkDeployed)//ClickOnceでのインストールなら
+            {
+                fileName = ApplicationDeployment.CurrentDeployment.DataDirectory + fileName;
+                folderName = ApplicationDeployment.CurrentDeployment.DataDirectory + folderName;
+            }
+
+            if (System.IO.File.Exists(fileName))
+            {
+                //DataContractSerializerオブジェクトを作成
+                DataContractSerializer serializer =
+                    new DataContractSerializer(typeof(CoreTweet.Tokens));
+                //読み込むファイルを開く
+                XmlReader xr = XmlReader.Create(fileName);
+                //XMLファイルから読み込み、逆シリアル化する
+                tokens = (CoreTweet.Tokens)serializer.ReadObject(xr);
+                //ファイルを閉じる
+                xr.Close();
+            }
+            else
+            {
+                var session = CoreTweet.OAuth.Authorize(TwitterKey.ConsumerKey, TwitterKey.ConsumerSecret);
+                System.Diagnostics.Process.Start(session.AuthorizeUri.ToString()); // -> user open in browser
+                var param = new InputBoxViewModel.Parameter("PINコードを入力してください");
+                //get pin
+                using (var vm = new InputBoxViewModel(param))
+                {
+                    Messenger.Raise(new TransitionMessage(vm, "InputBox"));
+                }
+
+                if (!param.Result)
+                    return;
+
+                try
+                {
+                    tokens = CoreTweet.OAuth.GetTokens(session, param.Response);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+
+                try
+                {
+                    if (!System.IO.Directory.Exists(folderName))
+                    {
+                        System.IO.Directory.CreateDirectory(folderName);
+                    }
+
+                    // XmlSerializerを使ってファイルに保存（T型オブジェクトの内容を書き込む）
+                    var serializer = new DataContractSerializer(typeof(CoreTweet.Tokens));
+
+                    using (var fs = new FileStream(fileName, FileMode.Create))
+                    using (var xw = XmlWriter.Create(fs, new XmlWriterSettings
+                    {
+                        Indent = true,
+                        IndentChars = "\t"
+                    }))
+                    {
+                        // オブジェクトをシリアル化してXMLファイルに書き込む
+                        serializer.WriteObject(xw, tokens);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            }
+
+            using (var vm = new TweetWindowViewModel(this.SelectedCoordinate))
+            {
+                Messenger.Raise(new TransitionMessage(vm, "Twitter"));
+            }
+
         }
         #endregion
 
